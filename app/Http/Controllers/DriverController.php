@@ -50,25 +50,27 @@ class DriverController extends Controller
             $toDate = (isset($toDateTo)) ? Carbon::createFromFormat('Y-m-d', $toDateTo)->endOfDay() : null;
 
             $strfrmDateSingle = strval($fromDate);
+
+
             $strtoDateSingle = strval($toDate);
             //dd($strtoDateSingle);
         // $intonoff = (int)$onoff;
 
         // dd($fromDateTo);
 
-        if($keyword || $lastname || $email || $mobile_number || $intonoff || $intonoffCAT ){
-            $driver = $viewdriver->Where('first_name', 'LIKE', "%".$keyword ."%")
+        if($keyword || $lastname || $email ){
+            $driver = $viewdriver->orwhere('first_name', 'LIKE', "%".$keyword ."%")
             ->orWhere('last_name', 'LIKE', "%".$lastname."%")
-            ->orWhere('email', 'LIKE', "%".$email."%")
-            ->orWhere('phone_number', 'LIKE', "%".$mobile_number."%")
-            ->orWhere('is_available',$intonoff)
-            ->orWhere('category_id', $intonoffCAT)
+            ->orwhere('email', 'LIKE', "%".$email."%")
+            // ->orwhere('phone_number', 'LIKE', "%".$mobile_number."%")
+            // ->orwhere('is_available',$intonoff)
+            // ->orwhere('category_id', $intonoffCAT)
             // ->wherebetween('created_at',[$strfrmDateSingle,$strtoDateSingle])
             ->paginate(25);
 
         }
         elseif ($intonoffCAT) {
-            $driver = $viewdriver->orwherebetween('created_at',[$strfrmDateSingle,$strtoDateSingle])->paginate(25);
+
         }
         elseif ($strfrmDateSingle && $strtoDateSingle) {
             $driver = $viewdriver->orwherebetween('created_at',[$strfrmDateSingle,$strtoDateSingle])->paginate(25);

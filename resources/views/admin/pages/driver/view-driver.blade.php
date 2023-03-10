@@ -102,13 +102,13 @@
                         </div>
                         <div class="col-3">
                             <p for="">Email</p>
-                            <input type="text" class="form-control" value="{{ request('email') }}" placeholder="Email"
+                            <input type="email" class="form-control" value="{{ request('email') }}" placeholder="Email"
                                 name="email">
                         </div>
 
                         <div class="col-3">
                             <p for="">Mobile Number</p>
-                            <input type="text" class="form-control" value="{{ request('phone_number') }}" placeholder="Mobile Number"
+                            <input type="number" class="form-control" value="{{ request('phone_number') }}" placeholder="Mobile Number"
                                 name="phone_number">
                         </div>
 
