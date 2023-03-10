@@ -58,7 +58,7 @@ class DriverController extends Controller
 
         // dd($fromDateTo);
 
-        if($keyword || $lastname || $email ){
+        if($keyword || $lastname || $email || $mobile_number ){
             $driver = $viewdriver->orwhere('first_name', 'LIKE', "%".$keyword ."%")
             ->orWhere('last_name', 'LIKE', "%".$lastname."%")
             ->orwhere('email', 'LIKE', "%".$email."%")
