@@ -50,9 +50,6 @@ class DriverController extends Controller
             $toDate = (isset($toDateTo)) ? Carbon::createFromFormat('Y-m-d', $toDateTo)->endOfDay() : null;
 
             $strfrmDateSingle = strval($fromDate);
-
-
-
             $strtoDateSingle = strval($toDate);
             //dd($strtoDateSingle);
         // $intonoff = (int)$onoff;
@@ -60,12 +57,12 @@ class DriverController extends Controller
         // dd($fromDateTo);
 
         if($keyword || $lastname || $email || $mobile_number || $intonoff || $intonoffCAT ){
-            $driver = $viewdriver->where('first_name', 'LIKE', "%".$keyword ."%")
+            $driver = $viewdriver->Where('first_name', 'LIKE', "%".$keyword ."%")
             ->orWhere('last_name', 'LIKE', "%".$lastname."%")
-            ->orwhere('email', 'LIKE', "%".$email."%")
-            ->orwhere('phone_number', 'LIKE', "%".$mobile_number."%")
-            ->orwhere('is_available',$intonoff)
-            // ->orwhere('category_id', $intonoffCAT)
+            ->orWhere('email', 'LIKE', "%".$email."%")
+            ->orWhere('phone_number', 'LIKE', "%".$mobile_number."%")
+            ->orWhere('is_available',$intonoff)
+            ->orWhere('category_id', $intonoffCAT)
             // ->wherebetween('created_at',[$strfrmDateSingle,$strtoDateSingle])
             ->paginate(25);
 
