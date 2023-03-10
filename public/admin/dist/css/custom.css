@@ -1,0 +1,8 @@
+table.dataTable>tbody>tr.child ul.dtr-details {
+    width: 100% !important;
+  }
+  
+  table.dataTable>tbody>tr.child span.dtr-title {
+    min-width: unset !important;
+    width: 50% !important;
+  }
