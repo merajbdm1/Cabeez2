@@ -35,7 +35,7 @@
                     <div class="row">
                         <div class="col-3">
                             <p for="">FIRST NAME</p>
-                            <input type="text" name="fname" value="{{ request('fname') }}" id="fname"
+                            <input type="text" name="fname"  id="fname"
                                 placeholder="Enter First Name" class="form-control">
 
 
@@ -43,20 +43,20 @@
 
                         <div class="col-3">
                             <p for="">LAST NAME</p>
-                            <input type="text" name="lname" id="lname" value="{{ request('lname') }}"
+                            <input type="text" name="lname" id="lname"
                                 placeholder="Enter Last Name" class="form-control">
 
 
                         </div>
                         <div class="col-3">
                             <p for="">Email</p>
-                            <input type="text" class="form-control" value="{{ request('email') }}" placeholder="Email"
+                            <input type="text" class="form-control"  placeholder="Email"
                                 name="email">
                         </div>
 
                         <div class="col-3">
                             <p for="">Mobile Number</p>
-                            <input type="text" class="form-control" value="{{ request('phone_number') }}" placeholder="Mobile Number"
+                            <input type="text" class="form-control" placeholder="Mobile Number"
                                 name="phone_number">
                         </div>
 

@@ -52,13 +52,14 @@ class DriverController extends Controller
             $strfrmDateSingle = strval($fromDate);
 
 
+
             $strtoDateSingle = strval($toDate);
             //dd($strtoDateSingle);
         // $intonoff = (int)$onoff;
 
         // dd($fromDateTo);
 
-        if($keyword || $lastname || $email || $mobile_number || $intonoff){
+        if($keyword || $lastname || $email || $mobile_number || $intonoff || $intonoffCAT ){
             $driver = $viewdriver->where('first_name', 'LIKE', "%".$keyword ."%")
             ->orWhere('last_name', 'LIKE', "%".$lastname."%")
             ->orwhere('email', 'LIKE', "%".$email."%")
@@ -70,7 +71,7 @@ class DriverController extends Controller
 
         }
         elseif ($intonoffCAT) {
-            $driver = $viewdriver->where('category_id', $intonoffCAT)->paginate(25);
+            $driver = $viewdriver->orwherebetween('created_at',[$strfrmDateSingle,$strtoDateSingle])->paginate(25);
         }
         elseif ($strfrmDateSingle && $strtoDateSingle) {
             $driver = $viewdriver->orwherebetween('created_at',[$strfrmDateSingle,$strtoDateSingle])->paginate(25);
