@@ -10,7 +10,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Models\UserActivityModel;
 use App\Models\admin\VehicleCategory;
-
+use Illuminate\Support\Carbon;
 class DriverController extends Controller
 {
     /**
@@ -35,20 +35,46 @@ class DriverController extends Controller
         $email=$request->input('email');
         $mobile_number=$request->input('phone_number');
         $onoff = $request->input('is_available');
+        // $intonoff = (int)$onoff;
         $intonoff = (int)$onoff;
-        $category_id = $request->input('category_id');
-        // dd($category_id);
+        $categor_id = $request->input('category_id');
+        $intonoffCAT = (int)$categor_id;
 
-        if($keyword || $lastname || $email || $mobile_number || $intonoff) {
+
+            $fromDateTo=request('fromDate');
+            $toDateTo=request('ToDate');
+
+        //  dd($fromDateTo);
+            $fromDate =(isset($fromDateTo)) ? Carbon::createFromFormat('Y-m-d', $fromDateTo)->startOfDay() : null;
+
+            $toDate = (isset($toDateTo)) ? Carbon::createFromFormat('Y-m-d', $toDateTo)->endOfDay() : null;
+
+            $strfrmDateSingle = strval($fromDate);
+
+
+            $strtoDateSingle = strval($toDate);
+            //dd($strtoDateSingle);
+        // $intonoff = (int)$onoff;
+
+        // dd($fromDateTo);
+
+        if($keyword || $lastname || $email || $mobile_number || $intonoff){
             $driver = $viewdriver->where('first_name', 'LIKE', "%".$keyword ."%")
             ->orWhere('last_name', 'LIKE', "%".$lastname."%")
             ->orwhere('email', 'LIKE', "%".$email."%")
             ->orwhere('phone_number', 'LIKE', "%".$mobile_number."%")
             ->orwhere('is_available',$intonoff)
+            // ->orwhere('category_id', $intonoffCAT)
+            // ->wherebetween('created_at',[$strfrmDateSingle,$strtoDateSingle])
             ->paginate(25);
 
         }
-
+        elseif ($intonoffCAT) {
+            $driver = $viewdriver->where('category_id', $intonoffCAT)->paginate(25);
+        }
+        elseif ($strfrmDateSingle && $strtoDateSingle) {
+            $driver = $viewdriver->orwherebetween('created_at',[$strfrmDateSingle,$strtoDateSingle])->paginate(25);
+        }
         else{
         $driver = $viewdriver->where('status', 'active')
         ->paginate(25);

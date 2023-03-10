@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 use Illuminate\Support\Facades\Route;
@@ -22,12 +22,12 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\BookNowController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\DriverRequestController;
-//Fare Settings 
+//Fare Settings
 
 Route::group(['middleware' => 'prevent-back-history','auth'],function(){
 
 	Auth::routes();
-    
+
 	Route::get('fare_view_setting',[FareSettingController::class,'index'])->name('search');
     Route::get('add_fare_setting',[FareSettingController::class,'create']);
     Route::post('fare_process',[FareSettingController::class,'store']);
@@ -40,8 +40,8 @@ Route::group(['middleware' => 'prevent-back-history','auth'],function(){
     Route::get('activity_delete/{id}',[UserActivityController::class,'delete']);
    // Route::post('activity_user_log',[UserActivityController::class,'activity_user_view'])->name('dateranger.fetch_data');
     Route::post('/daterange/fetch_data', [UserActivityController::class,'fetch_data'])->name('daterange.fetch_data');
-    //Admin 
-    
+    //Admin
+
     // Route::get('admin_register',[AdminController::class,'register_form']);
     // Route::post('admin_post',[AdminController::class,'register_post']);
     // Route::post('dashboard',[AdminController::class,'admin_login_post'])->name('dashboard');
@@ -51,8 +51,8 @@ Route::group(['middleware' => 'prevent-back-history','auth'],function(){
 Route::get('dashboard',[LoginController::class,'dashboardcard']);
 
 Route::post('dashboard', [LoginController::class, 'customLogin'])->name('dashboard');
-Route::post('custom-registration', [LoginController::class, 'customRegistration'])->name('register.custom'); 
-Route::get('signout', [LoginController::class, 'signOut'])->name('signout'); 
+Route::post('custom-registration', [LoginController::class, 'customRegistration'])->name('register.custom');
+Route::get('signout', [LoginController::class, 'signOut'])->name('signout');
 Route::get('admin_dashboard', function () {
     return view('admin.pages.index');
 });
@@ -70,19 +70,19 @@ Route::get('all_manual_ride_booking',[AllManuleRideBookingController::class,'ind
 //     if(Session::get('name') != 'superadmin')
 //     {
 //        return Redirect::route('login');
-      
+
 //     }
 //     else {
 //         return  Redirect::route('activity_user_log');
 //     }
-    
+
 // });
 
 
 
 });
 Route::get('activity_user_log',[UserActivityController::class,'activity_user_view'])->name('user_activity_search')->middleware('checksuperuseractivitylog');
-//Admin 
+//Admin
 // Route::get('admin_login',[AdminController::class,'login_form']);
 
 Route::get('login', [LoginController::class, 'index'])->name('login');
@@ -90,7 +90,7 @@ Route::get('registration', [LoginController::class, 'registration'])->name('regi
 
 
 
-//user Assgin role 
+//user Assgin role
 Route::get('role_list', [RoleListController::class,'index']);
 Route::get('add_role', [RoleListController::class,'create']);
 Route::post('role_post',[RoleListController::class,'store']);
@@ -98,7 +98,7 @@ Route::get('user_role_edit/{id}',[RoleListController::class,'edit']);
 Route::post('role_post_update/{id}',[RoleListController::class,'update']);
 
 
-//roles and permissions 
+//roles and permissions
 Route::get('role_list_and_permission',[RoleAndPermissionController::class,'index']);
 Route::get('add_role_permission',[RoleAndPermissionController::class,'create']);
 Route::post('role_permission_post',[RoleAndPermissionController::class,'store']);
@@ -111,7 +111,7 @@ Route::get('driver_permission_edit/{id}',[RoleAndPermissionController::class,'ed
 Route::post('role_permission_post/{id}',[RoleAndPermissionController::class,'update']);
 
 
-//sidebar settings 
+//sidebar settings
 Route::get('sidebar_setting',[SideBarSetting::class,'index']);
 Route::get('add_sidebar',[SideBarSetting::class,'create']);
 Route::post('sidebar_post',[SideBarSetting::class,'store']);
@@ -139,7 +139,7 @@ Route::get('admin/booknow_view/{id}',[BookNowController::class,'show']);
 Route::get('/search',[BookNowController::class,'product_search'])->name('search');
 
 //Driver Request
-Route::get('driver_request',[DriverRequestController::class,'index']);
+Route::get('driver_request',[DriverRequestController::class,'index'])->name('driver_request');
 
 
 

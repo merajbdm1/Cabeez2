@@ -61,7 +61,6 @@
 
 
 @section('content')
-
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -81,7 +80,7 @@
             </div><!-- /.container-fluid -->
         </section>
 
-            <div class="card mx-3">
+        <div class="card mx-3">
             <div class="card-header">
 
                 <form id="form_id" action="{{ route('search') }}" method="GET">
@@ -115,15 +114,12 @@
 
                         <div class="col-3">
                             <p for="">Vehicle Category</p>
-
                             <select name="category_id" id="" class="form-control">
-
-                                <option value="" >-Select category-</option>
-                                @foreach($driver as $vfg)
-                                <option value="{{$vfg->category_id}}">{{$vfg->category_id}}</option>
+                                <option value="">-Select category-</option>
+                                @foreach($vehicle_driv as $fob)
+                                <option value="{{$fob->id}}">{{$fob->name}}</option>
                                 @endforeach
                             </select>
-
                         </div>
 
 
@@ -140,13 +136,13 @@
 
                         <div class="col-3">
                             <p for="">Booking Range From</p>
-                            <input type="date" class="form-control" name="fromDate"
+                            <input type="date" class="form-control" value="{{ request('fromDate') }}" name="fromDate"
                                 placeholder="Date">
 
                         </div>
                         <div class="col-3">
                             <p for="">Booking Range To</p>
-                            <input type="date" class="form-control" name="ToDate"
+                            <input type="date" class="form-control" value="{{ request('ToDate') }}" name="ToDate"
                                 placeholder="Date">
                         </div>
 
@@ -165,7 +161,6 @@
             </div>
 
         </div>
-
         <!-- Main content -->
         <div class="card mx-3">
             <div class="card-header">
@@ -221,6 +216,7 @@
                             <th class="text-center" data-sortable="true">CATEGORY</th>
                             <th class="text-center" data-sortable="true">AVALIBILITY</th>
                             <th class="text-center" data-sortable="true">LOCATION STATUS</th>
+                            <th class="text-center" data-sortable="true">CREATED DATE</th>
                             <th class="text-center" data-sortable="true">STATUS</th>
 
                             <th>Action</th>
@@ -231,20 +227,16 @@
                             $loop=1;
                           @endphp --}}
 
-
                         @foreach ($driver as $key=>$driver_model)
 
                             <tr>
                                 <td class="text-center">{{ ($driver->currentpage()-1) * $driver->perpage() + $key + 1 }}</td>
                                 <td class="text-center">{{ $driver_model->first_name }}</td>
-                                <td class="text-center">{{ $driver_model->last_name }} </td>
+                                <td class="text-center">{{ $driver_model->last_name }}
+                                </td>
                                 <td class="text-center">{{ $driver_model->phone_number }}</td>
                                 <td class="text-center">{{ $driver_model->email }}</td>
 
-
-                                @php
-
-                                @endphp
                                 <td class="text-center">{{ $driver_model->category_id }}</td>
                                 <td class="text-center">
                                     @if ($driver_model->is_available == '1')
@@ -261,6 +253,10 @@
                                         <span style="color:red">OFF</span>
                                     @endif
                                 </td>
+
+                            </td>
+
+                            <td class="text-center">{{ $driver_model->created_at }}</td>
 
                                 <td>
                                     <div class="card-body">
@@ -410,7 +406,7 @@
                </div>
 
 
-
+               {{-- //'pagination.paginationlinks' --}}
                 {{-- {{ $driver->links() }} --}}
             </div>
             <!-- /.card-body -->
@@ -583,7 +579,6 @@
         </section> --}}
         <!-- /.content -->
     </div>
-
 @endsection
 
 @section('script')

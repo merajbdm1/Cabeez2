@@ -45,7 +45,7 @@
                                     <h3 class="card-title">Edit Driver</small></h3>
                                     <a type="button" href="{{ url('admin/driver') }}" class="btn btn-default float-right bg-primary">
                                         Back
-        
+
                                     </a>
                                 </div>
                                 <!-- /.card-header -->
@@ -488,7 +488,7 @@
                                                 <div class="image-preview">
                                                     <img src="{{ asset('admin/uploads/Driver/'. $edit_driver->driver_vehicle_registration_image) }}" id="preview_img_id10" class="img-fluid" />
                                                 </div>
-                                                
+
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -496,7 +496,7 @@
                                                             class="text-danger">*</span></label>
 
 
-                                                            
+
                                                     <div class="custom-file">
 
 
@@ -517,8 +517,8 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="customFile">Working Hours<span
-                                                            class="text-danger">*</span></label> 
-                                                              
+                                                            class="text-danger">*</span></label>
+
                                                     <div class="custom-file">
                                                         <label for="">Monday</label>
                                                             Start
@@ -616,10 +616,10 @@
                                                     <img id="preview_img_id10" class="img-fluid" />
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
 
-                                       
+
 
 
                                         <div class="form-group">
@@ -645,7 +645,7 @@
                             </div>
 
 
-                            
+
                             <!-- /.card -->
                     </div>
                     <!--/.col (left) -->

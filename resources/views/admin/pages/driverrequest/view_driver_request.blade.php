@@ -28,7 +28,85 @@
                 </div>
             </div><!-- /.container-fluid -->
         </section>
+        <div class="card mx-3">
+            <div class="card-header">
 
+                <form id="form_id" action="{{ route('driver_request') }}" method="GET">
+                    <div class="row">
+                        <div class="col-3">
+                            <p for="">FIRST NAME</p>
+                            <input type="text" name="fname" value="{{ request('fname') }}" id="fname"
+                                placeholder="Enter First Name" class="form-control">
+
+
+                        </div>
+
+                        <div class="col-3">
+                            <p for="">LAST NAME</p>
+                            <input type="text" name="lname" id="lname" value="{{ request('lname') }}"
+                                placeholder="Enter Last Name" class="form-control">
+
+
+                        </div>
+                        <div class="col-3">
+                            <p for="">Email</p>
+                            <input type="text" class="form-control" value="{{ request('email') }}" placeholder="Email"
+                                name="email">
+                        </div>
+
+                        <div class="col-3">
+                            <p for="">Mobile Number</p>
+                            <input type="text" class="form-control" value="{{ request('phone_number') }}" placeholder="Mobile Number"
+                                name="phone_number">
+                        </div>
+
+                        {{-- <div class="col-3">
+                            <p for="">Vehicle Category</p>
+                            <select name="category_id" id="" class="form-control">
+                                <option value="">-Select category-</option>
+
+                            </select>
+                        </div>
+
+
+                        <div class="col-3">
+                            <p for="">Avability</p>
+                            <select name="is_available" id="" class="form-control">
+                                <option value="">-Select Avalibilty-</option>
+                                <option value="1">Available</option>
+                                <option value="0">UnAvailable</option>
+
+                            </select>
+                        </div> --}}
+
+
+                        <div class="col-3">
+                            <p for="">Booking Range From</p>
+                            <input type="date" class="form-control" name="fromDate"
+                                placeholder="Date">
+
+                        </div>
+                        <div class="col-3">
+                            <p for="">Booking Range To</p>
+                            <input type="date" class="form-control" name="ToDate"
+                                placeholder="Date">
+                        </div>
+
+                    </div>
+
+
+                    <br>
+                    <button id="registerSubmit" class="btn btn-dark" type="submit">SEARCH</button>
+
+                    <a href="{{url('driver_request')}}" type="button" value="submit" class="btn btn-dark" > CLEAR</a>
+                    {{-- <input type="button" class="btn btn-dark" id="clearbtn"  value="CLEAR"
+                        onclick="myFunction()"> --}}
+
+                </form>
+
+            </div>
+
+        </div>
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
@@ -50,24 +128,24 @@
 
                             <div class="card">
                                 <div class="card-header">
-                                    
+
                                     <h3 class="card-title">All Drivers Request</h3>
 
-                                    <?php 
+                                    <?php
                                     $check_role= Session::get('role');
                                     $data = \App\Models\AllDataTableRolesAndPermission::get();
                                     foreach($data as $item)
                                     {
                                      $check_role_name = $item->role_name;
-                                      foreach ($item->driver_permissions as $value) 
+                                      foreach ($item->driver_permissions as $value)
                                       {
-                                           if($value == 'Add') //Users 
+                                           if($value == 'Add') //Users
                                            {
                                             $checkAdd = $value;
-                                            
+
                                             if($check_role == $check_role_name && $checkAdd)
-                                              { 
-            
+                                              {
+
                                           ?>
                                           <li class="list-unstyled">
                                             <a type="button" href="{{ url('admin/add_driver') }}" class="btn btn-default float-right bg-primary">
@@ -76,11 +154,11 @@
                                           </li>
                                      <?php }   } } }?>
 
-                                     <?php 
+                                     <?php
                                      $check_role= Session::get('status');
-                             
+
                                              if($check_role == '1'|| $check_role == '2')//Developer or super admin
-                                               { 
+                                               {
                                            ?>
                                            <li class="list-unstyled">
                                             <a type="button" href="{{ url('admin/add_driver') }}" class="btn btn-default float-right bg-primary">
@@ -90,7 +168,7 @@
                                       <?php }?>
                                 </div>
                                 <!-- /.card-header -->
-                                <div class="card-body"> 
+                                <div class="card-body">
                                     <table data-toggle="table" data-striped="true" class="table table-hover table-centered table-nowrap mb-0">
                                         <thead>
                                             <tr>
@@ -99,42 +177,17 @@
                                                 <th data-sortable="true">LAST NAME</th>
                                                 <th data-sortable="true">MOBILE NO</th>
                                                 <th data-sortable="true">EMAIL</th>
-                                                
+                                                <th data-sortable="true">CREATED DATE</th>
                                                 <th data-sortable="true">STATUS</th>
-                                                {{-- <th>Vehicle Year</th>
-                                                <th>Vehicle Registration No</th>
-                                                <th>Vehicle Make</th>
-                                                <th>Vehicle Model</th>
-                                                <th>Vehicle Category</th>
-                                                <th>PUC Expiry Date</th>
-                                                <th>Date Of Birth</th>
-                                                <th>Blood Group</th>
-                                                <th>Emergency Number</th>
-                                                <th>State</th>
-                                                <th>City</th>
-                                                <th>Postal Code</th>
-                                                <th>Address</th>
-                                                <th>Profile Picture</th>
-                                                <th>Upload Commercial Insurance</th>
-                                                <th>Upload Driver's License Front Side</th>
-                                                <th>Upload Driver's License Back Side</th>
-                                                <th>Upload Aadhaar Front Side</th>
-                                                <th>Upload Aadhaar Back Side</th>
-                                                <th>Upload Rental Agreement Front Side</th>
-                                                <th>Upload Rental Agreement Back Side</th>
-                                                <th>PAN Card</th>
-                                                <th>Upload Vehicle Registration</th>
-                                                <th>Status</th> --}}
+
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                                {{-- @php 
-                                                $loop=1;
-                                              @endphp --}}
-                                                  
+
+
                                             @foreach ($driver as $key=>$driver_model)
-                                                 
+
                                                 <tr>
                                                     <td>{{ ($driver->currentpage()-1) * $driver->perpage() + $key + 1 }}</td>
                                                     <td>{{ $driver_model->first_name }}</td>
@@ -142,26 +195,8 @@
                                                     </td>
                                                     <td>{{ $driver_model->phone_number }}</td>
                                                     <td>{{ $driver_model->email }}</td>
-                                                    {{-- <td>{{ $driver_model->vehicle_year }}</td>
-
-                                                    <td>{{ $driver_model->driver_vehicle_registration_number }}</td>
-                                                    <td>{{ $driver_model->driver_vehicle_make }}</td>
-                                                    <td>{{ $driver_model->driver_vehicle_model }}</td>
-                                                    <td>{{ $driver_model->driver_vehicle_category }}</td>
-
-
-
-                                                    <td>{{ $driver_model->driver_puc_expiry_date }}</td>
-                                                    <td>{{ $driver_model->driver_dob }}</td>
-                                                    <td>{{ $driver_model->driver_blood_group }}</td>
-                                                    <td>{{ $driver_model->driver_emergency_number }}</td>
-                                                    <td>{{ $driver_model->driver_state }}</td>
-                                                    <td>{{ $driver_model->driver_city }}</td>
-                                                    <td>{{ $driver_model->driver_postal_code }}</td>
-                                                    <td>{{ $driver_model->driver_address }}</td>
-
-
-                                                    
+                                                    <td>{{ $driver_model->created_at }}</td>
+                                                    {{--
                                                     <td><img src="{{ asset('admin/uploads/Driver/' . $driver_model->driver_profile_picture) }}"
                                                             width="100px"></td>
                                                     <td><img src="{{ asset('admin/uploads/Driver/' . $driver_model->driver_upload_commercial_insurance) }}"
@@ -193,21 +228,21 @@
                                                     <td class="text-left py-0 align-middle">
                                                         <div class="btn-group btn-group-sm">
 
-                                                            <?php 
+                                                            <?php
                                                             $check_role= Session::get('role');
                                                             $data = \App\Models\AllDataTableRolesAndPermission::get();
                                                             foreach($data as $item)
                                                             {
                                                              $check_role_name = $item->role_name;
-                                                              foreach ($item->driver_permissions as $value) 
+                                                              foreach ($item->driver_permissions as $value)
                                                               {
                                                                    if($value == 'View')//User
                                                                    {
                                                                     $checkAdd = $value;
-                                                                    
+
                                                                     if($check_role == $check_role_name && $checkAdd)
-                                                                      { 
-                                    
+                                                                      {
+
                                                                   ?>
                                                                   <li class = "list-unstyled">
                                                                     <a href="{{ url('admin/view_driver', $driver_model->_id) }}" class="btn btn-info"><i
@@ -215,12 +250,12 @@
                                                                   </li>
                                                              <?php }   } } }?>
 
-                                                             <?php 
+                                                             <?php
                                                              $check_role= Session::get('status');
-                                                     
+
                                                                      if($check_role == '1' || $check_role == '2')//Developer or super admin
 
-                                                                       { 
+                                                                       {
                                                                    ?>
                                                                    <li class = "list-unstyled">
                                                                     <a href="{{ url('admin/view_driver', $driver_model->_id) }}" class="btn btn-info"><i
@@ -228,23 +263,23 @@
                                                                   </li>
                                                               <?php }  ?>
 
-                                                              
 
-                                                             <?php 
+
+                                                             <?php
                                                             $check_role= Session::get('role');
                                                             $data = \App\Models\AllDataTableRolesAndPermission::get();
                                                             foreach($data as $item)
                                                             {
                                                              $check_role_name = $item->role_name;
-                                                              foreach ($item->driver_permissions as $value) 
+                                                              foreach ($item->driver_permissions as $value)
                                                               {
                                                                    if($value == 'Edit')//User
                                                                    {
                                                                     $checkAdd = $value;
-                                                                    
+
                                                                     if($check_role == $check_role_name && $checkAdd)
-                                                                      { 
-                                    
+                                                                      {
+
                                                                   ?>
                                                                   <li class = "list-unstyled">
                                                                     <a href="{{ url('admin/edit_driver', $driver_model->_id) }}"
@@ -252,12 +287,12 @@
                                                                             class="fas fa-pencil-alt"></i></a>
                                                                   </li>
                                                              <?php }   } } }?>
-                                                            
-                                                             <?php 
+
+                                                             <?php
                                                              $check_role= Session::get('status');
-                                                     
+
                                                                      if($check_role == '1'|| $check_role == '2')//Developer or super admin
-                                                                       { 
+                                                                       {
                                                                    ?>
                                                                    <li class = "list-unstyled">
                                                                     <a href="{{ url('admin/edit_driver', $driver_model->_id) }}"
@@ -266,25 +301,25 @@
                                                                   </li>
                                                               <?php }  ?>
 
-                                                              
 
 
 
-                                                             <?php 
+
+                                                             <?php
                                                              $check_role= Session::get('role');
                                                              $data = \App\Models\AllDataTableRolesAndPermission::get();
                                                              foreach($data as $item)
                                                              {
                                                               $check_role_name = $item->role_name;
-                                                               foreach ($item->driver_permissions as $value) 
+                                                               foreach ($item->driver_permissions as $value)
                                                                {
                                                                     if($value == 'Delete')//User
                                                                     {
                                                                      $checkAdd = $value;
-                                                                     
+
                                                                      if($check_role == $check_role_name && $checkAdd)
-                                                                       { 
-                                     
+                                                                       {
+
                                                                    ?>
                                                                    <li class = "list-unstyled">
                                                                     <a href="{{ url('admin/delete_driver', $driver_model->_id) }}" class="btn btn-danger"  onclick="return confirm('Are you sure you want to delete this Fare?');" ><i
@@ -292,11 +327,11 @@
                                                                    </li>
                                                               <?php }   } } }?>
 
-                                                              <?php 
+                                                              <?php
                                                               $check_role= Session::get('status');
-                                                      
+
                                                                       if($check_role == '1'|| $check_role == '2')//Developer or super admin
-                                                                        { 
+                                                                        {
                                                                     ?>
                                                                    <li class = "list-unstyled">
                                                                     <a href="{{ url('admin/delete_driver', $driver_model->_id) }}" class="btn btn-danger"  onclick="return confirm('Are you sure you want to delete this Fare?');" ><i
@@ -304,9 +339,9 @@
                                                                    </li>
                                                                <?php }  ?>
 
-                                                               
-                                                             
-                         
+
+
+
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -323,24 +358,24 @@
                                     <div class="row">
 
                                         <div class="col-7">
-                                            Showing {{ $driver->firstItem() }} - {{ $driver->lastItem()}} Total {{ $driver->total() }} 
+                                            Showing {{ $driver->firstItem() }} - {{ $driver->lastItem()}} Total {{ $driver->total() }}
                                         </div>
                                         <div class="col-5">
                                            {!! $driver->appends(['sort' => 'votes'])->links() !!}
                                         </div>
-                                       
+
                                     </div>
                                    </div>
-                                  
 
-                                  
+
+
                                     {{-- {{ $driver->links() }} --}}
                                 </div>
                                 <!-- /.card-body -->
                             </div>
                             <!-- /.card -->
                     </div>
-                    
+
                 </div>
                 <!-- /.row -->
             </div>
