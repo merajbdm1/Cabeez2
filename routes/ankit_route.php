@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('admin/driver', [DriverController::class,'index'])->name('search');
+Route::post('admin/search', [DriverController::class,'searchdrivelist']);
+
+
+
+
+Route::get('admin/status', [DriverController::class,'update_status']);
+
 Route::get('admin/search', [DriverController::class,'search'])->name('search.list');
 Route::get('admin/driver/fetch_data', [DriverController::class,'fetch_data']);
 

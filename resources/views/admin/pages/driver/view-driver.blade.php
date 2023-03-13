@@ -1,63 +1,98 @@
+
+
+
 @extends('admin.layout.master')
+
 @section('style')
-@endsection
-<style>
-    /* nav svg {
-        max-height: 10px;
+
+
+    <style>
+        /* Custom CSS for toggle button */
+
+    .btn-toggle {
+      background-color: grey;
+      color: #212529;
+      border: none;
+      outline: none;
+      box-shadow: none;
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      line-height: 1.5;
+      border-radius: 0.25rem;
+    }
+    .btn-toggle :hover{
+        color:white;
+    }
+    /* .btn-toggle.active,
+    .btn-toggle:active {
+      background-color: green;
+      color: #fff;
     } */
-    .laravell_paginate nav {
-        float: right;
-    }
 
-    .laravell_p .page-item.active .page-link {
-        z-index: 4;
-        color: #007bff;
-
-        background-color: #fff;
-        border: 1px solid #dee2e6;
+    .btn-toggle:focus {
+      outline: none;
+      box-shadow: none;
     }
+    </style>
+    <style>
 
-    .laravell_p .page-link:focus {
-        z-index: 3;
-        outline: 0;
-        color: #fff;
-        background-color: #007bff;
-    }
 
-    input[type="checkbox"] {
-        position: relative;
-        width: 40px;
-        height: 20px;
-        -webkit-appearance: none;
-        appearance: none;
-        background: rgb(173, 0, 0);
-        outline: none;
-        border-radius: 2rem;
-        cursor: pointer;
-        box-shadow: inset 0 0 5px rgb(0 0 0 / 50%);
-    }
+        /* nav svg {
+            max-height: 10px;
+        } */
+        .laravell_paginate nav {
+            float: right;
+        }
+        /* .laravell_p .page-item.active .page-link {
+            z-index: 4;
+            color: #007bff;
 
-    input[type="checkbox"]::before {
-        content: "";
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background: #f5f5f5;
-        position: absolute;
-        top: 0;
-        left: 0;
-        transition: 0.5s;
-    }
+            background-color: #fff;
+            border: 1px solid #dee2e6;
+        }
 
-    input[type="checkbox"]:checked::before {
-        transform: translateX(100%);
-        background: #fff;
-    }
+        .laravell_p .page-link:focus {
+            z-index: 3;
+            outline: 0;
+            color: #fff;
+            background-color: #007bff;
+        }
 
-    input[type="checkbox"]:checked {
-        background: #05ee66;
-    }
-</style>
+        input[type="checkbox"] {
+            position: relative;
+            width: 40px;
+            height: 20px;
+            -webkit-appearance: none;
+            appearance: none;
+            background: rgb(173, 0, 0);
+            outline: none;
+            border-radius: 2rem;
+            cursor: pointer;
+            box-shadow: inset 0 0 5px rgb(0 0 0 / 50%);
+        }
+
+        input[type="checkbox"]::before {
+            content: "";
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: 0.5s;
+        }
+
+        input[type="checkbox"]:checked::before {
+            transform: translateX(100%);
+            background: #fff;
+        }
+
+        input[type="checkbox"]:checked {
+            background: #05ee66;
+        } */
+    </style>@endsection
+
 
 
 @section('content')
@@ -114,10 +149,10 @@
 
                         <div class="col-3">
                             <p for="">Vehicle Category</p>
-                            <select name="category_id" id="" class="form-control">
+                            <select name="category_id" id=""  class="form-control">
                                 <option value="">-Select category-</option>
-                                @foreach($vehicle_driv as $fob)
-                                <option value="{{$fob->id}}">{{$fob->name}}</option>
+                                @foreach($vehicle_driv as $key=>$fob)
+                                <option value="{{$fob->id}}" {{ request('category_id') == $fob->id ? "selected" :""}}>{{$fob->name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -127,8 +162,8 @@
                             <p for="">Avability</p>
                             <select name="is_available" id="" class="form-control">
                                 <option value="">-Select Avalibilty-</option>
-                                <option value="1">Available</option>
-                                <option value="0">UnAvailable</option>
+                                <option value="1" {{ request('is_available') == "1" ? "selected" :""}}>Available</option>
+                                <option value="0" {{ request('is_available') == "0" ? "selected" :""}}>UnAvailable</option>
 
                             </select>
                         </div>
@@ -215,9 +250,11 @@
                             <th class="text-center" data-sortable="true">EMAIL</th>
                             <th class="text-center" data-sortable="true">CATEGORY</th>
                             <th class="text-center" data-sortable="true">AVALIBILITY</th>
+
                             <th class="text-center" data-sortable="true">LOCATION STATUS</th>
-                            <th class="text-center" data-sortable="true">CREATED DATE</th>
                             <th class="text-center" data-sortable="true">STATUS</th>
+                            <th class="text-center" data-sortable="true">CREATED DATE</th>
+
 
                             <th>Action</th>
                         </tr>
@@ -237,7 +274,7 @@
                                 <td class="text-center">{{ $driver_model->phone_number }}</td>
                                 <td class="text-center">{{ $driver_model->email }}</td>
 
-                                <td class="text-center">{{ $driver_model->category_id }}</td>
+                                <td class="text-center">{{ $driver_model->driver_vehicle_category->name }}</td>
                                 <td class="text-center">
                                     @if ($driver_model->is_available == '1')
                                         <span style="color:green">Available</span>
@@ -247,22 +284,91 @@
                                 </td>
 
                                     <td>
-                                    @if ($driver_model->is_shift_started == '1')
+                                    @if ($driver_model->is_available == '1')
                                         <span style="color:green">ON</span>
                                     @else
                                         <span style="color:red">OFF</span>
                                     @endif
                                 </td>
 
-                            </td>
+                                    {{-- <form id="Status_active_inactive">
+                                        <input type="hidden" value="{{ $driver_model->category_id }}">
+                                        <button  class="btn-btn-primary hold" title="Hold" id="kvalue_post" ><i class="icon-control-pause"><?php echo 'Active';?></i></button>
+                                    </form> --}}
+
+                                    <td>
+                                        {{-- @if ($driver_model->status == 'active')
+                                            <span class="badge badge-success">Active</span>
+                                        @else
+                                            <span class="badge badge-danger">InActive</span>
+                                        @endif --}}
+
+                                          <a href="" class=" hold toggle-class"
+                                                info="{{ $driver_model->_id }}"
+                                                 title="Change shift" id="kvalue_post"
+                                                 value="{{ $driver_model->status }}"
+                                                 onclick="return confirm('Are you sure change shift status ?')">
+                                                 <?php if($driver_model->status == 'active' )
+                                                 {
+                                                     echo '<button class="btn btn-outline-primary " >Active</button>';
+                                                 }else{
+                                                     echo '<button class="btn btn-outline-danger ">InActive</button>';
+                                                 }
+                                                     {
+                                                 ?>
+                                                 <?php  }?>
+
+                                         </a>
+
+                                    </td>
+
+                                    {{-- <input data-id="{{$driver_model->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $driver_model->is_shift_started == 1 ? 'checked' : '' }}> --}}
+
+
+                                    @php
+
+
+
+                                                                          // if($driver_model->is_shift_started == 1 ){
+
+                                        // }
+
+                                    @endphp
+                                        {{-- <td> --}}
+
+                                            {{-- <form id="status_active" method="post"> --}}
+                                                {{-- <input name="object_id" type="hidden" value="{{ $driver_model->_id }}"> --}}
+                                                {{-- <input class="btn btn-primary hold toggle-class"
+                                                info="{{ $driver_model->_id }}"
+                                                 title="Hold" id="kvalue_post"
+                                                 value="{{ $driver_model->is_shift_started == 1 ? 'Active':'Inactive'}}"> --}}
+
+
+                                                {{-- <a href="" class=" hold toggle-class"
+                                                info="{{ $driver_model->_id }}"
+                                                 title="Change shift" id="kvalue_post"
+                                                 value="{{ $driver_model->is_shift_started }}"
+                                                 onclick="return confirm('Are you sure change shift status ?')">
+                                                    <?php if($driver_model->is_shift_started == 1 )
+                                                        {
+                                                            echo '<button class="btn btn-outline-primary " >Active</button>';
+                                                        }else{
+                                                            echo '<button class="btn btn-outline-danger ">InActive</button>';
+                                                        }
+                                                            {
+                                                        ?>
+                                                        <?php  }?>
+
+                                                </a> --}}
+
+
+                                            {{-- </form> --}}
+                                      {{-- </td> --}}
+
 
                             <td class="text-center">{{ $driver_model->created_at }}</td>
 
-                                <td>
-                                    <div class="card-body">
-                                        <input data-id="" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" {{ $driver_model->status='active' ? 'active' : '' }}>
-                                    </div>
-                                </td>
+
 
 
                                 <td class="text-left py-0 align-middle">
@@ -399,7 +505,7 @@
                         Showing {{ $driver->firstItem() }} - {{ $driver->lastItem()}} Total {{ $driver->total() }}
                     </div>
                     <div class="col-5">
-                       {!! $driver->appends(['sort' => 'votes'])->links() !!}
+                       {!! $driver->appends(Request::all())->links(); !!}
                     </div>
 
                 </div>
@@ -412,7 +518,22 @@
             <!-- /.card-body -->
         </div>
 
+{{-- <script>
+    function statusChange(){
+        let status=document.getElementById("status");
 
+        if(status.innerHTML="Inactive"){
+            alert("active");
+        status.innerHTML="Active";
+        status.style.backgroundColor="green";
+        }
+
+        else if ( status.innerHTML="Active"){
+            alert("inactive");
+            status.innerHTML="Inactive";
+        }
+    }
+</script> --}}
 
 
 
@@ -582,32 +703,7 @@
 @endsection
 
 @section('script')
-    {{-- <script>
-     $check = document.querySelector('.pagination .page-item.active');
-     $check.classList.remove('active');
-    $(document).ready(function(){
 
-     $(document).on('click', '.pagination a', function(event){
-      event.preventDefault();
-      var page = $(this).attr('href').split('page=')[1];
-      fetch_data(page);
-     });
-
-     function fetch_data(page)
-     {
-      $.ajax({
-       url:"driver/fetch_data?page="+page,
-       success:function(data)
-       {
-
-
-        $('#search_list').html(data);
-       }
-      });
-     }
-
-    });
-    </script> --}}
 
     <script>
         var loadFile2 = function(event) {
@@ -792,4 +888,119 @@
 
         //  }
     </script>
+
+
+{{-- <script>
+    $(document).ready(function(){
+
+     $('#status').bootstrapToggle({
+      on: 'Active',
+      off: 'Deactive',
+      onstyle: 'success',
+      offstyle: 'danger'
+     });
+
+     $('#status').change(function(){
+      if($(this).prop('checked'))
+      {
+       $('#hidden_status').val('Active');
+      }
+      else
+      {
+       $('#hidden_status').val('Deactive');
+      }
+     });
+
+     $('#insert_data').on('submit', function(event){
+      event.preventDefault();
+
+     if($('#hidden_status').val() != '')
+      {
+    var hidden_status=$('#hidden_status').val();
+       $.ajax({
+
+        url:"insert.php",
+        method:"POST",
+        data:$(this).serialize(),
+        success:function(data){
+
+         if(data == 'done')
+         {
+          $('#insert_data')[0].reset();
+          $('#status').bootstrapToggle('on');
+          alert("Data Inserted");
+         }
+        }
+       });
+    }
+     });
+
+    });
+    </script> --}}
+
+
+    {{-- <script>
+
+
+        function Check(){
+        var frm = $('#Status_active');
+        // console.log(frm);
+        frm.submit(function (e) {
+
+        e.preventDefault();
+        $.ajax({
+            console.log(frm);
+        type: frm.attr('method'),
+        // url: 'update_status',
+        data: frm.serialize(),
+        success: function (res) {
+            if(res==1){
+                $(".plz-wait").css("display", "none");
+                swal("Submitted", "We Will Contact You Soon", "success");
+                frm[0].reset();
+                }
+                else
+                {
+                $(".plz-wait").css("display", "none");
+                swal("Error", "Please try again!", "error");
+                    frm[0].reset();
+                }
+        },
+        // error: function (data) {
+        //     console.log(data);
+        // },
+        });
+        });
+
+        }
+    </script> --}}
+
+
+
+
+    <script>
+        $(function() {
+          $('.toggle-class').click(function() {
+
+              var id = $(this).attr('info');
+              var driver_log_status = $(this).attr('value');
+            //   alert(is_shift_started);
+              $.ajax({
+                  type: "GET",
+                  dataType: "json",
+                  url: 'status',
+                  data: {'status': driver_log_status, '_id': id},
+
+                  success: function(res){
+                    var parsedData = JSON.parse(res);
+                    // console.log(data);
+                    var allData = parsedData.shift_status_updated;
+                     var val_data = allData[0].driver_log_status;//only apply one column condition
+                     $("#kvalue_post").val(val_data);
+
+                  }
+              });
+          })
+        })
+      </script>
 @endsection

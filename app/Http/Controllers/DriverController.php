@@ -26,10 +26,7 @@ class DriverController extends Controller
         } else {
             return redirect('login');
         }
-
-
         $viewdriver = new Driver();
-
         $keyword = $request->input('fname');
         $lastname=$request->input('lname');
         $email=$request->input('email');
@@ -62,7 +59,7 @@ class DriverController extends Controller
             $driver = $viewdriver->orwhere('first_name', 'LIKE', "%".$keyword ."%")
             ->orWhere('last_name', 'LIKE', "%".$lastname."%")
             ->orwhere('email', 'LIKE', "%".$email."%")
-            // ->orwhere('phone_number', 'LIKE', "%".$mobile_number."%")
+            ->orwhere('phone_number', 'LIKE', "%".$mobile_number."%")
             // ->orwhere('is_available',$intonoff)
             // ->orwhere('category_id', $intonoffCAT)
             // ->wherebetween('created_at',[$strfrmDateSingle,$strtoDateSingle])
@@ -70,15 +67,25 @@ class DriverController extends Controller
 
         }
         elseif ($intonoffCAT) {
-
+            $driver = $viewdriver->orwhere('category_id', $intonoffCAT)
+            ->paginate(25);
+        }
+        elseif ($intonoff) {
+            $driver = $viewdriver->orwhere('is_available', $intonoff)
+            ->paginate(25);
         }
         elseif ($strfrmDateSingle && $strtoDateSingle) {
             $driver = $viewdriver->orwherebetween('created_at',[$strfrmDateSingle,$strtoDateSingle])->paginate(25);
         }
         else{
-        $driver = $viewdriver->where('status', 'active')
+        $driver = $viewdriver->where('document_status', 'verified')
         ->paginate(25);
+
+        //   echo "<pre>";  print_r($driver);exit;
+
         }
+
+
         $driver_veh_cat=new VehicleCategory();
         $vehicle_driv=$driver_veh_cat->all();
 
@@ -106,6 +113,8 @@ class DriverController extends Controller
         // dd($driver);
 
         //}
+
+
 
 
     public function add()
@@ -500,6 +509,23 @@ class DriverController extends Controller
         return view('admin.pages.rides_history', ['datasession' => $datasession]);
     }
 
+    public function update_status(Request $request) {
+
+    //    echo $request->is_shift_started;
+    //    echo $request->_id;
+        if($request->status == 'active') {
+            $shift_status = 'inactive';
+        }
+        else {
+            $shift_status = 'active';
+        }
+         DB::table('drivers')
+            ->where('_id',$request->_id)
+            ->update(['status' => $shift_status]);
+            $shift_status_updated = Driver::where('_id', $request->_id)->get();
+            return response()->json( collect(['shift_status_updated' => $shift_status_updated,])->toJson());
+    }
+
     // public function all_driver()
     // {
     //     $output = '';
@@ -656,7 +682,18 @@ class DriverController extends Controller
 
 
   //  }
+                    // public function is_shifted_started(Request $request,$id){
 
+                    //     $storeData = $request->validate([
+                    //         'is_shift_started' => '',
+
+                    //     ]);
+
+                    //     $driver = new Driver;
+                    //     $driver = Driver::where('_id', $id)->update($storeData);
+                    //     return response()->json(['success'=>'Location status changed']);
+
+                    // }
 
 
 }

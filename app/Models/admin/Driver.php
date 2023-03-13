@@ -223,7 +223,7 @@ class Driver extends Eloquent
     public function driver_vehicle_category()
     {
         // print_r("dhfkadf");
-        return $this->belongsTo(VehicleCategory::class,'category_id','id');
+        return $this->belongsTo(VehicleCategory::class,'category_id','id','_id');
     }
 
 
