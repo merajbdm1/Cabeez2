@@ -3,13 +3,13 @@
 <style>
  /* a{
     color:black !important;
-    
+
 
 } */
 .inner a{
     color:#000;
-    
-   
+
+
 }
 .small-box>.inner {
     padding: 10px;
@@ -35,22 +35,22 @@
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
                             <li class="breadcrumb-item active">Dashboard</li>
-                         
+
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-       
-         
+
+
         <!-- Main content -->
         <section class="content">
-            
+
             <div class="container-fluid">
-              
-                
-                
+
+
+
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
                     <div class="col-lg-3 col-6">
@@ -78,10 +78,10 @@
                                 <a href="javascript:void(0);" class="d-flex justify-content-between">Assigned <span>30</span></a>
                                 <a href="javascript:void(0);" class="d-flex justify-content-between">Accepted <span>12</span></a>
                                 <a href="javascript:void(0);" class="d-flex justify-content-between">Pre-Accepted <span>10</span></a>
-                                
+
                             </div>
                             <div class="icon">
-                                
+
                             </div>
                             <a href="#" class="small-box-footer bg-success">Rides Status</a>
                         </div>
@@ -95,11 +95,11 @@
                                 <div class="inner">
                                     <a href="javascript:void(0);" class="d-flex justify-content-between">Arrived <span>10</span></a>
                                     <a href="javascript:void(0);" class="d-flex justify-content-between">Started <span>11</span></a>
-                                    <a href="javascript:void(0);" class="d-flex justify-content-between">Ended <span>5</span></a>  
+                                    <a href="javascript:void(0);" class="d-flex justify-content-between">Ended <span>5</span></a>
                                 </div>
                             </div>
                             <div class="icon">
-                               
+
                             </div>
                             <a href="#" class="small-box-footer bg-info">Trip Status </a>
                         </div>
@@ -113,12 +113,12 @@
 
                                     <a href="javascript:void(0);" class="d-flex justify-content-between">Admin Cancelled<span>22</span></a>
                                     <a href="javascript:void(0);" class="d-flex justify-content-between">Customer Cancelled <span>28</span></a>
-                                   
-                                    
+
+
                                 </div>
                             </div>
                             <div class="icon">
-                               
+
                             </div>
                             <a href="#" class="small-box-footer bg-danger">Cancellation Status <i
                                     class="fas fa-arrow-circle-right"></i></a>
@@ -133,10 +133,10 @@
                                 <a href="javascript:void(0);" class="d-flex justify-content-between">Completed <span>33</span></a>
                                 <a href="javascript:void(0);" class="d-flex justify-content-between">Revenue  <span>23</span></a>
                                 <a href="javascript:void(0);" class="d-flex justify-content-between">AEPT <span>25</span></a>
-                               
+
                             </div>
                             <div class="icon">
-                              
+
                             </div>
                             <a href="#" class="small-box-footer bg-primary">Completion Status</a>
                         </div>
@@ -150,10 +150,10 @@
                                 <a href="javascript:void(0);" class="d-flex justify-content-between"> City <span>36</span></a>
                                 <a href="javascript:void(0);" class="d-flex justify-content-between">Inter City<span>28</span></a>
                                 <a href="javascript:void(0);" class="d-flex justify-content-between">Rental <span>30</span></a>
-                                
+
                             </div>
                             <div class="icon">
-                                
+
                             </div>
                             <a href="#" class="small-box-footer bg-success">Completed Trip Type</a>
                         </div>
@@ -166,7 +166,7 @@
 
                                 <a href="javascript:void(0);" class="d-flex justify-content-between">Online <span>45</span></a>
                                 <a href="javascript:void(0);" class="d-flex justify-content-between">Cash <span>65</span></a>
-                              
+
                             </div>
                             <div class="icon">
                                 <i class=""></i>
@@ -182,10 +182,10 @@
 
                                 <a href="javascript:void(0);" class="d-flex justify-content-between">Total <span>30</span></a>
                                 <a href="javascript:void(0);" class="d-flex justify-content-between">Current <span>12</span></a>
-   
+
                             </div>
                             <div class="icon">
-                                
+
                             </div>
                             <a href="#" class="small-box-footer bg-danger">Requested Rides</a>
                         </div>
@@ -196,11 +196,11 @@
                             <div class="inner">
 
                                 <a href="javascript:void(0);" class="d-flex justify-content-between">Idle Drivers</a>
-                              
-   
+
+
                             </div>
                             <div class="icon">
-                                
+
                             </div>
                             <a href="#" class="small-box-footer bg-primary">Idle Drivers</a>
                         </div>
@@ -208,13 +208,13 @@
 
 
                     <div class="col-lg-12 col-6">
-                       
+
                         {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30163.89168212218!2d72.85175932707517!3d19.08630356917822!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c9abc81d7d3f%3A0x7c8b5869486ac221!2sCAB%20EEZ%20Infra%20Tech%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1676275287825!5m2!1sen!2sin" width="100%" height="650" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                        --}} <div id="mapdiv"></div>
-                    
+
                     </div>
-            
-                    
+
+
                 </div>
                 <!-- /.row -->
                 <!-- Main row -->

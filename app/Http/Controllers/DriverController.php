@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\UserActivityModel;
 use App\Models\admin\VehicleCategory;
 use Illuminate\Support\Carbon;
+use App\Models\admin\VehicleMake;
 class DriverController extends Controller
 {
     /**
@@ -125,7 +126,9 @@ class DriverController extends Controller
             return redirect('login');
         }
         $driver = Driver::all();
-        return view('admin.pages.driver.add-driver', ['driver' => $driver, 'datasession' => $datasession]);
+        $driver_veh_cat=new VehicleCategory();
+        $vehicle_driv=$driver_veh_cat->all();
+        return view('admin.pages.driver.add-driver', ['vehicle_driv'=>$vehicle_driv,'driver' => $driver, 'datasession' => $datasession]);
     }
 
 
@@ -346,9 +349,16 @@ class DriverController extends Controller
         $driver = Driver::all();
         // dd($edit_driver)
         $edit_driver = Driver::where('_id', $id)->first();
+        $driver_veh_cat=new VehicleCategory();
+        $vehicle_driv=$driver_veh_cat->all();
 
-        // dd($imageName);
-        return view('admin.pages.driver.edit-driver', ['datasession' => $datasession, 'driver' => $driver, 'edit_driver' => $edit_driver]);
+        $driver_veh_cat=new VehicleCategory();
+        $vehicle_driv=$driver_veh_cat->all();
+        $driver_veh_make=new VehicleMake();
+        $vehicle_drive_make=$driver_veh_make->all();
+
+        // dd($edit_driver);
+        return view('admin.pages.driver.edit-driver', ['vehicle_drive_make'=>$vehicle_drive_make,'vehicle_driv'=>$vehicle_driv,'datasession' => $datasession, 'driver' => $driver, 'edit_driver' => $edit_driver]);
     }
 
     /**

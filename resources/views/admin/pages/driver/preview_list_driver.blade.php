@@ -257,6 +257,16 @@ td {
 
 
                                                 </div>
+                                                <div class="header">
+
+                                                    @if ($preview_driver->document_status=='verified')
+                                                    <h4 class="text-center" style="color:green;" > <b>Verified</b></h4>
+                                                    @else
+                                                    <h4 class="text-center" style="color:red;" > <b>Unverified</b></h4>
+                                                    @endif
+
+                                                </div>
+
                                                 <div class="pro-content rounded">
 
 
@@ -330,7 +340,6 @@ td {
                                         $title5 = $variable_0.' - '.$variable_1;
                                         @endphp --}}
 
-
                                         <div class="card card-block">
                                             <div class="card-header d-flex justify-content-between">
                                                 <table id="attendence-table">
@@ -353,6 +362,11 @@ td {
                                                 </table>
                                             </div>
                                         </div>
+
+
+
+
+
                                         <div class="card card-block">
                                             <div class="card-header d-flex justify-content-between">
                                                 <div class="header-title">

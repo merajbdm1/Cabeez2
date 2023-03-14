@@ -25,7 +25,7 @@ class DriverRequestController extends Controller
         }
         $viewdriver = new Driver();
 
-        $driver=Driver::where('docu','inactive')->paginate(25);
+        $driver=Driver::where('document_status','pending','missing')->paginate(25);
 
         return view('admin.pages.driverrequest.view_driver_request', ['driver' => $driver,"datasession" => $datasession]);
     }

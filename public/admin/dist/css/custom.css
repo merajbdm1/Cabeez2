@@ -1,8 +1,22 @@
 table.dataTable>tbody>tr.child ul.dtr-details {
     width: 100% !important;
   }
-  
+
   table.dataTable>tbody>tr.child span.dtr-title {
     min-width: unset !important;
     width: 50% !important;
   }
+
+
+label:not(.form-check-label):not(.custom-file-label) {
+    /* font-weight: 400; */
+    padding: 0px 15px;
+}
+.days {
+    padding: 0px!important;;
+    width: 100px!important;
+    font-weight: 400!important;
+ }
+input[type="time"]{
+width: 274px;
+}

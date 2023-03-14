@@ -43,17 +43,23 @@ return [
             'foreign_key_constraints' => env('DB_FOREIGN_KEYS', true),
         ],
 
+        // 'mongodb' => [
+        //     'driver' => 'mongodb',
+        //     'host' => env('DB_HOST', '127.0.0.1'),
+        //     'port' => env('DB_PORT', 27017),
+        //     'database' => env('DB_DATABASE', 'homestead'),
+        //     'username' => env('DB_USERNAME', 'homestead'),
+        //     'password' => env('DB_PASSWORD', 'secret'),
+        //     'options' => [
+        //         'appname' => 'homestead',
+        //     ],
+        // ],
+
         'mongodb' => [
             'driver' => 'mongodb',
-            'host' => env('DB_HOST', '127.0.0.1'),
-            'port' => env('DB_PORT', 27017),
-            'database' => env('DB_DATABASE', 'homestead'),
-            'username' => env('DB_USERNAME', 'homestead'),
-            'password' => env('DB_PASSWORD', 'secret'),
-            'options' => [
-                'appname' => 'homestead',
-            ],
-        ],
+            'dsn' => env('DB_URI', 'mongodb+srv://cabeez:IN1QQR(!N)jj@cabeez.org8oez.mongodb.net/cabeez?retryWrites=true&w=majority'),
+            'database' => 'cabeez',
+         ],
 
         'mysql' => [
             'driver' => 'mysql',

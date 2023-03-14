@@ -14,13 +14,13 @@ class VehicleMake extends Eloquent
     protected $fillable = ['id',
         'name','status'
     ];
-    
+
 
     public function df()
     {
         return $this->hasMany(VehicleModel::class,'vehicle_make_id');
     }
-    
+
 }
 
 

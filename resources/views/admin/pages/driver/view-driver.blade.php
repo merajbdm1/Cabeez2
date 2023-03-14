@@ -1,6 +1,3 @@
-
-
-
 @extends('admin.layout.master')
 
 @section('style')
@@ -367,9 +364,6 @@
 
 
                             <td class="text-center">{{ $driver_model->created_at }}</td>
-
-
-
 
                                 <td class="text-left py-0 align-middle">
                                     <div class="btn-group btn-group-sm">

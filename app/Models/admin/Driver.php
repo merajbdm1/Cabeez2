@@ -227,6 +227,12 @@ class Driver extends Eloquent
     }
 
 
+    public function driver_vehicle_make()
+    {
+        // print_r("dhfkadf");
+        return $this->belongsTo(VehicleCategory::class,'brand_id','id','_id');
+    }
+
 
 // }
 

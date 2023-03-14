@@ -46,11 +46,11 @@
                                     <h3 class="card-title">Add Driver</small></h3>
                                     <a type="button" href="{{ url('admin/driver') }}" class="btn btn-default float-right bg-primary">
                                         Back
-        
+
                                     </a>
                                 </div>
 
-                           
+
                                 <!-- /.card-header -->
                                 <!-- form start -->
                                 <form id="quickForm" action="{{ url('admin/driver_process') }}" method="POST"
@@ -124,9 +124,9 @@
                                                 <div class="form-group">
                                                     <label for="exampleVehicleYear">Vehicle Year <span
                                                             class="text-danger">*</span></label>
-                                                    <input type="date" name="vehicle_year"
+                                                    <input type="number" name="vehicle_year"
                                                         class="form-control{{ $errors->has('vehicle_year') ? ' is-invalid' : '' }}"
-                                                        id="exampleVehicleYear" placeholder="Vehicle Year" value="{{old('vehicle_year')}}">
+                                                        id="exampleVehicleYear" placeholder="YYYY" value="{{old('vehicle_year')}}" min="1999" max="2050">
                                                     @if ($errors->has('vehicle_year'))
                                                         <span class="invalid feedback" role="alert">
                                                             <strong>{{ $errors->first('vehicle_year') }}</strong>
@@ -139,15 +139,31 @@
                                                 <div class="form-group">
                                                     <label for="VehicleRegistrationsNumber">Vehicle Registrations
                                                         Number <span class="text-danger">*</span></label>
-                                                    <input type="number" name="driver_vehicle_registration_number"
-                                                        class="form-control{{ $errors->has('driver_vehicle_registration_number') ? ' is-invalid' : '' }}"
+                                                    <input type="number" name="car_registration_number"
+                                                        class="form-control{{ $errors->has('car_registration_number') ? ' is-invalid' : '' }}"
                                                         id="VehicleRegistrations Number"
-                                                        placeholder="Vehicle Registrations Number" value="{{old('driver_vehicle_registration_number')}}">
-                                                    @if ($errors->has('driver_vehicle_registration_number'))
+                                                        placeholder="Vehicle Registrations Number" value="{{old('car_registration_number')}}">
+                                                    @if ($errors->has('car_registration_number'))
                                                         <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('driver_vehicle_registration_number') }}</strong>
+                                                            <strong>{{ $errors->first('car_registration_number') }}</strong>
                                                         </span>
                                                     @endif
+                                                </div>
+
+                                            </div>
+
+
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="exampleVehicleCategory">Vehicle Category <span
+                                                            class="text-danger">*</span></label>
+                                                    <select name="category_id" id="" class="form-control">
+                                                        <option value="">--Select Category--</option>
+                                                          @foreach($vehicle_driv as $key => $value)
+                                                                <option value="<?php ?>">{{$value->name}}</option>
+                                                          @endforeach
+
+                                                    </select>
                                                 </div>
 
                                             </div>
@@ -156,8 +172,8 @@
                                                 <div class="form-group">
                                                     <label for="exampleMobileNumber">Vehicle Make <span
                                                             class="text-danger">*</span></label>
-                                                        <select name="" id="" class="form-control">
-                                                            <option value=""></option>
+                                                        <select name="model_id" id="" class="form-control">
+                                                            <option value="">--Select Make--</option>
                                                         </select>
 
                                                     {{-- <input type="text" name="driver_vehicle_make"
@@ -181,21 +197,6 @@
                                                     @if ($errors->has('driver_vehicle_model'))
                                                         <span class="invalid feedback" role="alert">
                                                             <strong>{{ $errors->first('driver_vehicle_model') }}</strong>
-                                                        </span>
-                                                    @endif
-                                                </div>
-
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="exampleVehicleCategory">Vehicle Category <span
-                                                            class="text-danger">*</span></label>
-                                                    <input type="year" name="driver_vehicle_category"
-                                                        class="form-control{{ $errors->has('driver_vehicle_category') ? ' is-invalid' : '' }}"
-                                                        id="exampleVehicleCategory" placeholder="Vehicle Category" value="{{old('driver_vehicle_category')}}">
-                                                    @if ($errors->has('driver_vehicle_category'))
-                                                        <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('driver_vehicle_category') }}</strong>
                                                         </span>
                                                     @endif
                                                 </div>
@@ -531,6 +532,7 @@
                                                     <img id="preview_img_id9" class="img-fluid" />
                                                 </div>
                                             </div>
+
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="customFile">Upload Vehicle Registration <span
@@ -573,19 +575,19 @@
                                                 <div class="image-preview">
                                                     <img id="preview_img_id10" class="img-fluid" />
                                                 </div>
-                                            </div>
+                                               </div>
 
-                                            <div class="col-md-6">
+                                              <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="customFile">Working Hours<span
-                                                            class="text-danger">*</span></label> 
-                                                              
+                                                            class="text-danger">*</span></label>
+
                                                     <div class="custom-file">
-                                                        <label for="">Monday</label>
-                                                            Start
+                                                        <label class="days" for="">Monday</label>
+                                                            <label>Start</label>
                                                             <input type="time" name="mondaystartend[]"
                                                             min="00:00" max="18:00" >
-                                                            End
+                                                            <label>End</label>
                                                             <input type="time" name="mondaystartend[]"
 
                                                             min="00:00" max="18:00" >
@@ -598,11 +600,11 @@
                                                     </div>
 
                                                     <div class="custom-file">
-                                                        <label for="">Tuesday</label>
-                                                            Start
+                                                        <label class="days" for="">Tuesday</label>
+                                                        <label> Start</label>
                                                             <input type="time" name="tuesdaystartend[]"
                                                             min="00:00" max="18:00" >
-                                                            End
+                                                            <label>End</label>
                                                             <input type="time" name="tuesdaystartend[]"
                                                             min="00:00" max="18:00" >
 
@@ -613,11 +615,11 @@
                                                         @endif
                                                     </div>
                                                     <div class="custom-file">
-                                                        <label for="">Wednesday</label>
-                                                            Start
+                                                        <label class="days" for="">Wednesday</label>
+                                                        <label> Start</label>
                                                             <input type="time" name="wednesdaystartend[]"
                                                             min="00:00" max="18:00" >
-                                                            End
+                                                            <label>End</label>
                                                             <input type="time" name="wednesdaystartend[]"
                                                             min="00:00" max="18:00" >
 
@@ -628,11 +630,11 @@
                                                         @endif
                                                     </div>
                                                     <div class="custom-file">
-                                                        <label for="">Thursday</label>
-                                                            Start
+                                                        <label class="days" for="">Thursday</label>
+                                                        <label> Start</label>
                                                             <input type="time" name="thursdaystartend[]"
                                                             min="00:00" max="18:00" >
-                                                            End
+                                                            <label>End</label>
                                                             <input type="time" name="thursdaystartend[]"
                                                             min="00:00" max="18:00" >
 
@@ -643,11 +645,11 @@
                                                         @endif
                                                     </div>
                                                     <div class="custom-file">
-                                                        <label for="">Friday</label>
-                                                            Start
+                                                        <label class="days" for="">Friday</label>
+                                                        <label> Start</label>
                                                             <input type="time" name="fridaystartend[]"
                                                             min="00:00" max="18:00" >
-                                                            End
+                                                            <label>End</label>
                                                             <input type="time" name="fridaystartend[]"
                                                             min="00:00" max="18:00" >
 
@@ -658,11 +660,11 @@
                                                         @endif
                                                     </div>
                                                     <div class="custom-file">
-                                                        <label for="">Saturday</label>
-                                                            Start
+                                                        <label class="days" for="">Saturday</label>
+                                                        <label> Start</label>
                                                             <input type="time" name="saturdaystartend[]"
                                                             min="00:00" max="18:00" >
-                                                            End
+                                                            <label>End</label>
                                                             <input type="time" name="saturdaystartend[]"
                                                             min="00:00" max="18:00" >
 
@@ -678,27 +680,52 @@
                                                 </div>
                                             </div>
 
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                <label for="driverStatus">Document Status <span class="text-danger">*</span></label>
+                                                <select id="driverStatus" class="form-control custom-select"
+                                                    name="document_status">
+                                                    <option selected disabled>Select one</option>
+                                                    <option value="verified">Verified</option>
+                                                    <option value="pending">Pending</option>
+                                                    <option value="missing">Missing</option>
+                                                </select>
+                                                @if ($errors->has('document_status'))
+                                                    <span class="invalid feedback" role="alert">
+                                                        <strong>{{ $errors->first('document_status') }}</strong>
+                                                    </span>
+                                                @endif
+                                              </div>
+                                            </div>
 
-                                        </div>
 
-                                        <div class="form-group">
-                                            <label for="driverStatus">Status <span class="text-danger">*</span></label>
-                                            <select id="driverStatus" class="form-control custom-select"
-                                                name="driver_status">
+
+                                         <div class="col-md-6">
+                                            <div class="form-group">
+                                            <label for="status">Status <span class="text-danger">*</span></label>
+                                            <select id="status" class="form-control custom-select"
+                                                name="status">
                                                 <option selected disabled>Select one</option>
-                                                <option value="1">Verified</option>
-                                                <option value="0">UnVerified</option>
+                                                <option value="active">Active</option>
+                                                <option value="pending">Pending</option>
+                                                <option value="inactive">Inactive</option>
+                                                <option value="deleted">Deleted</option>
+                                                <option value="document_missing">Document missing</option>
                                             </select>
-                                            @if ($errors->has('driver_status'))
+                                            @if ($errors->has('status'))
                                                 <span class="invalid feedback" role="alert">
-                                                    <strong>{{ $errors->first('driver_status') }}</strong>
+                                                    <strong>{{ $errors->first('status') }}</strong>
                                                 </span>
                                             @endif
+                                            </div>
                                         </div>
 
+                                        </div>
 
 
                                     </div>
+
+
                                     <!-- /.card-body -->
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-primary">Add</button>
