@@ -34,8 +34,11 @@
     <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('admin/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
     <link rel="stylesheet" href="{{ asset('public/admin/plugins/bootstrap-switach/css/bootstrap3/bootstrap-switch.css') }}">
     <link rel="stylesheet" href="{{ asset('public/admin/plugins/bootstrap-switch/js/bootstrap-switch.js') }}">
+
+
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -139,16 +142,15 @@
             "searching": false,
             "ordering": true,
             "info": true,
-            "autoWidth": false,
+            "autoWidth": false,                           
             "responsive": true,
         });
 
+        
     });
+    
 
-</script>
-<script>
-
-    $('.nav-sidebar').find('a').each(function () {
+        $('.nav-sidebar').find('a').each(function () {
             var link = new RegExp($(this).attr('href')); //Check if some menu compares inside your the browsers link
             if (link.test(document.location.href)) {
                 if(!$(this).parents().hasClass('active')){
@@ -159,7 +161,10 @@
             }
         });
 
+        
 </script>
+
+
 @yield('script')
 
 </html>
