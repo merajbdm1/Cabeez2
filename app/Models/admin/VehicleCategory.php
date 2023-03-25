@@ -4,7 +4,7 @@ namespace App\Models\admin;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
-
+use App\Models\admin\VehicleModel;
 class VehicleCategory extends Eloquent
 {
     use HasFactory;
@@ -15,7 +15,7 @@ class VehicleCategory extends Eloquent
 
     public function Model()
     {
-        return $this->hasMany(VehicleCategory::class,'vehicle_category_id');
+        return $this->hasMany(VehicleModel::class);
     }
 }
 
