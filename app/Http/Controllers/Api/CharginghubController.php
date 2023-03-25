@@ -10,9 +10,7 @@ class CharginghubController extends Controller
 {
     public function index(){
         $chargingHub=new chargingHub();
-
         $viewAll=$chargingHub->all();
-       
         if(count($viewAll) >0 ){
         return response()->json(
             [

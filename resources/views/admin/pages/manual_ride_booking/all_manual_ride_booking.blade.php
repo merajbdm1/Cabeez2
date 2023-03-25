@@ -1,18 +1,20 @@
 <style>
-    .map-container{
-    overflow:hidden;
-    padding-bottom:56.25%;
-    position:relative;
-    height:0;
-  }
-  .map-container iframe{
-    left:0;
-    top:0;
-    height:100%;
-    width:100%;
-    position:absolute;
-  }
+    .map-container {
+        overflow: hidden;
+        padding-bottom: 56.25%;
+        position: relative;
+        height: 0;
+    }
+
+    #map{
+            width: 100%; height: 50vh; margin: 0; padding: 0;
+            
+        }
+        #direction{
+            color: #000;max-width: 99%;width:300px;position:absolute;z-index: 999;font-size: 15px;padding:10px;border: 1px solid #ddd;outline: none !important;top:55px;border-radius:10px;margin:2px 4px;}
+
 </style>
+
 @extends('admin.layout.master')
 @section('style')
 
@@ -49,7 +51,7 @@
                         <button type="button" class="close" data-dismiss="alert">×</button>
                         <strong>{{ $message }}</strong>
                     </div>
-                    @endif @if ($message = Session::get('fail_message'))
+                    @endif @if ($message = Session::get('error_message'))
                     <div class="alert alert-danger alert-block">
                         <button type="button" class="close" data-dismiss="alert">×</button>
                         <strong>{{ $message }}</strong>
@@ -60,302 +62,338 @@
                     <div class="card card-primary">
                         <div class="card-header">
                             <h3 class="card-title">Add Manual Rider Booking</small></h3>
-                            <a type="button" href="{{ url('view_all_manual_rider_booking') }}" class="btn btn-default float-right bg-primary">
-                                View All Rider Booking 
+                            <a type="button" href="{{ url('admin/view_menual_ride_booking') }}"
+                                class="btn btn-default float-right bg-primary">
+                                View All Rider Booking
 
                             </a>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form  action="{{ url('fare_process') }}" method="POST">
+                        <form action="{{ url('admin/add_menual_ride') }}" method="POST">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
+                                    {{-- <div class="col-md-6"> --}}
+{{-- 
+                                        <div class="form-group">
+                                            <label for="exampleLastName">Pickup Address<span
+                                                    class="text-danger">*</span></label>                               
+                                                <input  type="text" id="auto" name="auto" class="search-outer form-control as-input" placeholder="Search places or eLoc's..." required="" spellcheck="false" >
+                                            @if($errors->has('pickup_address'))
+                                                <span class="invalid feedback" role="alert">
+                                                    <strong>{{ $errors->first('pickup_address') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="exampleLastName">Destination Address<span
+                                                    class="text-danger">*</span></label>
+                                                    <input  type="text" id="auto2" name="auto2" class="search-outer form-control as-input" placeholder="Search places or eLoc's..." required="" spellcheck="false" >
+                                        
+                                                @if($errors->has('drop_off_address'))
+                                                <span class="invalid feedback" role="alert">
+                                                    <strong>{{ $errors->first('drop_off_address') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div> --}}
+
+                                    {{-- </div> --}}
+                                  <div class="col-md-12 d-flex justify-content-center align-items-center">
+                                    <div id="map"></div>
+                                    <div id="direction"></div>
+                                    <input type="text" name="pickup2" id="pickup">
+                                    <input type="text"  name="drop2" id="drop">
+
+                                </div>
+                            
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleFirstName">Rider Contact No <span class="text-danger">*</span></label>
-                                            <input type="text" name="ride_contact_no" class="form-control" value="{{ old('ride_contact_no') }}" id="exampleFirstName" placeholder="Rider Contact No">
-                                            @if ($errors->has('ride_contact_no'))
-                                                        <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('ride_contact_no') }}</strong>
-                                                        </span>
-                                                    @endif
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleLastName">Rider Name <span class="text-danger">*</span></label>
-                                            <input type="number" name="ride_name" class="form-control" value="{{ old('ride_name') }}" id="exampleLastName" placeholder="Rider Name">
-                                            @if ($errors->has('ride_name'))
-                                                        <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('ride_name') }}</strong>
-                                                        </span>
-                                            @endif
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="exampleLastName">Rider Email<span class="text-danger">*</span></label>
-                                            <input type="email" name="rider_email" class="form-control" value="{{ old('rider_email') }}" id="exampleLastName" placeholder="Rider Email">
-                                            @if ($errors->has('rider_email'))
-                                                        <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('rider_email') }}</strong>
-                                                        </span>
-                                            @endif
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="exampleLastName">Ride Estimate <span class="text-danger">*</span></label>
-                                            <input type="text" name="ride_estimate" class="form-control" value="{{ old('ride_estimate') }}" id="exampleLastName" placeholder="Ride Estimate">
-                                            @if ($errors->has('ride_estimate'))
-                                                        <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('ride_estimate') }}</strong>
-                                                        </span>
+                                            <label for="exampleLastName">Pickup Date<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="date" name="start_date" class="form-control "
+                                                value="{{ old('start_date') }}"
+                                                id="exampleLastName" placeholder="Pickup Date Time">
+                                            @if($errors->has('start_date'))
+                                                <span class="invalid feedback" role="alert">
+                                                    <strong>{{ $errors->first('start_date') }}</strong>
+                                                </span>
                                             @endif
                                         </div>
                                         <div class="form-group">
-                                            <label for="exampleLastName">Pickup Address<span class="text-danger">*</span></label>
-                                            <input type="text"  id="origin-input" name="pickup_address" class="form-control controls" value="{{ old('pickup_address') }}" id="exampleLastName" placeholder="Pickup Address">
-                                            @if ($errors->has('pickup_address'))
-                                                        <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('pickup_address') }}</strong>
-                                                        </span>
-                                            @endif
-                                        </div>
-                                        <div class="form-group">
-                                            <label for="exampleLastName">Destination Address<span class="text-danger">*</span></label>
-                                            <input type="text" id="destination-input" name="destination_address" class="form-control controls" value="{{ old('destination_address') }}" id="exampleLastName" placeholder="Destination Address">
-                                            @if ($errors->has('destination_address'))
-                                                        <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('destination_address') }}</strong>
-                                                        </span>
-                                            @endif
-                                        </div>
-
-                                    </div>
-                                    {{-- <div id="map"></div> --}}
-
-                                    <div class="col-md-6 d-flex justify-content-center align-items-center" >
-                                        <div class="form-group" id="map-container-google-1" class="z-depth-1-half map-container">
-                                        <iframe src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&libraries=places&v=weekly" 
-                                            width="500"
-                                             height="450"
-                                              style="border:1px solid;"></iframe>
-                                      </div>
-
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleLastName">Pickup Date Time<span class="text-danger">*</span></label>
-                                            <input type="text" name="pickup_date_time" class="form-control " value="{{ old('pickup_date_time') }}" id="exampleLastName" placeholder="Pickup Date Time">
-                                            @if ($errors->has('pickup_date_time'))
-                                                        <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('pickup_date_time') }}</strong>
-                                                        </span>
+                                            <label for="exampleLastName">Pickup Time<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="time" name="end_date" class="form-control "
+                                                value="{{ old('end_date') }}" id="exampleLastName"
+                                                placeholder="Pickup Date Time">
+                                            @if($errors->has('end_date'))
+                                                <span class="invalid feedback" role="alert">
+                                                    <strong>{{ $errors->first('end_date') }}</strong>
+                                                </span>
                                             @endif
                                         </div>
                                     </div>
-                                    
+
+                                
+
+
+                                    {{-- <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleLastName">Ride ETA<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" name="ride_eta" class="form-control"
+                                                value="{{ old('ride_eta') }}" id="exampleLastName"
+                                                placeholder="Ride ETA">
+                                            @if($errors->has('ride_eta'))
+                                                <span class="invalid feedback" role="alert">
+                                                    <strong>{{ $errors->first('ride_eta') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div> --}}
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleLastName">Ride ETA<span class="text-danger">*</span></label>
-                                            <input type="text" disabled name="ride_eta" class="form-control" value="{{ old('ride_eta') }}" id="exampleLastName" placeholder="Ride ETA">
-                                            @if ($errors->has('ride_eta'))
-                                                        <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('ride_eta') }}</strong>
-                                                        </span>
+                                            <label for="exampleLastName">Assign Driver<span
+                                                    class="text-danger">*</span></label>
+                                            <input type="text" name="driver_id" class="form-control"
+                                                value="{{ old('driver_id') }}"
+                                                id="exampleLastName" placeholder="Assign Driver">
+                                            @if($errors->has('driver_id'))
+                                                <span class="invalid feedback" role="alert">
+                                                    <strong>{{ $errors->first('driver_id') }}</strong>
+                                                </span>
                                             @endif
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleLastName">Assign Driver<span class="text-danger">*</span></label>
-                                            <input type="text" name="assign_driver" class="form-control" value="{{ old('assign_driver') }}" id="exampleLastName" placeholder="Assign Driver">
-                                            @if ($errors->has('assign_driver'))
-                                                        <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('assign_driver') }}</strong>
-                                                        </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleLastName">Estimate Fare Total<span class="text-danger">*</span></label>
-                                            <input type="text" disabled name="estimate_fare_total" class="form-control" value="{{ old('estimate_fare_total') }}" id="exampleLastName" placeholder="Estimate Fare Total">
-                                            @if ($errors->has('estimate_fare_total'))
-                                                        <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('estimate_fare_total') }}</strong>
-                                                        </span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                  
-                                    <div class="col-md-6">
-                                       
-                                    </div>
-                                    
+                                 
+
+                                   
                                     <div class="col-md-6">
 
+
                                         <div class="form-group">
-                                            <label for="exampleLastName">Tax <span class="text-danger">*</span></label>
-                                            <input type="text" disabled name="tax" class="form-control" value="{{ old('tax') }}" id="exampleLastName" placeholder="Tax">
-                                            @if ($errors->has('tax'))
-                                                        <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('tax') }}</strong>
-                                                        </span>
+                                            <label for="exampleLastName">Vehicle Category<span
+                                                    class="text-danger">*</span></label>
+                                            <select name="category_id" id="" class="form-control">
+                                                <option value="">--Select Category--</option>
+                                                @foreach ($all_vehicle_cat as $item)
+                                                <option value="{{$item->_id}}">{{$item->name}}</option>
+                                                @endforeach
+                                              
+
+                                            </select>
+                                              @if($errors->has('vehiclec_category'))
+                                                <span class="invalid feedback" role="alert">
+                                                    <strong>{{ $errors->first('vehiclec_category') }}</strong>
+                                                </span>
                                             @endif
                                         </div>
-                                        <div class="form-group">
-                                            <label for="exampleLastName">Total Amount <span class="text-danger">*</span></label>
-                                            <input type="number" disabled name="total_amount" class="form-control" value="{{ old('total_amount') }}" id="exampleLastName" placeholder="Total Amount">
-                                            @if ($errors->has('total_amount'))
-                                                        <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('total_amount') }}</strong>
-                                                        </span>
-                                            @endif
-                                        </div>
-                                    
+
                                     </div>
                                     <!-- /.card -->
                                 </div>
                                 <!--/.col (left) -->
                                 <!-- right column -->
                                 <div class="col-md-6">
-                                        <button type="submit" class="btn btn-primary">Assign Driver</button>
+                                    <button type="submit" class="btn btn-primary">Assign Driver</button>
                                 </div>
                                 <!--/.col (right) -->
                             </div>
                         </form>
-                            <!-- /.row -->
+                        <!-- /.row -->
                     </div><!-- /.container-fluid -->
     </section>
 
-  
+
     <!-- /.content -->
 </div>
 @endsection
 
+@section('script')
+<script>myGlobalVar = "";</script>
 <script type="text/javascript">
-    // This example requires the Places library. Include the libraries=places
-// parameter when you first load the API. For example:
-// <script
-// src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-function initMap() {
-const map = new google.maps.Map(document.getElementById("map"), {
-  mapTypeControl: false,
-  center: { lat: -33.8688, lng: 151.2195 },
-  zoom: 13,
-});
 
-new AutocompleteDirectionsHandler(map);
-}
+    $(document).ready(function() {
+            
+   
+         $.ajax({    //create an ajax request to display.php
+           type: "get",
+           url: "http://127.0.0.1:8000/admin/api",             
+           dataType: "html", 
+             //expect html to be returned                
+           success: function(response){ 
+            var data = JSON.parse(response);
+            var all_data = data.access_token;
+    
+               myGlobalVar=all_data;
+            //  var script = document.getElementById('myscript');
+     
+            // // Set the src attribute to the desired value
+            //  script.setAttribute('src', 'https://apis.mapmyindia.com/advancedmaps/v1/'+myGlobalVar+'/map_load?v=1.5');
 
-class AutocompleteDirectionsHandler {
-map;
-originPlaceId;
-destinationPlaceId;
-travelMode;
-directionsService;
-directionsRenderer;
-constructor(map) {
-  this.map = map;
-  this.originPlaceId = "";
-  this.destinationPlaceId = "";
-  this.travelMode = google.maps.TravelMode.WALKING;
-  this.directionsService = new google.maps.DirectionsService();
-  this.directionsRenderer = new google.maps.DirectionsRenderer();
-  this.directionsRenderer.setMap(map);
+            // // Append the script element to the document body
+            // document.body[0].appendChild(script);
+              
+           }
+               
+       });
+   
+   });
+ 
+   
+   </script>
+   
 
-  const originInput = document.getElementById("origin-input");
-  const destinationInput = document.getElementById("destination-input");
-  const modeSelector = document.getElementById("mode-selector");
-  // Specify just the place data fields that you need.
-  const originAutocomplete = new google.maps.places.Autocomplete(
-    originInput,
-    { fields: ["place_id"] }
-  );
-  // Specify just the place data fields that you need.
-  const destinationAutocomplete = new google.maps.places.Autocomplete(
-    destinationInput,
-    { fields: ["place_id"] }
-  );
 
-  this.setupClickListener(
-    "changemode-walking",
-    google.maps.TravelMode.WALKING
-  );
-  this.setupClickListener(
-    "changemode-transit",
-    google.maps.TravelMode.TRANSIT
-  );
-  this.setupClickListener(
-    "changemode-driving",
-    google.maps.TravelMode.DRIVING
-  );
-  this.setupPlaceChangedListener(originAutocomplete, "ORIG");
-  this.setupPlaceChangedListener(destinationAutocomplete, "DEST");
-  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
-  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(
-    destinationInput
-  );
-  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(modeSelector);
-}
-// Sets a listener on a radio button to change the filter type on Places
-// Autocomplete.
-setupClickListener(id, mode) {
-  const radioButton = document.getElementById(id);
+<script id="myscript"  src=' '>
+</script>   
 
-  radioButton.addEventListener("click", () => {
-    this.travelMode = mode;
-    this.route();
-  });
-}
-setupPlaceChangedListener(autocomplete, mode) {
-  autocomplete.bindTo("bounds", this.map);
-  autocomplete.addListener("place_changed", () => {
-    const place = autocomplete.getPlace();
 
-    if (!place.place_id) {
-      window.alert("Please select an option from the dropdown list.");
-      return;
-    }
+<script src="https://apis.mapmyindia.com/advancedmaps/v1/c73ce2c2-f40e-4f6c-a0ba-450b1ab3a404/map_load?v=1.5"></script>
+ <script src="https://apis.mapmyindia.com/advancedmaps/api/c73ce2c2-f40e-4f6c-a0ba-450b1ab3a404/map_sdk_plugins"></script>
 
-    if (mode === "ORIG") {
-      this.originPlaceId = place.place_id;
-    } else {
-      this.destinationPlaceId = place.place_id;
-    }
+{{--     
+<script id="myscript" src="https://apis.mapmyindia.com/advancedmaps/v1/ded8df1c-477e-440f-b87e-2b51b19427bf/map_load?v=1.5">
+</script>
+<script id="sec2" src="https://apis.mapmyindia.com/advancedmaps/api/ded8df1c-477e-440f-b87e-2b51b19427bf/map_sdk_plugins"></script> --}}
 
-    this.route();
-  });
-}
-route() {
-  if (!this.originPlaceId || !this.destinationPlaceId) {
-    return;
-  }
+    
+<script>
+      
+    
+    // /*Map Initialization*/
+    //  var map = new MapmyIndia.Map('map', {center: [28.09, 78.3], zoom: 5, search: false,zoomControl: true, location: true, fullscreen: false, traffic: true});
+     
+    //  /*Search plugin initialization*/
+    //    var optional_config={
+    //     //    location:[28.61, 77.23],
+    //     //    pod:'City',
+    //     //    bridge:true,
+    //     //    tokenizeAddress:true,
+    //     //    filter:'cop:9QGXAM',
+    //     //    distance:true,
+    //     //    width:300,
+    //     //    height:300,
+    //    };
+    //  var  dsd=   new MapmyIndia.search(document.getElementById("auto"),optional_config,callback);
+    // //  console.longitude(dsd);
+    //    new MapmyIndia.search(document.getElementById("auto2"),optional_config,callback);
+       
+    //    /*CALL for fix text - LIKE THIS
+    //     * 
+    //     new MapmyIndia.search("agra",optional_config,callback);
+    //     * 
+    //     * */
 
-  const me = this;
+    //    var marker;
+    //    function callback(data) { 
+    //        if(data)
+    //        {
+    //            if(data.error)
+    //            {
+    //                if(data.error.indexOf('responsecode:401')!==-1){
+    //                /*TOKEN EXPIRED, set new Token ie. 
+    //                 * MapmyIndia.setToken(newToken);
+    //                 */
+    //                }
+    //                console.warn(data.error);
+                   
+    //            }
+    //            else
+    //            {
+    //                    var dt=data[0];
+                       
+                     
+    //                    if(!dt) return false;
+    //                    var eloc=dt.eLoc;
+    //                    var lat=dt.latitude,lng=dt.longitude;
+                       
+    //                    var place=dt.placeName+(dt.placeAddress?", "+dt.placeAddress:"");
+    //                    var place2=dt.placeName+(dt.placeAddress?", "+dt.placeAddress:"");
 
-  this.directionsService.route(
-    {
-      origin: { placeId: this.originPlaceId },
-      destination: { placeId: this.destinationPlaceId },
-      travelMode: this.travelMode,
-    },
-    (response, status) => {
-      if (status === "OK") {
-        me.directionsRenderer.setDirections(response);
-      } else {
-        window.alert("Directions request failed due to " + status);
-      }
-    }
-  );
-}
-}
-
-window.initMap = initMap;
+    //                    var auto2 = document.querySelector('#auto2').value;
+    //                    var auto = document.querySelector('#auto').value;
+    //                    $("#DrS_map").val(auto);
+    //                    $("#DrE_map").val(auto2);
+    //                    /*Use elocMarker Plugin to add marker*/
+    //                    if(marker) marker.remove();
+    //                    if(eloc) marker=new MapmyIndia.elocMarker({map:map,eloc:lat?lat+","+lng:eloc,popupHtml:place,popupOptions:{openPopup:true}}).fitbounds();
+    //            }
+    //        }
+    //      }   
+       
+            
+  </script>
   
 
-</script>
+<script>
+    var map = new MapmyIndia.Map('map', {center: [28.09, 78.3], zoom: 5, search: false,zoomControl: true, location: true, fullscreen: false, traffic: true});
+    var direction_option={
+                map:map, // map object
+                end:{label:'',geoposition:"1T182A"},
+                Resource:'route_eta', // default route_adv
+		        alongTheRoute:true, 
+                callback:function(data) {
+                console.log(data);
+                var pickup = data['DrE_map'];
+                var drop = data['DrS_map'];
+
+                $("#pickup").val(pickup);
+                $("#drop").val(drop);
+                
+            
+         
+             // {console.log(data);}
+           
+                /*start:"28.545,77.545",
+                start_icon1:{url:'icon.png',width:50,height:40},
+                end_icon:{url:'icon.png',width:20,height:40},
+                via:"28.4554,77.323;123zrr",
+                via:[{label:'mathura',geoposition:"28.544,77.4541"},{label:'Koshi',geoposition:"28.144,77.4541"}],
+                via_icon:{url:'location.png',width:20,height:40, offset:[20,40]},
+                divId:'direction',
+                fitbounds:true // default true
+                search:true,
+                divWidth:300, //width of result div
+                autoSubmit:true, //default true
+                maxVia:2, // up to 98
+                steps:false, //default true
+                rType:true, // false*/
+            }
+            }
+            MapmyIndia.direction(direction_option);
+            
+  </script>
+
+  <script>
+   $('#auto').on('keyup', function() {
+    var auto = this.value;
+    
+
+//   alert( auto );
+});
+
+
+   
+ $(document).ready(function() {
+    $.ajax({
+        type: "get",
+        url: 'show3',
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+       async: false,
+        success: function (data) {
+            console.log(data);
+            console.log(data[0].category_id);
+    
+      }
+    })
+ });
+  </script>
 
 
 
+@endsection
+
+  
 

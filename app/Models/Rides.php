@@ -13,6 +13,8 @@ class Rides extends Eloquent
     protected $fillable = [
         'id',
         'ride_number',
+        'drop2',
+        'pickup2',
         'pick_up_address',
         'pick_up_postcode',
         'pick_up_latitude',

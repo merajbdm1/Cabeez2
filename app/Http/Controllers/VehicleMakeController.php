@@ -50,7 +50,7 @@ class VehicleMakeController extends Controller
         // dd($request);
         $validated = $request->validate([
             'name' => 'required|string',
-            'status' => 'required|boolean', 
+            'status' => 'required', 
 		]);
 	
         $vehicleMake = new VehicleMake;

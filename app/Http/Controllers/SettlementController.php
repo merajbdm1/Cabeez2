@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Session;
 
+use App\Models\Settlement;
+use App\Models\admin\Driver;
+use Illuminate\Support\Facades\Hash;
 class SettlementController extends Controller
 {
     /**
@@ -23,7 +26,14 @@ class SettlementController extends Controller
         }
 
 
-        return view('admin.settlement.view_settlement',['datasession'=>$datasession]);
+  
+
+
+        // with another group
+        $driver = Driver::select('*')
+        ->where('status', '=', 'verified')->get();
+        
+        return view('admin.pages.driver.settlement', ['datasession'=>$datasession, 'driver'=>$driver]);
     }
 
     /**
@@ -53,7 +63,8 @@ class SettlementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+   
+    public function show(Settlement $settlement)
     {
         //
     }
@@ -64,7 +75,8 @@ class SettlementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+  
+    public function edit(Settlement $settlement)
     {
         //
     }
@@ -76,7 +88,8 @@ class SettlementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+   
+    public function update(Request $request, Settlement $settlement)
     {
         //
     }
@@ -87,7 +100,8 @@ class SettlementController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    
+    public function destroy(Settlement $settlement)
     {
         //
     }

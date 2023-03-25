@@ -18,9 +18,16 @@
 
 
 
-   #map {margin: 0;padding: 0;width: 100%;height: 100%;}
+.small-box>.inner {
+    padding: 10px;
+    height: 130px;
+    box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
+}
+.mapview{height: 600px;}
 
-   </style>
+#map {margin: 0;padding: 0;width: 100%;height: 100%;}
+
+</style>
 @endsection
 
 
@@ -214,7 +221,7 @@
 
 
                     <div class="col-lg-12 col-6">
-                        <div class="mapview">
+                        <div class="mapview"> 
                             <div id="map"></div>
                             <div id="show-result"></div>
                         {{-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30163.89168212218!2d72.85175932707517!3d19.08630356917822!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c9abc81d7d3f%3A0x7c8b5869486ac221!2sCAB%20EEZ%20Infra%20Tech%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1676275287825!5m2!1sen!2sin" width="100%" height="650" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> --}}
@@ -658,6 +665,10 @@
                         </div>
                         <!-- /.card -->
 
+                        {{--   
+
+
+
                         <!-- solid sales graph -->
                         <div class="card bg-gradient-info">
                             <div class="card-header border-0">
@@ -795,6 +806,118 @@
         let divId=document.getElementById("show-result");
         divId.style.display="block";
         divId.innerHTML = `Map Click Event :   ${e.lngLat}`;
+
+@section('script')
+
+<script>
+    // map = new mappls.Map('map', {center:{lat:28.612964,lng:77.229463} });
+    var map,Marker1,centerMarker;
+
+    function initMap1() {
+    map = new mappls.Map('map', {
+        
+    });
+
+    Marker1 = new mappls.Marker({
+    map: map,
+    position: {
+      "lat": 28.519467,
+      "lng": 77.223150
+    },
+    fitbounds: true,
+    popupHtml: 'MapmyIndia',
+    draggable: true
+  });
+
+  map.addListener('drag', function(e) {
+            let divId=document.getElementById("show-result");
+            divId.style.display="block";
+            divId.innerHTML = `Map Event Type :   ${e.lngLat}`;
+        });
+
+        map.addListener('dragend', function(e) {
+            let divId=document.getElementById("show-result");
+            divId.style.display="block";
+            divId.innerHTML = `Map Event Type :   ${e.type}`;
+        });
+
+    map.addListener('click', function(e) {
+        let divId=document.getElementById("show-result");
+        divId.style.display="block";
+        divId.innerHTML = `Map Click Event :   ${e.lngLat}`;
+        
+
+        // Marker1 = new mappls.Marker({
+        //     map: map,
+        //     position: {"lat": e.lngLat.lat,"lng": e.lngLat.lng },
+        //     fitbounds: true,
+        //     popupHtml: `<div>Latitude and Longitude of Marker</div>
+        //     <div>"lat": ${e.lngLat.lat},"lng": ${e.lngLat.lng}</div>`
+        // });
+        // console.log(e.lngLat.lng);
+        // console.log(e.lngLat.lat);
+         
+        
+        
+    });
+    
+
+    var pts = [{
+            lat: 28.55108,
+            lng: 77.26913
+        }, {
+            lat: 28.55106,
+            lng: 77.26906
+        }, {
+            lat: 28.55105,
+            lng: 77.26897
+        }, {
+            lat: 28.55101,
+            lng: 77.26872
+        }, {
+            lat: 28.55099,
+            lng: 77.26849
+        }, {
+            lat: 28.55097,
+            lng: 77.26831
+        }, {
+            lat: 28.55093,
+            lng: 77.26794
+        }, {
+            lat: 28.55089,
+            lng: 77.2676
+        }, {
+            lat: 28.55123,
+            lng: 77.26756
+        }, {
+            lat: 28.55145,
+            lng: 77.26758
+        }, {
+            lat: 28.55168,
+            lng: 77.26758
+        }, {
+            lat: 28.55175,
+            lng: 77.26759
+        }, {
+            lat: 28.55177,
+            lng: 77.26755
+        }, {
+            lat: 28.55179,
+            lng: 77.26753
+        }];
+
+        var gradient = ['rgba(0, 255, 255, 0)', 'rgba(0, 255, 255, 1)', 'rgba(0, 191, 255, 1)', 'rgba(0, 127, 255, 1)', 'rgba(0, 63, 255, 1)', 'rgba(0, 0, 255, 1)', 'rgba(0, 0, 223, 1)', 'rgba(0, 0, 191, 1)', 'rgba(0, 0, 159, 1)', 'rgba(0, 0, 127, 1)', 'rgba(63, 0, 91, 1)', 'rgba(127, 0, 63, 1)', 'rgba(191, 0, 31, 1)', 'brown'];
+
+        var heat_map = new mappls.HeatmapLayer({
+            map: map,
+            data: pts,
+            gradient: gradient,
+            fitbounds: true
+        });
+    }
+</script>
+@endsection
+
 
 
         // Marker1 = new mappls.Marker({

@@ -116,6 +116,11 @@
 
 <script src="https://cdn.ckeditor.com/4.5.4/standard/ckeditor.js"></script>
 <script src="https://apis.mappls.com/advancedmaps/api/f65029a3-3310-4567-9d6a-eea81aa8b6bd/map_sdk?v=3.0&layer=vector&callback=initMap1" ></script>
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 
 <script>
     var loadFile = function(event) {
@@ -163,6 +168,10 @@
 
 
 </script>
+
+
+
+
 
 @yield('script')
 

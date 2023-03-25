@@ -17,6 +17,9 @@ class CreateRidesTable extends Migration
             $table->id();
             $table->string('ride_number');
             $table->string('pick_up_address');
+            $table->string('drop2');
+            $table->string('pickup2');
+
             $table->string('pick_up_postcode');
             $table->float('pick_up_latitude');
             $table->float('pick_up_longitude');
