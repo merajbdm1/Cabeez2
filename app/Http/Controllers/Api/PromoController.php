@@ -11,7 +11,7 @@ class PromoController extends Controller
     
     public function index(){
 
-        $fare = 3;
+      
         $prmode=new PromoCode();
         echo "<pre>";
         $viewAll=$prmode->get();

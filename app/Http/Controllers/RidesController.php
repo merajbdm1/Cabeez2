@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Create_data;
 use App\Models\Rides;
 use Illuminate\Http\Request;
-
+use MongoDB\Client as MongoClient;
 class RidesController extends Controller
 {
     /**
@@ -82,5 +82,53 @@ class RidesController extends Controller
     public function destroy(Rides $rides)
     {
         //
+    }
+
+    public function create_data(Request $request)
+    {
+
+
+        $client = new MongoClient();
+        $collection = $client->cabe->create_datas;
+
+      
+        $data = [
+            'thirdSos' => $request->thirdSos,
+            'secondSos'=> $request->secondSos,
+            'firstSos'=> $request->firstSos
+        ];
+
+    $data2= $collection->insertOne($data);
+
+        return response()->json([
+            'status' => '201', 
+            'error' => 'false',
+            'message' => 'Data inserted successfully',
+            'Data_list' => $data2,
+        ]);
+
+
+
+      
+       // $createdata =new Create_data();
+       // $createdata->name=$rides->name; print_r($createdata);
+        //$validatedData = $request->validate([
+            // 'name' => 'required',
+            // 'lname' => 'required',
+           
+       // ]);
+        
+      // print_r($validatedData);
+        // create a new user
+      //  $user = $createdata->insert($validatedData);
+//print_r($user);
+        // return the new user as JSON
+      //  return response()->json($user, 201);
+
+
+       
+     
+
+
     }
 }

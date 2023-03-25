@@ -11,6 +11,9 @@ use App\Http\Controllers\Api\CharginghubController;
 use App\Http\Controllers\RidesController;
 use App\Http\Controllers\Api\Webviews;
 use App\Http\Controllers\Api\Vehicle;
+use App\Http\Controllers\Api\FareController;
+use App\Http\Controllers\Api\TestController;
+use App\Http\Controllers\Api\DriverController;
 ;
 
 /*
@@ -32,6 +35,7 @@ Route::get('viewPromocode',[PromoController::class,'index']);
 Route::get('chargingHub', [CharginghubController::class, 'index']);
 Route::get('login', [CharginghubController::class, 'loginUser']);
 Route::post('create_data', [RidesController::class,'create_data']);
+Route::post('insert_driver_data', [DriverController::class,'insert_driver_data']);
 
 Route::get('privacy_policy', [Webviews::class,'privacy_policy']);
 Route::get('term_condition', [Webviews::class,'term_condition']);
@@ -56,4 +60,8 @@ Route::Post('ApiCordinateDistanceFare',[CordinateFareController::class,'cordinat
 Route::get('make', [Vehicle::class,'make']);
 Route::get('model', [Vehicle::class,'model']);
 Route::get('VehicleCategory', [Vehicle::class,'VehicleCategory']);
+Route::post('driver_data_get_id', [DriverController::class,'driver_data_get_id']);
+
+Route::get('check_car_hub', [TestController::class,'check_car_hub']);
+Route::get('fare_data', [FareController::class,'fare_data']);
 
