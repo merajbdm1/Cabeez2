@@ -160,7 +160,7 @@
                                                     <select name="category_id" id="" class="form-control">
                                                         <option value="">--Select Category--</option>
                                                           @foreach($vehicle_driv as $key => $value)
-                                                                <option value="<?php ?>">{{$value->name}}</option>
+                                                                <option value="category_id">{{$value->name}}</option>
                                                           @endforeach
 
                                                     </select>
@@ -172,18 +172,22 @@
                                                 <div class="form-group">
                                                     <label for="exampleMobileNumber">Vehicle Make <span
                                                             class="text-danger">*</span></label>
-                                                        <select name="model_id" id="" class="form-control">
+                                                        <select name="brand_id" id="" class="form-control">
                                                             <option value="">--Select Make--</option>
+                                                            @foreach($veh_make as $key => $value)
+                                                            <option value="brand_id">{{$value->name}}</option>
+                                                          @endforeach
+
                                                         </select>
 
                                                     {{-- <input type="text" name="driver_vehicle_make"
                                                         class="form-control{{ $errors->has('driver_vehicle_make') ? ' is-invalid' : '' }}"
                                                         id="exampleMobileNumber" placeholder="Vehicle Make" value="{{old('driver_vehicle_make')}}"> --}}
-                                                    @if ($errors->has('driver_vehicle_make'))
+                                                    {{-- @if ($errors->has('brand_id'))
                                                         <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('driver_vehicle_make') }}</strong>
+                                                            <strong>{{ $errors->first('brand_id') }}</strong>
                                                         </span>
-                                                    @endif
+                                                    @endif --}}
                                                 </div>
 
                                             </div>
@@ -191,14 +195,14 @@
                                                 <div class="form-group">
                                                     <label for="exampleVehicleModel">Vehicle Model <span
                                                             class="text-danger">*</span></label>
-                                                    <input type="text" name="driver_vehicle_model"
-                                                        class="form-control{{ $errors->has('driver_vehicle_model') ? ' is-invalid' : '' }}"
-                                                        id="exampleVehicleModel" placeholder="Vehicle Model" value="{{old('driver_vehicle_model')}}">
-                                                    @if ($errors->has('driver_vehicle_model'))
-                                                        <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('driver_vehicle_model') }}</strong>
-                                                        </span>
-                                                    @endif
+                                                            <select name="model_id" id="" class="form-control">
+                                                                <option value="">--Select Make--</option>
+                                                                @foreach($veh_modelop as $key => $value)
+                                                                <option value="model_id">{{$value->name}}</option>
+                                                              @endforeach
+
+                                                            </select>
+
                                                 </div>
 
                                             </div>
@@ -206,12 +210,12 @@
                                                 <div class="form-group">
                                                     <label for="examplePUCExpiryDate">PUC Expiry Date <span
                                                             class="text-danger">*</span></label>
-                                                    <input type="date" name="driver_puc_expiry_date"
-                                                        class="form-control{{ $errors->has('driver_puc_expiry_date') ? ' is-invalid' : '' }}"
-                                                        id="examplePUCExpiryDate" placeholder="PUC Expiry Date" value="{{old('driver_puc_expiry_date')}}">
-                                                    @if ($errors->has('driver_puc_expiry_date'))
+                                                    <input type="date" name="puc_expiry_date"
+                                                        class="form-control{{ $errors->has('puc_expiry_date') ? ' is-invalid' : '' }}"
+                                                        id="examplePUCExpiryDate" placeholder="PUC Expiry Date" value="{{old('puc_expiry_date')}}">
+                                                    @if ($errors->has('puc_expiry_date'))
                                                         <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('driver_puc_expiry_date') }}</strong>
+                                                            <strong>{{ $errors->first('puc_expiry_date') }}</strong>
                                                         </span>
                                                     @endif
                                                 </div>
@@ -331,8 +335,8 @@
                                                     <label for="customFile">Profile Picture <span
                                                             class="text-danger">*</span></label>
                                                     <div class="custom-file">
-                                                        <input type="file" class="custom-file-input" id="customFile"
-                                                            name="photo" accept="image/*"
+                                                        <input type="file" class="custom-file-input" id="customFile"`
+                                                            name="photo"
                                                             onchange="loadFile(event)" value="{{old('photo')}}">
 
                                                         <label class="custom-file-label" for="customFile">Choose
@@ -354,7 +358,7 @@
                                                             class="text-danger">*</span></label>
                                                     <div class="custom-file">
                                                         <input type="file" class="custom-file-input" id="customFile"
-                                                            name="commercial_insurance" accept="image/*"
+                                                            name="commercial_insurance"
                                                             onchange="loadFile2(event)" value="{{old('commercial_insurance')}}">
 
                                                         <label class="custom-file-label" for="customFile">Choose
@@ -377,7 +381,7 @@
                                                             class="text-danger">*</span></label>
                                                     <div class="custom-file">
                                                         <input type="file" class="custom-file-input" id="customFile"
-                                                            name="license_photo_front" accept="image/*"
+                                                            name="license_photo_front"
                                                             onchange="loadFile3(event)" value="{{old('license_photo_front')}}">
 
                                                         <label class="custom-file-label" for="customFile">Choose
@@ -399,7 +403,7 @@
                                                             class="text-danger">*</span></label>
                                                     <div class="custom-file">
                                                         <input type="file" class="custom-file-input" id="customFile"
-                                                            name="license_photo_back" accept="image/*"
+                                                            name="license_photo_back"
                                                             onchange="loadFile4(event)" value="{{old('license_photo_back')}}">
 
                                                         <label class="custom-file-label" for="customFile">Choose
@@ -423,7 +427,7 @@
                                                             class="text-danger">*</span></label>
                                                     <div class="custom-file">
                                                         <input type="file" class="custom-file-input" id="customFile"
-                                                            name="aadhaar_image_front" accept="image/*"
+                                                            name="aadhaar_image_front"
                                                             onchange="loadFile5(event)" value="{{old('aadhaar_image_front')}}">
 
                                                         <label class="custom-file-label" for="customFile">Choose
@@ -445,7 +449,7 @@
                                                             class="text-danger">*</span></label>
                                                     <div class="custom-file">
                                                         <input type="file" class="custom-file-input" id="customFile"
-                                                            name="aadhaar_image_back" accept="image/*"
+                                                            name="aadhaar_image_back"
                                                             onchange="loadFile6(event)" value="{{old('aadhaar_image_back')}}">
 
                                                         <label class="custom-file-label" for="customFile">Choose
@@ -470,7 +474,7 @@
                                                             class="text-danger">*</span></label>
                                                     <div class="custom-file">
                                                         <input type="file" class="custom-file-input" id="customFile"
-                                                            name="rental_agreement_front" accept="image/*"
+                                                            name="rental_agreement_front"
                                                             onchange="loadFile7(event)" value="{{old('rental_agreement_front')}}">
 
                                                         <label class="custom-file-label" for="customFile">Choose
@@ -492,7 +496,7 @@
                                                             class="text-danger">*</span></label>
                                                     <div class="custom-file">
                                                         <input type="file" class="custom-file-input" id="customFile"
-                                                            name="rental_agreement_back" accept="image/*"
+                                                            name="rental_agreement_back"
                                                             onchange="loadFile8(event)" value="{{old('rental_agreement_back')}}">
 
                                                         <label class="custom-file-label" for="customFile">Choose
@@ -516,7 +520,7 @@
                                                             class="text-danger">*</span></label>
                                                     <div class="custom-file">
                                                         <input type="file" class="custom-file-input" id="customFile"
-                                                            name="pan_card" accept="image/*"
+                                                            name="pan_card"
                                                             onchange="loadFile9(event)" value="{{old('pan_card')}}">
 
                                                         <label class="custom-file-label" for="customFile">Choose
@@ -539,14 +543,14 @@
                                                             class="text-danger">*</span></label>
                                                     <div class="custom-file">
                                                         <input type="file" class="custom-file-input" id="customFile"
-                                                            name="driver_vehicle_registration_image" accept="image/*"
-                                                            onchange="loadFile10(event)" value="{{old('driver_vehicle_registration_image')}}">
+                                                            name="registration_photo"
+                                                            onchange="loadFile10(event)" value="{{old('registration_photo')}}">
 
                                                         <label class="custom-file-label" for="customFile">Choose
                                                             file</label>
-                                                        @if ($errors->has('driver_vehicle_registration_image'))
+                                                        @if ($errors->has('registration_photo'))
                                                             <span class="invalid feedback" role="alert">
-                                                                <strong>{{ $errors->first('driver_vehicle_registration_image') }}</strong>
+                                                                <strong>{{ $errors->first('registration_photo') }}</strong>
                                                             </span>
                                                         @endif
                                                     </div>
@@ -556,7 +560,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-6">
+                                            {{-- <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="customFile">Ride Type<span
                                                             class="text-danger">*</span></label>
@@ -575,7 +579,7 @@
                                                 <div class="image-preview">
                                                     <img id="preview_img_id10" class="img-fluid" />
                                                 </div>
-                                               </div>
+                                               </div> --}}
 
                                               <div class="col-md-6">
                                                 <div class="form-group">

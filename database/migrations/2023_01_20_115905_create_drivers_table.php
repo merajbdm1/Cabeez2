@@ -26,7 +26,7 @@ class CreateDriversTable extends Migration
             $table->string('street');
             $table->string('city');
             $table->string('state');
-            
+
             $table->string('postal_code');
             $table->string('email');
             $table->string('currency');
@@ -36,8 +36,8 @@ class CreateDriversTable extends Migration
             $table->string('driver_vehicle_make');
             $table->string('driver_vehicle_model');
             $table->string('driver_vehicle_category');
-            $table->string('driver_puc_expiry_date');
-            
+            $table->string('puc_expiry_date');
+
             $table->string('vehicle_mileage');
             $table->string('nric_number');
             $table->string('referral_code');
@@ -45,9 +45,9 @@ class CreateDriversTable extends Migration
             $table->string('referred_by');
             $table->string('referred_by_type');
             $table->string('license_number');
-            $table->string('license_expiry_date'); 
-            $table->string('phone_number_country'); 
-            $table->string('phone_number_country_code'); 
+            $table->string('license_expiry_date');
+            $table->string('phone_number_country');
+            $table->string('phone_number_country_code');
             $table->string('phone_number');
             $table->string('driver_vehicle_registration_image');
             $table->string('emergency_number_country_code');
@@ -75,8 +75,6 @@ class CreateDriversTable extends Migration
 
             $table->string('is_available');
             $table->string('is_shift_started');
-
-
             $table->string('latitude');
             $table->string('longitude');
             $table->string('heading');
@@ -86,11 +84,10 @@ class CreateDriversTable extends Migration
             $table->string('device_id');
             $table->string('device_type');
             $table->string('device_info');
-            $table->string('razorpay_account_id'); 
+            $table->string('razorpay_account_id');
             $table->string('razorpay_account_status');
-
             $table->string('api_log');
-            
+
             $table->string('total_referral');
             $table->string('ride_earning');
             $table->string('ride_cash_earning');
@@ -105,11 +102,11 @@ class CreateDriversTable extends Migration
             $table->string('last_login');
             $table->string('avg_rating');
             $table->string('build_version');
-            $table->string('socket_status'); 
+            $table->string('socket_status');
             $table->string('socket_id');
             $table->string('suspended_at');
             $table->string('created_at');
-            $table->string('updated_at');         
+            $table->string('updated_at');
             $table->string('mondaystartend');
             $table->string('tuesdaystartend');
             $table->string('wednesdaystartend');
@@ -122,53 +119,6 @@ class CreateDriversTable extends Migration
             $table->enum('driver_ride_type', ['ev_city', 'outstation','rental','corporate']);
             $table->timestamps();
 
-            // $table->string('driver_first_name');
-            // $table->string('first_name');
-            // $table->string('driver_last_name');
-            // $table->string('last_name');
-            // $table->string('driver_mobile_no');
-            // $table->string('date_of_birth');
-            // $table->string('driver_email');
-            // $table->string('blood_group');
-            // $table->string('vehicle_year');
-            // $table->string('address');
-            // $table->string('driver_vehicle_registration_number');
-            // $table->string('block');
-            // $table->string('driver_vehicle_make');
-            // $table->string('floor');
-            // $table->string('driver_vehicle_model');
-            // $table->string('unit');
-            // $table->string('driver_vehicle_category');
-            // $table->string('street');
-            // $table->string('driver_puc_expiry_string');
-            // $table->string('city');
-            // $table->string('driver_dob');
-            // $table->string('state');
-            // $table->string('driver_blood_group');
-            // $table->string('city');
-            // $table->string('driver_emergency_number');
-            // $table->string('postal_code');
-            // $table->string('driver_state');
-            // $table->string('email');
-            // $table->string('driver_city');
-            // $table->string('currency');
-            // $table->string('driver_postal_code');
-            // $table->string('balance');
-            // $table->string('driver_address');
-            // $table->string('vehicle_year');
-            // $table->string('driver_profile_picture');
-            // $table->string('vehicle_mileage');
-            // $table->string('driver_upload_commercial_insurance');
-            // $table->string('driver_license_front');
-            // $table->string('driver_license_back');
-            // $table->string('driver_aadhaar_front');
-            // $table->string('driver_aadhaar_back');
-            // $table->string('driver_rental_agreement_front');
-            // $table->string('driver_rental_agreement_back');
-            // $table->string('driver_pan_card');
-            // $table->string('driver_vehicle_registration_image');
-            // $table->enum('driver_ride_type', ['ev_city', 'outstation','rental']);
-           // $table->string('driver_ride_type');
         });
     }
 
@@ -178,7 +128,7 @@ class CreateDriversTable extends Migration
      * @return void
      */
     public function down()
-    {   
+    {
         Schema::dropIfExists('drivers');
         // Schema::table('drivers', function (Blueprint $table) {
         //     $table->dropColumn('drivers');

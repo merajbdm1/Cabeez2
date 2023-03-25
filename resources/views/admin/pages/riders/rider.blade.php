@@ -27,7 +27,7 @@
 
     <!-- Main content -->
     <section class="content">
-        <div class="container-fluid">   
+        <div class="container-fluid">
             <div class="row">
                 <!-- left column -->
                 <div class="col-md-12">
@@ -48,21 +48,21 @@
                         <div class="card-header">
                             <h3 class="card-title">All Riders</h3>
 
-                            <?php 
+                            <?php
                             $check_role= Session::get('role');
                             $data = \App\Models\AllDataTableRolesAndPermission::get();
                             foreach($data as $item)
                             {
                              $check_role_name = $item->role_name;
-                              foreach ($item->riders_permissions as $value) 
+                              foreach ($item->riders_permissions as $value)
                               {
                                    if($value == 'Add')//Users
                                    {
                                     $checkAdd = $value;
-                                    
+
                                     if($check_role == $check_role_name && $checkAdd)
-                                      { 
-    
+                                      {
+
                                   ?>
                                   <li class="list-unstyled">
                                     <a type="button"  href="{{ url('admin/add_riders') }}" class="btn btn-default float-right bg-primary">
@@ -71,11 +71,11 @@
                                   </li>
                              <?php }   } } }?>
 
-                             <?php 
+                             <?php
                              $check_role= Session::get('status');
-                     
+
                                      if($check_role == '1')//develeoper mode
-                                       { 
+                                       {
                                    ?>
                                    <li class="list-unstyled">
                                     <a type="button"  href="{{ url('admin/add_riders') }}" class="btn btn-default float-right bg-primary">
@@ -84,7 +84,7 @@
                                   </li>
                               <?php }  ?>
 
-                              
+
                         </div>
                         {{-- <div class=" row p-3">
                             <div class="col-md-4">
@@ -100,12 +100,12 @@
                                                 <button class="btn btn-primary" type="submit">Search</button>
                                                 <a href="{{ url('admin/riders') }}" class="btn btn-danger">Clear</a>
                                             </div>
-                                
+
                                             </div>
 
                                             <div class=" col-md-4">
 
-                                            
+
                                                     <div class="form_group">
 
                                                         <label for="">To Date</label>
@@ -113,14 +113,14 @@
                                                             class="form-control" placeholder="dd/mm/yyyy">
 
                                                     </div>
-                                                
-                                                
+
+
 
                                             </div>
 
                                           <div class="col-md-4">
 
-                              
+
                                          <div class="form_group">
 
 
@@ -128,7 +128,7 @@
                                         <input type="text" name="search" value="{{ request('search') }}"
                                             class="form-control" placeholder="Rider Name">
                                         </div>
-                                   
+
                                 </form>
 
                             </div>
@@ -140,12 +140,12 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Rider ID</th>
+
                                         <th>First Name</th>
                                         <th>Last Name</th>
                                         <th>Email Address</th>
                                         <th>Mobile No</th>
-            
+
                                         <th>Account Status</th>
                                         <th>Created At</th>
                                         <th>Action</th>
@@ -155,39 +155,43 @@
                                     @foreach( $riders as $key=>$ride)
                                     <tr>
                                     <td>{{ ($riders->currentpage()-1) * $riders->perpage() + $key + 1 }}</td>
-                                    <td>{{ $ride->rider_id}}</td>
-                                    <td>{{ $ride->f_name }}</td>
-                                    <td>{{ $ride->l_name }}</td>
+
+                                    <td>{{ $ride->first_name }}</td>
+                                    <td>{{ $ride->last_name }}</td>
                                     <td>{{ $ride->email }}</td>
-                                    <td>{{ $ride->contact }}</td>
-                                   
+                                    <td>{{ $ride->phone_number }}</td>
+
 
                                     <td>
-                                        @if ($ride->status == 1)
+                                        @if ($ride->status == 'active')
                                             <span class="badge badge-success">Active</span>
-                                        @else
+                                        @elseif($ride->status == 'inactive')
                                             <span class="badge badge-danger">Inactive</span>
+                                        @elseif($ride->status == 'pending')
+                                            <span class="badge badge-info">Pending</span>
+                                        @else
+                                          <span class="badge badge-danger">Deleted</span>
                                         @endif
                                     </td>
                                     <td>{{ $ride->created_at }}</td>
                                     <td class="text-center py-0 align-middle">
                                         <div class="btn-group btn-group-sm">
 
-                                                        {{-- <?php 
+                                                        {{-- <?php
                                                             $check_role= Session::get('role');
                                                             $data = \App\Models\AllDataTableRolesAndPermission::get();
                                                             foreach($data as $item)
                                                             {
                                                              $check_role_name = $item->role_name;
-                                                              foreach ($item->riders_permissions as $value) 
+                                                              foreach ($item->riders_permissions as $value)
                                                               {
                                                                    if($value == 'View')//User
                                                                    {
                                                                     $checkAdd = $value;
-                                                                    
+
                                                                     if($check_role == $check_role_name && $checkAdd)
-                                                                      { 
-                                    
+                                                                      {
+
                                                                   ?>
                                                                   <li class="list-unstyled">
                                                                     <a href="#" class="btn btn-info"><i
@@ -195,11 +199,11 @@
                                                                   </li>
                                                              <?php }   } } }?> --}}
 
-                                                             <?php 
+                                                             <?php
                                                              $check_role= Session::get('status');
-                                                     
+
                                                                      if($check_role == '1')//Developer
-                                                                       { 
+                                                                       {
                                                                    ?>
                                                                    <li class="list-unstyled">
                                                                     <a href="#" class="btn btn-info"><i
@@ -207,47 +211,47 @@
                                                                   </li>
                                                               <?php }  ?>
 
-                                                              
 
-                                                             <?php 
+
+                                                             <?php
                                                             $check_role= Session::get('role');
                                                             $data = \App\Models\AllDataTableRolesAndPermission::get();
                                                             foreach($data as $item)
                                                             {
                                                              $check_role_name = $item->role_name;
-                                                              foreach ($item->riders_permissions as $value) 
+                                                              foreach ($item->riders_permissions as $value)
                                                               {
                                                                    if($value == 'Edit')//User
                                                                    {
                                                                     $checkAdd = $value;
-                                                                    
+
                                                                     if($check_role == $check_role_name && $checkAdd)
-                                                                      { 
-                                    
+                                                                      {
+
                                                                   ?>
                                                                   <li class="list-unstyled">
                                                                     <a href="{{ url('admin/edit_rider', $ride->_id) }}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
                                                                   </li>
                                                              <?php }   } } }?>
-                                                            
-                                                             <?php 
+
+                                                             <?php
                                                              $check_role= Session::get('status');
-                                                     
+
                                                                      if($check_role == '1' || $check_role == '2')//Developern and super admin
-                                                                       { 
+                                                                       {
                                                                    ?>
                                                                    <li class="list-unstyled">
                                                                     <a href="{{ url('admin/edit_rider', $ride->_id) }}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
                                                                   </li>
                                                               <?php }  ?>
 
-                                                              
-                                                              <?php 
+
+                                                              <?php
                                                               $check_role= Session::get('status');
-                                                      
+
                                                                       if($check_role == '1' || $check_role == '2')//Developern and super admin
 
-                                                                        { 
+                                                                        {
                                                                     ?>
 
                                                                    <li class="list-unstyled">

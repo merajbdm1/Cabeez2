@@ -15,17 +15,17 @@ class CreateFareTable extends Migration
     {
         Schema::create('fare', function (Blueprint $table) {
             $table->id();
-            $table->string('vehicle_category');
-            $table->integer('base_fare');
-            $table->integer('time_factor_for_travel');
-            $table->integer('rate_per_km_25_kms');
-            $table->integer('rate_per_km_25_to_50_kms');
-            $table->integer('rate_per_km_50_to_100_kms');
-            $table->integer('rate_per_km_100_to_250_kms');
-            $table->integer('rate_per_km_250_to_500_kms');
-            $table->integer('rate_per_km_500_kms');
-            $table->integer('minimum_fare');
-            $table->integer('km_for_min_fare');
+            $table->string('category_id');
+            $table->string('base_fare');
+            $table->string('minimum_fare');
+            $table->string('per_min_fare');
+            $table->string('per_km_fare');
+            $table->string('per_km_fare_slab1');
+            $table->string('per_km_fare_slab2');
+            $table->string('per_km_fare_slab3');
+            $table->string('per_km_fare_slab4');
+            $table->string('per_km_fare_slab5');
+            $table->string('minimum_fare_km');
             $table->enum('status', ['1', '0']);
             $table->timestamps();
         });

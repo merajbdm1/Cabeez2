@@ -48,7 +48,7 @@
 
                             </a>
                         </div>
-                       
+
                         <!-- /.card-header -->
                         <!-- form start -->
                         <form id="quickForm" action="{{ url('admin/store_riders') }}" method="POST" enctype="multipart/form-data">
@@ -58,10 +58,10 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleFirstName">First Name <span class="text-danger">*</span></label>
-                                            <input type="text" name="f_name" class="form-control{{ $errors->has('f_name') ? ' is-invalid' : '' }}" id="exampleFirstName" placeholder="First Name">
-                                            @if ($errors->has('f_name'))
+                                            <input type="text" name="first_name" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" id="exampleFirstName" placeholder="First Name">
+                                            @if ($errors->has('first_name'))
                                             <span class="invalid feedback" role="alert">
-                                                <strong>{{ $errors->first('f_name') }}</strong>
+                                                <strong>{{ $errors->first('first_name') }}</strong>
                                             </span>
                                             @endif
                                         </div>
@@ -70,10 +70,10 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleLastName">Last Name </label>
-                                            <input type="text" name="l_name" class="form-control{{ $errors->has('l_name') ? ' is-invalid' : '' }}" id="exampleLastName" placeholder="Last Name">
-                                            @if ($errors->has('l_name'))
+                                            <input type="text" name="last_name" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" id="exampleLastName" placeholder="Last Name">
+                                            @if ($errors->has('last_name'))
                                             <span class="invalid feedback" role="alert">
-                                                <strong>{{ $errors->first('l_name') }}</strong>
+                                                <strong>{{ $errors->first('last_name') }}</strong>
                                             </span>
                                             @endif
                                         </div>
@@ -83,10 +83,10 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleMobileNumber">Mobile Number <span class="text-danger">*</span></label>
-                                            <input type="number" name="contact" class="form-control{{ $errors->has('contact') ? ' is-invalid' : '' }}" id="exampleMobileNumber" placeholder="Mobile Number">
-                                            @if ($errors->has('contact'))
+                                            <input type="number" name="phone_number" class="form-control{{ $errors->has('phone_number') ? ' is-invalid' : '' }}" id="exampleMobileNumber" placeholder="Mobile Number">
+                                            @if ($errors->has('phone_number'))
                                             <span class="invalid feedback" role="alert">
-                                                <strong>{{ $errors->first('contact') }}</strong>
+                                                <strong>{{ $errors->first('phone_number') }}</strong>
                                             </span>
                                             @endif
                                         </div>
@@ -109,13 +109,13 @@
                                         <div class="form-group">
                                             <label for="customFile">Profile Pic</label>
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="customFile" name="profile_pic" accept="image/*" onchange="loadFile2(event)">
+                                                <input type="file" class="custom-file-input" id="customFile" name="photo" accept="image/*" onchange="loadFile2(event)">
 
                                                 <label class="custom-file-label" for="customFile">Choose
                                                     file</label>
-                                                @if ($errors->has('profile_pic'))
+                                                @if ($errors->has('photo'))
                                                 <span class="invalid feedback" role="alert">
-                                                    <strong>{{ $errors->first('profile_pic') }}</strong>
+                                                    <strong>{{ $errors->first('photo') }}</strong>
                                                 </span>
                                                 @endif
                                             </div>
@@ -132,8 +132,11 @@
                                             <label for="driverStatus">Status <span class="text-danger">*</span></label>
                                             <select id="driverStatus" class="form-control custom-select" name="status">
                                                 <option selected disabled>Select one</option>
-                                                <option value="1">Active</option>
-                                                <option value="0">Inactive</option>
+                                                <option value="active">Active</option>
+                                                <option value="pending">Pending</option>
+                                                <option value="inactive">Inactive</option>
+                                                <option value="deleted">Deleted</option>
+
                                             </select>
                                             @if ($errors->has('status'))
                                             <span class="invalid feedback" role="alert">

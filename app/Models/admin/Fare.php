@@ -11,6 +11,18 @@ class Fare extends Eloquent
 {
     use HasFactory;
     protected $collection = 'fare';
-    protected $fillable=['vehicle_category','base_fare','time_factor_for_travel','rate_per_km_25_kms','rate_per_km_25_to_50_kms','rate_per_km_50_to_100_kms','rate_per_km_100_to_250_kms','rate_per_km_250_to_500_kms','rate_per_km_500_kms','minimum_fare','km_for_min_fare','status'];
-
+    protected $fillable = [
+        'base_fare',
+        'minimum_fare',
+        'per_min_fare',
+        'per_km_fare',
+        'per_km_fare_slab1',
+        'per_km_fare_slab2',
+        'per_km_fare_slab3',
+        'per_km_fare_slab4',
+        'per_km_fare_slab5',
+        'per_km_fare_slab6',
+        'status',
+        'category_id'
+    ];
 }

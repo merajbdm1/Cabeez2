@@ -43,20 +43,20 @@
 
                     @if(isset($edit_vehicleCategory))
 
-                    <?php 
+                    <?php
                     $check_role= Session::get('role');
                     $data = \App\Models\AllDataTableRolesAndPermission::get();
                     foreach($data as $item)
                     {
                      $check_role_name = $item->role_name;
-                      foreach ($item->vehicle_categories_permissions as $value) 
+                      foreach ($item->vehicle_categories_permissions as $value)
                       {
-                           if($value == 'Edit') //Users 
+                           if($value == 'Edit') //Users
                            {
                             $checkAdd = $value;
-                            
+
                             if($check_role == $check_role_name && $checkAdd)
-                              { 
+                              {
 
                           ?>
                            <div class="card card-primary">
@@ -90,7 +90,7 @@
                                             <img src="{{ asset('admin/uploads/vehicleImage/'.$edit_vehicleCategory->icon) }}" id="preview_img_id" class="img-fluid" />
                                         </div>
 
-                                  
+
 
                                         <div class="form-group">
                                             <label for="name">Vehicle Category Name</label>
@@ -101,7 +101,7 @@
                                                     </span>
                                             @endif
                                           </div>
-                                          
+
                                           <div class="form-group">
                                             <label for="capacity">Seating Capacity</label>
                                             <input type="number" class="form-control{{ $errors->has('capacity') ? ' is-invalid' : '' }}" id="capacity" placeholder="Seating Capacity" name="capacity" value="{{$edit_vehicleCategory->capacity}}">
@@ -111,7 +111,7 @@
                                                             </span>
                                                         @endif
                                           </div>
-                                    
+
                                         <div class="form-group">
                                             <label for="status">Status</label>
                                             <select id="status" class="form-control custom-select" name="status">
@@ -131,7 +131,7 @@
                                             </span>
                                             @endif
                                         </div>
-                                      
+
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
@@ -142,16 +142,16 @@
                         </div>
                      <?php }   } } }?>
 
-                     <?php 
+                     <?php
                      $check_role= Session::get('status');
-             
-                             if($check_role == '1')//developer 
-                               { 
+
+                             if($check_role == '1')//developer
+                               {
                            ?>
                              <div class="card card-primary">
                               <div class="card-header">
                                   <h3 class="card-title">Edit Vehicle Category</small></h3>
-  
+
                               </div>
                               <!-- /.card-header -->
                               <!--  form start -->
@@ -159,14 +159,14 @@
                                   @csrf
                                   <div class="card-body">
                                       <div class="row">
-                                      
+
                                           <div class="form-group">
                                               <label for="customFile">Vehicle Category Image <span class="text-danger">*</span></label>
                                               <div class="custom-file">
                                                   <input type="file" class="custom-file-input" id="customFile"
                                                       name="icon" accept="image/*"
                                                       onchange="loadFile(event)" value="{{$edit_vehicleCategory->icon}}">
-  
+
                                                   <label class="custom-file-label" for="customFile">Choose
                                                       file</label>
                                                   @if ($errors->has('icon'))
@@ -180,8 +180,8 @@
                                           <div class="image-preview form-group col-lg-8">
                                             <img src="{{ asset('admin/uploads/vehicleImage/'. $edit_vehicleCategory->icon) }}" id="preview_img_id" class="img-fluid" />
                                         </div>
-                                        
-  
+
+
                                           <div class="form-group">
                                               <label for="name">Vehicle Category Name</label>
                                               <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" placeholder="Category Name" name="name" value="{{$edit_vehicleCategory->name}}">
@@ -191,7 +191,7 @@
                                                       </span>
                                               @endif
                                             </div>
-                                            
+
                                             <div class="form-group">
                                               <label for="capacity">Seating Capacity</label>
                                               <input type="number" class="form-control{{ $errors->has('capacity') ? ' is-invalid' : '' }}" id="capacity" placeholder="Seating Capacity" name="capacity" value="{{$edit_vehicleCategory->capacity}}">
@@ -201,7 +201,7 @@
                                                               </span>
                                                           @endif
                                             </div>
-                                      
+
                                           <div class="form-group">
                                               <label for="status">Status</label>
                                               <select id="status" class="form-control custom-select" name="status">
@@ -221,7 +221,7 @@
                                               </span>
                                               @endif
                                           </div>
-                                        
+
                                       </div>
                                   </div>
                                   <!-- /.card-body -->
@@ -233,26 +233,26 @@
                       <?php }?>
 
 
-                       
+
 
 
 
 
                     @else
-                  <?php 
+                  <?php
                     $check_role= Session::get('role');
                     $data = \App\Models\AllDataTableRolesAndPermission::get();
                     foreach($data as $item)
                     {
                      $check_role_name = $item->role_name;
-                      foreach ($item->vehicle_categories_permissions as $value) 
+                      foreach ($item->vehicle_categories_permissions as $value)
                       {
-                           if($value == 'Add') //Users 
+                           if($value == 'Add') //Users
                            {
                             $checkAdd = $value;
-                            
+
                             if($check_role == $check_role_name && $checkAdd)
-                              { 
+                              {
 
                           ?>
                           <div class="card card-primary">
@@ -264,13 +264,13 @@
                             <form id="quickForm" action="{{ url('admin/vehicle/add_category') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
-                                   
-                                        
+
+
                                         <div class="form-group">
                                             <label for="customFile">Vehicle Category Image</label>
                                             <div class="custom-file">
                                               <input type="file" class="custom-file-input" id="customFile" name="name" accept="image/*" onchange="loadFile(event)">
-                                              
+
                                               <label class="custom-file-label" for="customFile">Choose file</label>
                                               @if($errors->has('icon'))
                                                 <span class="invalid feedback" role="alert">
@@ -282,18 +282,18 @@
                                           <div class="image-preview">
                                             <img id="preview_img_id" class="img-fluid"/>
                                           </div>
-                                          
+
                                           <div class="form-group">
                                             <label for="exampleInputCategory1">Vehicle Category Name</label>
                                             <input type="text" class="form-control" id="exampleInputCategory1" placeholder="Enter Category" name="name">
                                           </div>
-                                          
+
                                           <div class="form-group">
                                             <label for="exampleInputCapacity1">Seating Capacity</label>
                                             <input type="number" class="form-control" id="exampleInputCapacity1" placeholder="Enter Capacity" name="capacity">
                                           </div>
-                                        
-                                          
+
+
                                           <div class="form-group">
                                             <label for="inputStatus">Status</label>
                                             <select id="inputStatus" class="form-control custom-select" name="status">
@@ -302,7 +302,7 @@
                                               <option value="0">Inactive</option>
                                             </select>
                                           </div>
-                                    
+
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
@@ -312,11 +312,11 @@
                         </div>
                      <?php }   } } }?>
 
-                     <?php 
+                     <?php
                      $check_role= Session::get('status');
-             
-                             if($check_role == '1')//developer 
-                               { 
+
+                             if($check_role == '1')//developer
+                               {
                            ?>
                           <div class="card card-primary">
                             <div class="card-header">
@@ -327,13 +327,13 @@
                             <form id="quickForm" action="{{ url('admin/vehicle/add_category') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="card-body">
-                                   
-                                        
+
+
                                         <div class="form-group">
                                             <label for="customFile">Vehicle Category Image</label>
                                             <div class="custom-file">
                                               <input type="file" class="custom-file-input" id="customFile" name="icon" onchange="loadFile(event)">
-                                              
+
                                               <label class="custom-file-label" for="customFile">Choose file</label>
                                               @if($errors->has('icon'))
                                                 <span class="invalid feedback" role="alert">
@@ -345,18 +345,18 @@
                                           <div class="image-preview">
                                             <img id="preview_img_id" class="img-fluid"/>
                                           </div>
-                                          
+
                                           <div class="form-group">
                                             <label for="exampleInputCategory1">Vehicle Category Name</label>
                                             <input type="text" class="form-control" id="exampleInputCategory1" placeholder="Enter Category" name="name">
                                           </div>
-                                          
+
                                           <div class="form-group">
                                             <label for="exampleInputCapacity1">Seating Capacity</label>
                                             <input type="number" class="form-control" id="exampleInputCapacity1" placeholder="Enter Capacity" name="capacity">
                                           </div>
-                                        
-                                          
+
+
                                           <div class="form-group">
                                             <label for="inputStatus">Status</label>
                                             <select id="inputStatus" class="form-control custom-select" name="status">
@@ -365,7 +365,7 @@
                                               <option value="0">Inactive</option>
                                             </select>
                                           </div>
-                                    
+
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
@@ -385,9 +385,9 @@
                     <div class="card ">
                         <div class="card-header">
                           <h3 class="card-title">All Vehicle Category</h3>
-                          
+
                         </div>
-                        
+
                         <!-- /.card-header -->
                         <div class="card-body">
                           <table class="table table-bordered table-striped" id="example1">
@@ -406,16 +406,16 @@
 
                           <tr>
                             <td>{{ $loop->iteration }}</td>
-                           
+
                               <td><img src="{{ asset('admin/uploads/vehicleImage/'. $vehicle_category->icon) }}"
                               width="100px"></td>
                               <td>{{ $vehicle_category->name }}</td>
 
                               <td>{{ $vehicle_category->capacity }}</td>
                               <td>
-                              @if($vehicle_category->status == 1) 
+                              @if($vehicle_category->status == 1)
                                   <span class="badge badge-success">Active</span>
-                                  
+
                                    @else
                                    <span class="badge badge-danger">Inactive</span>
                                     @endif
@@ -426,78 +426,78 @@
                                     <i class="fas fa-eye"></i>
                                   </a> --}}
 
-                                  <?php 
+                                  <?php
                                   $check_role= Session::get('role');
                                   $data = \App\Models\AllDataTableRolesAndPermission::get();
                                   foreach($data as $item)
                                   {
                                    $check_role_name = $item->role_name;
-                                    foreach ($item->vehicle_categories_permissions as $value) 
+                                    foreach ($item->vehicle_categories_permissions as $value)
                                     {
                                          if($value == 'Edit')//User
                                          {
                                           $checkAdd = $value;
-                                          
+
                                           if($check_role == $check_role_name && $checkAdd)
-                                            { 
-          
+                                            {
+
                                         ?>
                                         <li class="nav-item">
                                           <a class="btn btn-info btn-sm" href="{{ url('admin/vehicle/edit_category',$vehicle_category->_id) }}">
                                             <i class="fas fa-pencil-alt">
-                                            </i> 
+                                            </i>
                                          </a>
-        
+
                                         </li>
                                    <?php }   } } }?>
 
-                                   <?php 
+                                   <?php
                                    $check_role= Session::get('status');
-                           
+
                                            if($check_role == '1')//Developer
-                                             { 
+                                             {
                                          ?>
                                         <li class="nav-item">
                                           <a class="btn btn-info btn-sm" href="{{ url('admin/vehicle/edit_category',$vehicle_category->_id) }}">
                                             <i class="fas fa-pencil-alt">
-                                            </i> 
+                                            </i>
                                          </a>
-        
+
                                         </li>
                                     <?php }  ?>
 
 
-                                    <?php 
+                                    <?php
                                     $check_role= Session::get('role');
                                     $data = \App\Models\AllDataTableRolesAndPermission::get();
                                     foreach($data as $item)
                                     {
                                      $check_role_name = $item->role_name;
-                                      foreach ($item->vehicle_categories_permissions as $value) 
+                                      foreach ($item->vehicle_categories_permissions as $value)
                                       {
                                            if($value == 'Delete')//User
                                            {
                                             $checkAdd = $value;
-                                            
-                                            if($check_role == $check_role_name && $checkAdd)
-                                              { 
-            
-                                          ?>    
 
-                                      <li class="list-unstyled"> 
+                                            if($check_role == $check_role_name && $checkAdd)
+                                              {
+
+                                          ?>
+
+                                      <li class="list-unstyled">
                                         <a href="{{ url('admin/vehicle/delete_category',$vehicle_category->_id) }}" class="btn btn-danger btn-sm">
                                           <i class="fas fa-trash"></i>
                                         </a>
                                       </li>
                                   <?php }   } } }?>
 
-                                  <?php 
+                                  <?php
                                    $check_role= Session::get('status');
-                           
+
                                            if($check_role == '1')//Developer
-                                             { 
+                                             {
                                          ?>
-                                        <li class="list-unstyled"> 
+                                        <li class="list-unstyled">
                                           <a href="{{ url('admin/vehicle/delete_category',$vehicle_category->_id) }}" class="btn btn-danger btn-sm">
                                             <i class="fas fa-trash"></i>
                                           </a>
@@ -506,7 +506,7 @@
 
                                 </div>
                               </td>
-                              
+
                           </tr>
                               @endforeach
                             </tbody>
@@ -522,5 +522,4 @@
 @endsection
 
 @section('script')
-                                    
-                                 
+

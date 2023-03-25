@@ -23,13 +23,13 @@ class VehicleModel extends Eloquent
         // 'type',
         'brand_id',
         'category_id'
-        
+
     ];
-    
+
     public function make()
     {
         // print_r("dhfkadf");
-        return $this->belongsTo(VehicleMake::class,'vehicle_make_id','_id');
+        return $this->belongsTo(VehicleMake::class,'vehicle_make_id','id');
     }
 
     public function categories()

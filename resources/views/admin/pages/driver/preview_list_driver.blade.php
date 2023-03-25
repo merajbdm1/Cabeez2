@@ -12,7 +12,9 @@ td {
     border-top: 1px solid #eee;
     padding: 0.5em 1em;
 } */
-
+.card {
+    overflow: hidden;
+}
 
 [data-title]:hover:after {
     opacity: 1;
@@ -114,7 +116,7 @@ td {
 }
 
 .zoom6 {
-    padding: 50px;
+  padding: 50px;
   background-color: white;
   transition: transform .2s;
   width: 100%;
@@ -248,24 +250,18 @@ td {
                                     <div class="row">
 
                                     <div class="col-lg-4">
+
+
                                         <div class="card card-block p-card">
                                             <div class="">
-                                                <div class="profile-card rounded">
+                                                <div class="card-body text-center">
                                                     <img src="{{ asset('admin/uploads/Driver/' . $preview_driver->photo) }}"
                                                         alt="Driver"
-                                                        class="avatar-100 rounded d-block mx-auto img-fluid mb-2" width="250px" height="150px">
+                                                        class="rounded-circle img-fluid" style="width: 150px;">
 
 
                                                 </div>
-                                                <div class="header">
 
-                                                    @if ($preview_driver->document_status=='verified')
-                                                    <h4 class="text-center" style="color:green;" > <b>Verified</b></h4>
-                                                    @else
-                                                    <h4 class="text-center" style="color:red;" > <b>Unverified</b></h4>
-                                                    @endif
-
-                                                </div>
 
                                                 <div class="pro-content rounded">
 
@@ -281,150 +277,223 @@ td {
                                         </div>
 
 
-                                         {{-- @php
-
-                                         $a=array();
-                                        if(isset($preview_driver)){
-
-                                       foreach($preview_driver->mondaystartend as $item){
+                                        @php
+                                        $a=array();
+                                        if(is_array($preview_driver->mondaystartend)){
+                                        foreach($preview_driver->mondaystartend as $item){
+                                            array_push($a,$item);
                                        }
-
+                                       $variable_0='';
+                                       $variable_1='';
                                        extract($a, EXTR_PREFIX_ALL, "variable");
-                                       $title1 = $variable_0.' - '.$variable_1;
-                                    }
+                                       $title = $variable_0.' - '.$variable_1;
+                                       }
                                        @endphp
 
                                         @php
                                         $a=array();
-                                       foreach($preview_driver->tuesdaystartend as $item){
-                                                array_push($a,$item);
+                                        if(is_array($preview_driver->tuesdaystartend)){
+                                        foreach($preview_driver->tuesdaystartend as $item){
+                                            array_push($a,$item);
                                        }
+                                       $variable_0='';
+                                       $variable_1='';
                                        extract($a, EXTR_PREFIX_ALL, "variable");
                                        $title1 = $variable_0.' - '.$variable_1;
+                                       }
                                        @endphp
 
                                         @php
                                         $a=array();
+                                        if(is_array($preview_driver->wednesdaystartend)){
                                         foreach($preview_driver->wednesdaystartend as $item){
-                                                array_push($a,$item);
-                                        }
-                                        extract($a, EXTR_PREFIX_ALL, "variable");
-                                        $title2 = $variable_0.' - '.$variable_1;
-                                        @endphp
-
+                                            array_push($a,$item);
+                                       }
+                                       $variable_0='';
+                                       $variable_1='';
+                                       extract($a, EXTR_PREFIX_ALL, "variable");
+                                       $title2 = $variable_0.' - '.$variable_1;
+                                       }
+                                       @endphp
 
                                         @php
                                         $a=array();
+                                        if(is_array($preview_driver->thursdaystartend)){
                                         foreach($preview_driver->thursdaystartend as $item){
-                                                array_push($a,$item);
+                                            array_push($a,$item);
                                         }
+                                        $variable_0='';
+                                        $variable_1='';
                                         extract($a, EXTR_PREFIX_ALL, "variable");
                                         $title3 = $variable_0.' - '.$variable_1;
+                                        }
                                         @endphp
 
                                         @php
                                         $a=array();
+                                        if(is_array($preview_driver->fridaystartend)){
                                         foreach($preview_driver->fridaystartend as $item){
-                                                array_push($a,$item);
+                                            array_push($a,$item);
                                         }
+                                        $variable_0='';
+                                        $variable_1='';
                                         extract($a, EXTR_PREFIX_ALL, "variable");
                                         $title4 = $variable_0.' - '.$variable_1;
+                                        }
                                         @endphp
 
-                                        @php
+                                         @php
                                         $a=array();
+                                        if(is_array($preview_driver->saturdaystartend)){
                                         foreach($preview_driver->saturdaystartend as $item){
-                                                array_push($a,$item);
+                                            array_push($a,$item);
                                         }
+                                        $variable_0='';
+                                        $variable_1='';
                                         extract($a, EXTR_PREFIX_ALL, "variable");
                                         $title5 = $variable_0.' - '.$variable_1;
-                                        @endphp --}}
+                                        }
+                                        @endphp
 
-                                        <div class="card card-block">
-                                            <div class="card-header d-flex justify-content-between">
-                                                <table id="attendence-table">
 
-                                                    <tbody>
+
+
+
+                                                <table id="attendence-table" style="text-align: center">
+
+                                                    <tbody >
 
                                                       <tr>
-                                                        <th class="name-col">Working Days</th>
+
                                                         <th type="button" class="btn btn-danger" data-bs-toggle="tooltip" data-bs-placement="bottom"   data-title="Holiday">S</th>
-                                                        <th type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom"  data-title="{{$preview_driver->mondaystartend}}">M</th>
-                                                        <th type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom"  data-title="{{$preview_driver->tuesdaystartend}}">T</th>
-                                                        <th type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom"  data-title="{{$preview_driver->wednesdaystartend}}">W</th>
-                                                        <th type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom"  data-title="{{$preview_driver->thursdaystartend}}">T</th>
-                                                        <th type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom"  data-title="{{$preview_driver->fridaystartend}}">F</th>
-                                                        <th type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom"  data-title="{{$preview_driver->saturdaystartend}}">S</th>
+                                                        <th type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom"  data-title="{{isset($title)? $title : 'Not found'}}">M</th>
+                                                        <th type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom"  data-title="{{isset($title1)? $title1 : 'Not found'}}">T</th>
+                                                        <th type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom"  data-title="{{isset($title2)? $title2 : 'Not found'}}">W</th>
+                                                        <th type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom"  data-title="{{isset($title3)? $title3 : 'Not found'}}">T</th>
+                                                        <th type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom"  data-title="{{isset($title4)? $title4 : 'Not found'}}">F</th>
+                                                        <th type="button" class="btn btn-success" data-bs-toggle="tooltip" data-bs-placement="bottom"  data-title="{{isset($title5)? $title5 : 'Not found'}}">S</th>
 
 
                                                       </tr>
                                                     </tbody>
                                                 </table>
-                                            </div>
-                                        </div>
+
+
+
+                                                <br>
 
 
 
 
+                                    </div>
 
-                                        <div class="card card-block">
-                                            <div class="card-header d-flex justify-content-between">
-                                                <div class="header-title">
-                                                    <h4 class="card-title mb-0"> <b>Driver Detail</b></h4>
+
+                                    <div class="col-lg-8">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="card card-block">
+                                                    <div class="card-header d-flex justify-content-between">
+                                                        <div class="header-title">
+                                                            <h4 class="text-muted mb-4"> <b>Driver Info</b></h4>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="row">
+
+                                                            <div class="col-9">
+                                                                <th><b>Driver DOB :-</b></th>
+                                                                <td>{{ $preview_driver->date_of_birth }}</td>
+
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <th><b>PUC Expiry Date :-</b></th>
+                                                                <td>{{ $preview_driver->puc_expiry_date }}</td>
+
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <th><b> Driver Blood Group :-</b></th>
+                                                                <td>{{ $preview_driver->blood_group }}</td>
+
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <th><b>Emergency Number :-</b></th>
+                                                                <td>{{ $preview_driver->emergency_number }}</td>
+
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <th><b>State :-</b></th>
+                                                                <td>{{ $preview_driver->state }}</td>
+
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <th><b>City :-</b></th>
+                                                                <td>{{ $preview_driver->city }}</td>
+
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <th><b>Postal code :-</b></th>
+                                                                <td>{{ $preview_driver->postal_code }}</td>
+
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <th><b>Address :-</b></th>
+                                                                <td>{{ $preview_driver->address }}</td>
+
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="card-body">
-                                                <div class="row">
-
-                                                    <div class="col-9">
-                                                        <th><b>Driver DOB :-</b></th>
-                                                        <td>{{ $preview_driver->date_of_birth }}</td>
-
+                                            <div class="col-lg-6">
+                                                <div class="card card-block">
+                                                    <div class="card-header d-flex justify-content-between">
+                                                        <div class="header-title">
+                                                            <h4 class="text-muted mb-4"> <b>Vehicle Info</b></h4>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-9">
-                                                        <th><b>PUC Expiry Date :-</b></th>
-                                                        <td>{{ $preview_driver->driver_puc_expiry_date }}</td>
+                                                    <div class="card-body">
+                                                        <div class="row">
 
+                                                            <div class="col-9">
+                                                                <th><b>Vehicle Year :-</b></th>
+                                                                <td>{{ $preview_driver->vehicle_year }}</td>
+
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <th><b>Registration Number :-</b></th>
+                                                                <td>{{ $preview_driver->car_registration_number }}</td>
+
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <th><b>Vehicle Brand :-</b></th>
+                                                                <td>{{ $preview_driver->driver_vehicle_make->name }}</td>
+
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <th><b>Vehicle Model :-</b></th>
+                                                                <td>{{ $preview_driver->driver_vehicle_make_model->name }}</td>
+
+                                                            </div>
+                                                            <div class="col-9">
+                                                                <th><b>Ride Type :-</b></th>
+                                                                <td>{{ $preview_driver->driver_vehicle_category->name }}</td>
+
+                                                            </div>
+
+                                                        </div>
                                                     </div>
-                                                    <div class="col-9">
-                                                        <th><b> Driver Blood Group :-</b></th>
-                                                        <td>{{ $preview_driver->blood_group }}</td>
-
-                                                    </div>
-                                                    <div class="col-9">
-                                                        <th><b>Emergency Number :-</b></th>
-                                                        <td>{{ $preview_driver->driver_emergency_number }}</td>
-
-                                                    </div>
-                                                    <div class="col-9">
-                                                        <th><b>State :-</b></th>
-                                                        <td>{{ $preview_driver->state }}</td>
-
-                                                    </div>
-                                                    <div class="col-9">
-                                                        <th><b>City :-</b></th>
-                                                        <td>{{ $preview_driver->city }}</td>
-
-                                                    </div>
-                                                    <div class="col-9">
-                                                        <th><b>Postal code :-</b></th>
-                                                        <td>{{ $preview_driver->postal_code }}</td>
-
-                                                    </div>
-                                                    <div class="col-9">
-                                                        <th><b>Address :-</b></th>
-                                                        <td>{{ $preview_driver->address }}</td>
-
-                                                    </div>
-
                                                 </div>
                                             </div>
+
                                         </div>
+                                    </div>
 
 
 
 
-                                        <div class="card card-block">
+
+                                        {{-- <div class="card card-block">
                                             <div class="card-header d-flex justify-content-between">
                                                 <div class="header-title">
                                                     <h4 class="card-title mb-0"> <b>Rider Type</b></h4>
@@ -444,54 +513,14 @@ td {
                                             </div>
 
 
-                                        </div>
+                                        </div> --}}
 
-                                        <div class="card card-block">
-                                            <div class="card-header d-flex justify-content-between">
-                                                <div class="header-title">
-                                                    <h4 class="card-title mb-0"> <b>Vehicle Detail</b></h4>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="row">
 
-                                                    <div class="col-9">
-                                                        <th><b>Vehicle Year :-</b></th>
-                                                        <td>{{ $preview_driver->vehicle_year }}</td>
-
-                                                    </div>
-                                                    <div class="col-9">
-                                                        <th><b>Registration Number :-</b></th>
-                                                        <td>{{ $preview_driver->driver_vehicle_registration_number }}</td>
-
-                                                    </div>
-                                                    <div class="col-9">
-                                                        <th><b> Make :-</b></th>
-                                                        <td>{{ $preview_driver->driver_vehicle_make }}</td>
-
-                                                    </div>
-                                                    <div class="col-9">
-                                                        <th><b>Vehicle Model :-</b></th>
-                                                        <td>{{ $preview_driver->driver_vehicle_model }}</td>
-
-                                                    </div>
-                                                    <div class="col-9">
-                                                        <th><b>Vehicle Category :-</b></th>
-                                                        <td>{{ $preview_driver->driver_vehicle_category }}</td>
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-lg-8">
 
                                         <div class="row">
 
                                             <div class="col-md-4">
-                                                <h5 class="text-center my-3">Commercial Insurance</h5>
+                                                <h5 class="text-muted text-center mb-4">Commercial Insurance</h5>
                                                 <div class="card card-block">
 
                                                     <div class="card-body">
@@ -508,7 +537,7 @@ td {
                                             </div>
 
                                             <div class="col-md-4">
-                                                <h5 class="text-center my-3">Driver License Front</h5>
+                                                <h5 class="text-muted text-center center mb-4">Driver License Front</h5>
                                                 <div class="card card-block">
 
                                                     <div class="card-body">
@@ -525,7 +554,7 @@ td {
                                             </div>
 
                                             <div class="col-md-4">
-                                                <h5 class="text-center my-3">Driver License Back</h5>
+                                                <h5 class="text-muted text-center center mb-4">Driver License Back</h5>
                                                 <div class="card card-block">
 
                                                     <div class="card-body">
@@ -542,7 +571,7 @@ td {
                                             </div>
 
                                             <div class="col-md-4">
-                                                <h5 class="text-center my-3">Driver Aadhaar Front</h5>
+                                                <h5 class="text-muted text-center center mb-4">Driver Aadhaar Front</h5>
                                                 <div class="card card-block">
 
                                                     <div class="card-body">
@@ -559,7 +588,7 @@ td {
                                             </div>
 
                                               <div class="col-md-4">
-                                                <h5 class="text-center my-3">Driver Aadhaar Back</h5>
+                                                <h5 class="text-muted text-center center mb-4">Driver Aadhaar Back</h5>
                                                 <div class="card card-block">
 
                                                     <div class="card-body">
@@ -576,7 +605,7 @@ td {
                                             </div>
 
                                             <div class="col-md-4">
-                                                <h5 class="text-center my-3">Driver Rental Agreement Front</h5>
+                                                <h5 class="text-muted text-center center mb-4">Driver Rental Agreement Front</h5>
                                                 <div class="card card-block">
 
                                                     <div class="card-body">
@@ -594,7 +623,7 @@ td {
                                             </div>
 
                                             <div class="col-md-4">
-                                                <h5 class="text-center my-3">Driver Rental Agreement Back</h5>
+                                                <h5 class="text-muted text-center center mb-4">Driver Rental Agreement Back</h5>
                                                 <div class="card card-block">
 
                                                     <div class="card-body">
@@ -613,7 +642,7 @@ td {
 
 
                                             <div class="col-md-4">
-                                                <h5 class="text-center my-3">Driver Pan Card</h5>
+                                                <h5 class="text-muted text-center center mb-4">Driver Pan Card</h5>
                                                 <div class="card card-block">
 
                                                     <div class="card-body">
@@ -632,7 +661,7 @@ td {
 
 
                                             <div class="col-md-4">
-                                                <h5 class="text-center my-3">Vehicle Registration Image</h5>
+                                                <h5 class="text-muted text-center center mb-4">Vehicle Registration Image</h5>
                                                 <div class="card card-block">
 
                                                     <div class="card-body">
@@ -650,7 +679,7 @@ td {
                                             </div>
                                         </div>
 
-                                    </div>
+
 
 
                                     </div>

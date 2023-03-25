@@ -38,7 +38,7 @@
                         <strong>{{ $message }}</strong>
                     </div>
                     @endif
-                 
+
 
                     <div class="card card-primary">
                         <div class="card-header">
@@ -50,7 +50,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                 
+
                         <form  action="{{ url('edit_fare_process',$editfareview->_id) }}" method="POST">
                             @csrf
                             <div class="card-body">
@@ -58,10 +58,10 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleFirstName">Vehicle Category <span class="text-danger">*</span></label>
-                                            <input type="text" name="vehicle_category" class="form-control" value="{{ $editfareview->vehicle_category }}"  placeholder="Vehicle Category">
-                                            @error('vehicle_category')
+                                            <input type="text" name="category_id" class="form-control" value="{{ $editfareview->category_id }}"  placeholder="Vehicle Category">
+                                            @error('category_id')
                                                         <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('vehicle_category') }}</strong>
+                                                            <strong>{{ $errors->first('category_id') }}</strong>
                                                         </span>
                                              @enderror
                                         </div>
@@ -117,7 +117,7 @@
 
                                     </div>
 
-                                    
+
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleLastName">Rate Per km(50 to 100 kms) <span class="text-danger">*</span></label>
@@ -212,8 +212,8 @@
                                         </div>
 
                                     </div>
-                                  
-                                      
+
+
 
                                     </div>
 

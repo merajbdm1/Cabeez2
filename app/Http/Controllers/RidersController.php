@@ -24,19 +24,19 @@ class RidersController extends Controller
 
         if(Session::has('loginId')){
             $datasession = User::where('_id', '=', Session::get('loginId'))->first();
-           
+
         }else{
             return redirect('login');
         }
 
-        
+
 
         $ridersdata= new Riders();
 
         // $fromdate=$request->fromDate;
         // $toDate=$request->toDate;
-       
-        
+
+
         $fromdate =(isset($request->fromDate)) ? Carbon::createFromFormat('Y-m-d', $request->fromDate)->startOfDay() : null;
         $toDate = (isset($request->toDate)) ? Carbon::createFromFormat('Y-m-d', $request->toDate)->endOfDay() : null;
 
@@ -48,21 +48,21 @@ class RidersController extends Controller
 
 
             $post = isset($fromdate) ? Riders::whereBetween('created_at', [$fromdate, $toDate]) : $ridersdata ;
-               
+
                 $riders = $post->paginate(10);
         }
         else
-        {   
+        {
             $drivername= $request->search;
                 $ridersdata;
-                $post = Riders::where('f_name','LIKE',$drivername);
+                $post = Riders::where('first_name','LIKE',$drivername);
                 //$riders = Riders::paginate(10);
-               
+
         }
         $riders = $post->paginate(10);
         // $serch = $_GET['search'];
 
-       
+
         // return  $riders;
         //  return $riders;
         // dd($dates);
@@ -75,8 +75,8 @@ class RidersController extends Controller
 
     //     dd($ddcheck);
 
-      
-        
+
+
 
      $ridersdata=  Riders::all();
         return view('admin.pages.riders.rider', ['riders' => $riders,'datasession' => $datasession]);
@@ -89,10 +89,10 @@ class RidersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   
+    {
         if(Session::has('loginId')){
             $datasession = User::where('_id', '=', Session::get('loginId'))->first();
-           
+
         }else{
             return redirect('login');
         }
@@ -108,12 +108,12 @@ class RidersController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'f_name' => 'required|string',
-            'l_name' => '',
+            'first_name' => 'required|string',
+            'last_name' => '',
             'email' => 'required',
-            'contact' => 'required',
+            'phone_number' => 'required',
             'status' => '',
-            'profile_pic *' => '',
+            'photo *' => '',
 
 
             // 'driver_email' => 'required|email|min:3|max:255',
@@ -135,20 +135,20 @@ class RidersController extends Controller
 
         $rider = new Riders();
         $rider->rider_id = $rider_id;
-        $rider->f_name = $request->input('f_name');
-        $rider->l_name = $request->input('l_name');
+        $rider->first_name = $request->input('first_name');
+        $rider->last_name = $request->input('last_name');
 
         $rider->email = $request->input('email');
-        $rider->contact = $request->input('contact');
+        $rider->phone_number = $request->input('phone_number');
         $rider->status = $request->input('status');
 
 
-        if ($profile_pic = $request->file('profile_pic')) {
+        if ($photo = $request->file('photo')) {
             $destinationPath = 'admin/uploads/Riders';
-            $profileImage = rand(0000, 9999) . $profile_pic->getClientOriginalName();
-            $profile_pic->move($destinationPath, $profileImage);
-            $input['profile_pic'] = "$profileImage";
-            $rider->profile_pic = $profileImage;
+            $profileImage = rand(0000, 9999) . $photo->getClientOriginalName();
+            $photo->move($destinationPath, $profileImage);
+            $input['photo'] = "$profileImage";
+            $rider->photo = $profileImage;
         }
 
 
@@ -177,12 +177,14 @@ class RidersController extends Controller
     {
         if(Session::has('loginId')){
             $datasession = User::where('_id', '=', Session::get('loginId'))->first();
-           
+
         }else{
             return redirect('login');
         }
-        $riders = Riders::all();
+        // $riders = Riders::all();
         $rider = Riders::where('_id', $id)->first();
+
+        // return $rider;
         return view('admin.pages.riders.edit', ['rider' => $rider, '_id' => $id,'datasession'=>$datasession]);
     }
 
@@ -196,28 +198,23 @@ class RidersController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'f_name' => 'required|string',
-            'l_name' => '',
+            'first_name' => 'required|string',
+            'last_name' => '',
             'email' => 'required',
-            'contact' => 'required',
-            'date_register' => '',
-            'total_rides' => '',
+            'phone_number' => 'required',
             'status' => '',
-            'profile_pic' => '',
+            'photo' => '',
 
         ]);
         $id = $request->input('id');
         $riders = new Riders();
-        $riders->f_name = $request->input('f_name');
-        $riders->l_name = $request->input('l_name');
+        $riders->first_name = $request->input('first_name');
+        $riders->last_name = $request->input('last_name');
 
         $riders->email = $request->input('email');
-        $riders->contact = $request->input('contact');
-        $riders->date_register = $request->input('date_register');
-        $riders->total_rides = $request->input('total_rides');
-
+        $riders->phone_number = $request->input('phone_number');
         $riders->status = $request->input('status');
-        $riders->profile_pic = $request->input('profile_pic');
+        $riders->photo = $request->input('photo');
 
         $riders->where('_id', $id)->update($validated);
         //  $promoCode = VehicleCategory::where('_id', $id)->update($storeData);

@@ -12,6 +12,7 @@ use App\Models\UserActivityModel;
 use App\Models\admin\VehicleCategory;
 use Illuminate\Support\Carbon;
 use App\Models\admin\VehicleMake;
+use App\Models\admin\VehicleModel;
 class DriverController extends Controller
 {
     /**
@@ -28,6 +29,8 @@ class DriverController extends Controller
             return redirect('login');
         }
         $viewdriver = new Driver();
+
+
         $keyword = $request->input('fname');
         $lastname=$request->input('lname');
         $email=$request->input('email');
@@ -128,7 +131,14 @@ class DriverController extends Controller
         $driver = Driver::all();
         $driver_veh_cat=new VehicleCategory();
         $vehicle_driv=$driver_veh_cat->all();
-        return view('admin.pages.driver.add-driver', ['vehicle_driv'=>$vehicle_driv,'driver' => $driver, 'datasession' => $datasession]);
+
+        $veh_make=new VehicleMake();
+        $veh_make=$veh_make->all();
+
+        $veh_model=new VehicleModel();
+        $veh_modelop=$veh_model->all();
+
+        return view('admin.pages.driver.add-driver', ['veh_modelop'=>$veh_modelop,'veh_make'=>$veh_make,'vehicle_driv'=>$vehicle_driv,'driver' => $driver, 'datasession' => $datasession]);
     }
 
 
@@ -151,37 +161,38 @@ class DriverController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
 
         $validated = $request->validate([
             'first_name' => 'required|string|min:3|max:255',
             'last_name' => 'required|string|min:3|max:255',
-            'driver_mobile_no' => 'required',
+            'phone_number' => 'required',
             'email' => 'required|email|min:3|max:255',
             'vehicle_year' => 'required',
-            'driver_vehicle_registration_number' => 'required|string|min:3|max:255',
-            'driver_vehicle_make' => 'required|string',
-            'driver_vehicle_model' => 'required|string',
-            'driver_vehicle_category' => 'required|string',
-            'driver_puc_expiry_date' => 'required|date',
+            'car_registration_number' => 'required|string|min:3|max:255',
+            'brand_id' => 'required|string',
+            'model_id' => 'required|string',
+            'category_id' => 'required|string',
+            'puc_expiry_date' => 'required|date',
             'date_of_birth' => 'required|date',
             'blood_group' => 'required|string',
-            'driver_emergency_number' => 'required|string',
+            'emergency_number' => 'required|string',
             'state' => 'required|string',
             'city' => 'required|string',
             'postal_code' => 'required|string',
             'address' => 'required|string',
-            'driver_profile_picture' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
-            'driver_upload_commercial_insurance' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
-            'driver_license_front' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
-            'driver_license_back' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
-            'driver_aadhaar_front' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
-            'driver_aadhaar_back' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
-            'driver_rental_agreement_front' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
-            'driver_rental_agreement_back' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+            'photo' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+            'commercial_insurance' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+            'license_photo_front' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+            'license_photo_back' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+            'aadhaar_image_front' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+            'aadhaar_image_back' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+            'rental_agreement_front' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+            'rental_agreement_back' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
             'pan_card' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
-            'driver_vehicle_registration_image' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
-            'driver_status' => '',
-            'driver_ride_type' => '',
+            'registration_photo' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+            'document_status' => '',
+            'status'=>'',
             'mondaystartend' => '',
             'tuesdaystartend' => '',
             'wednesdaystartend' => '',
@@ -194,27 +205,27 @@ class DriverController extends Controller
 
         $driver = new Driver;
         // dd($driver);
-        $driver->driver_first_name = $request->input('driver_first_name');
-        $driver->driver_last_name = $request->input('driver_last_name');
-        $driver->driver_mobile_no = $request->input('driver_mobile_no');
-        $driver->driver_email = $request->input('driver_email');
+        $driver->first_name = $request->input('first_name');
+        $driver->last_name = $request->input('last_name');
+        $driver->phone_number = $request->input('phone_number');
+        $driver->email = $request->input('email');
         $driver->vehicle_year = $request->input('vehicle_year');
-        $driver->driver_vehicle_registration_number = $request->input('driver_vehicle_registration_number');
-        $driver->driver_vehicle_make = $request->input('driver_vehicle_make');
-        $driver->driver_vehicle_model = $request->input('driver_vehicle_model');
-        $driver->driver_vehicle_category = $request->input('driver_vehicle_category');
-        $driver->driver_puc_expiry_date = $request->input('driver_puc_expiry_date');
-        $driver->driver_dob = $request->input('driver_dob');
-        $driver->driver_blood_group = $request->input('driver_blood_group');
-        $driver->driver_emergency_number = $request->input('driver_emergency_number');
-        $driver->driver_state = $request->input('driver_state');
-        $driver->driver_city = $request->input('driver_city');
-        $driver->driver_postal_code = $request->input('driver_postal_code');
-        $driver->driver_address = $request->input('driver_address');
-        $checkdd = $driver->driver_status = $request->input('driver_status');
+        $driver->car_registration_number = $request->input('car_registration_number');
+        $driver->brand_id = $request->input('brand_id');
+        $driver->model_id = $request->input('model_id');
+        $driver->category_id = $request->input('category_id');
+        $driver->puc_expiry_date = $request->input('puc_expiry_date');
+        $driver->date_of_birth = $request->input('date_of_birth');
+        $driver->blood_group = $request->input('blood_group');
+        $driver->emergency_number = $request->input('emergency_number');
+        $driver->state = $request->input('state');
+        $driver->city = $request->input('city');
+        $driver->postal_code = $request->input('postal_code');
+        $driver->address = $request->input('address');
+        $driver->document_status = $request->input('document_status');
+        $driver->status = $request->input('status');
 
 
-        $driver->driver_ride_type = $request->input('driver_ride_type');
         $driver->mondaystartend = $request->input('mondaystartend');
         $driver->tuesdaystartend = $request->input('tuesdaystartend');
         $driver->wednesdaystartend = $request->input('wednesdaystartend');
@@ -223,86 +234,87 @@ class DriverController extends Controller
         $driver->saturdaystartend = $request->input('saturdaystartend');
 
 
-        if ($driver_profile_picture = $request->file('driver_profile_picture')) {
+        if ($photo = $request->file('photo')) {
             $destinationPath = 'admin/uploads/Driver';
-            $profileImage = rand(0000, 9999) . $driver_profile_picture->getClientOriginalName();
-            $driver_profile_picture->move($destinationPath, $profileImage);
-            $input['driver_profile_picture'] = "$profileImage";
-            $driver->driver_profile_picture = $profileImage;
+            $profileImage = rand(0000, 9999) . $photo->getClientOriginalName();
+            $photo->move($destinationPath, $profileImage);
+            $input['photo'] = "$profileImage";
+            $driver->photo = $profileImage;
         }
 
 
 
 
-        if ($driver_upload_commercial_insurance = $request->file('driver_upload_commercial_insurance')) {
+        if ($commercial_insurance = $request->file('commercial_insurance')) {
             $destinationPath = 'admin/uploads/Driver';
-            $document = rand(0000, 9999) . $driver_upload_commercial_insurance->getClientOriginalName();
-            $driver_upload_commercial_insurance->move($destinationPath, $document);
-            $input['driver_upload_commercial_insurance'] = "$document";
-            $driver->driver_upload_commercial_insurance = $document;
+            $document = rand(0000, 9999) . $commercial_insurance->getClientOriginalName();
+            $commercial_insurance->move($destinationPath, $document);
+            $input['commercial_insurance'] = "$document";
+            $driver->commercial_insurance = $document;
         }
 
-        if ($driver_license_front = $request->file('driver_license_front')) {
+        if ($license_photo_front = $request->file('license_photo_front')) {
             $destinationPath = 'admin/uploads/Driver';
-            $document2 = rand(0000, 9999) . $driver_license_front->getClientOriginalName();
-            $driver_license_front->move($destinationPath, $document2);
-            $input['driver_license_front'] = "$document2";
-            $driver->driver_license_front = $document2;
+            $document2 = rand(0000, 9999) . $license_photo_front->getClientOriginalName();
+            $license_photo_front->move($destinationPath, $document2);
+            $input['license_photo_front'] = "$document2";
+            $driver->license_photo_front = $document2;
         }
 
-        if ($driver_license_back = $request->file('driver_license_back')) {
+        if ($license_photo_back = $request->file('license_photo_back')) {
             $destinationPath = 'admin/uploads/Driver';
-            $document3 = rand(0000, 9999) . $driver_license_back->getClientOriginalName();
-            $driver_license_back->move($destinationPath, $document3);
-            $input['driver_license_back'] = "$document3";
-            $driver->driver_license_back = $document3;
+            $document3 = rand(0000, 9999) . $license_photo_back->getClientOriginalName();
+            $license_photo_back->move($destinationPath, $document3);
+            $input['license_photo_back'] = "$document3";
+            $driver->license_photo_back = $document3;
         }
 
-        if ($driver_aadhaar_front = $request->file('driver_aadhaar_front')) {
+        if ($aadhaar_image_front = $request->file('aadhaar_image_front')) {
             $destinationPath = 'admin/uploads/Driver';
-            $document4 = rand(0000, 9999) . $driver_aadhaar_front->getClientOriginalName();
-            $driver_aadhaar_front->move($destinationPath, $document4);
-            $input['driver_aadhaar_front'] = "$document4";
-            $driver->driver_aadhaar_front = $document4;
-        }
-        if ($driver_aadhaar_back = $request->file('driver_aadhaar_back')) {
-            $destinationPath = 'admin/uploads/Driver';
-            $document5 = rand(0000, 9999) . $driver_aadhaar_back->getClientOriginalName();
-            $driver_aadhaar_back->move($destinationPath, $document5);
-            $input['driver_aadhaar_back'] = "$document5";
-            $driver->driver_aadhaar_back = $document5;
+            $document4 = rand(0000, 9999) . $aadhaar_image_front->getClientOriginalName();
+            $aadhaar_image_front->move($destinationPath, $document4);
+            $input['aadhaar_image_front'] = "$document4";
+            $driver->aadhaar_image_front = $document4;
         }
 
-        if ($driver_rental_agreement_front = $request->file('driver_rental_agreement_front')) {
+        if ($aadhaar_image_back = $request->file('aadhaar_image_back')) {
             $destinationPath = 'admin/uploads/Driver';
-            $document6 = rand(0000, 9999) . $driver_rental_agreement_front->getClientOriginalName();
-            $driver_rental_agreement_front->move($destinationPath, $document6);
-            $input['driver_rental_agreement_front'] = "$document6";
-            $driver->driver_rental_agreement_front = $document6;
+            $document5 = rand(0000, 9999) . $aadhaar_image_back->getClientOriginalName();
+            $aadhaar_image_back->move($destinationPath, $document5);
+            $input['aadhaar_image_back'] = "$document5";
+            $driver->aadhaar_image_back = $document5;
         }
 
-        if ($driver_rental_agreement_back = $request->file('driver_rental_agreement_back')) {
+        if ($rental_agreement_front = $request->file('rental_agreement_front')) {
             $destinationPath = 'admin/uploads/Driver';
-            $document7 = rand(0000, 9999) . $driver_rental_agreement_back->getClientOriginalName();
-            $driver_rental_agreement_back->move($destinationPath, $document7);
-            $input['driver_rental_agreement_back'] = "$document7";
-            $driver->driver_rental_agreement_back = $document7;
+            $document6 = rand(0000, 9999) . $rental_agreement_front->getClientOriginalName();
+            $rental_agreement_front->move($destinationPath, $document6);
+            $input['rental_agreement_front'] = "$document6";
+            $driver->rental_agreement_front = $document6;
         }
 
-        if ($driver_pan_card = $request->file('driver_pan_card')) {
+        if ($rental_agreement_back = $request->file('rental_agreement_back')) {
             $destinationPath = 'admin/uploads/Driver';
-            $document8 = rand(0000, 9999) . $driver_pan_card->getClientOriginalName();
-            $driver_pan_card->move($destinationPath, $document8);
-            $input['driver_pan_card'] = "$document8";
-            $driver->driver_pan_card = $document8;
+            $document7 = rand(0000, 9999) . $rental_agreement_back->getClientOriginalName();
+            $rental_agreement_back->move($destinationPath, $document7);
+            $input['rental_agreement_back'] = "$document7";
+            $driver->rental_agreement_back = $document7;
         }
 
-        if ($driver_vehicle_registration_image = $request->file('driver_vehicle_registration_image')) {
+        if ($pan_card = $request->file('pan_card')) {
             $destinationPath = 'admin/uploads/Driver';
-            $document9 = rand(0000, 9999) . $driver_vehicle_registration_image->getClientOriginalName();
-            $driver_vehicle_registration_image->move($destinationPath, $document9);
-            $input['driver_vehicle_registration_image'] = "$document9";
-            $driver->driver_vehicle_registration_image = $document9;
+            $document8 = rand(0000, 9999) . $pan_card->getClientOriginalName();
+            $pan_card->move($destinationPath, $document8);
+            $input['pan_card'] = "$document8";
+            $driver->pan_card = $document8;
+        }
+
+        if ($registration_photo = $request->file('registration_photo')) {
+            $destinationPath = 'admin/uploads/Driver';
+            $document9 = rand(0000, 9999) . $registration_photo->getClientOriginalName();
+            $registration_photo->move($destinationPath, $document9);
+            $input['registration_photo'] = "$document9";
+            $driver->registration_photo = $document9;
         }
         // dd($image);
 
@@ -354,11 +366,19 @@ class DriverController extends Controller
 
         $driver_veh_cat=new VehicleCategory();
         $vehicle_driv=$driver_veh_cat->all();
+
         $driver_veh_make=new VehicleMake();
         $vehicle_drive_make=$driver_veh_make->all();
 
+        $driver_veh_make=new VehicleMake();
+        $vehicle_drive_make=$driver_veh_make->all();
+
+        $driver_veh_model=new VehicleModel();
+        $editvehiclemodel=$driver_veh_model->all();
+       // echo "<pre>";print_r($editvehicle);exit;
+
         // dd($edit_driver);
-        return view('admin.pages.driver.edit-driver', ['vehicle_drive_make'=>$vehicle_drive_make,'vehicle_driv'=>$vehicle_driv,'datasession' => $datasession, 'driver' => $driver, 'edit_driver' => $edit_driver]);
+        return view('admin.pages.driver.edit-driver', ['editvehiclemodel'=>$editvehiclemodel,'vehicle_drive_make'=>$vehicle_drive_make,'vehicle_driv'=>$vehicle_driv,'datasession' => $datasession, 'driver' => $driver, 'edit_driver' => $edit_driver]);
     }
 
     /**
@@ -371,28 +391,38 @@ class DriverController extends Controller
     public function update(Request $request, $id)
     {
 
+        // return $request;
         $storeData = $request->validate([
 
-            'driver_first_name' => 'required|string|min:3|max:255',
-            'driver_last_name' => 'required|string|min:3|max:255',
-            'driver_mobile_no' => 'required',
-            'driver_email' => 'required|email|min:3|max:255',
-            'vehicle_year' => 'required',
-            'driver_vehicle_registration_number' => 'required|string|min:3|max:255',
-            'driver_vehicle_make' => 'required|string',
-            'driver_vehicle_model' => 'required|string',
-            'driver_vehicle_category' => 'required|string',
-            'driver_puc_expiry_date' => 'required|date',
-            'driver_dob' => 'required|date',
-            'driver_blood_group' => 'required|string',
-            'driver_emergency_number' => 'required',
-            'driver_state' => 'required|string',
-            'driver_city' => 'required|string',
-            'driver_postal_code' => 'required|string',
-            'driver_address' => 'required|string',
-            'driver_status' => 'required|boolean',
-            'driver_status' => '',
-            'driver_ride_type' => '',
+            'first_name' => '',
+            'last_name' => '',
+            'phone_number' => '',
+            'email' => '',
+            'vehicle_year' => '',
+            'car_registration_number' => '',
+            'brand_id' => '',
+            'model_id' => '',
+            'category_id' => '',
+            'puc_expiry_date' => '',
+            'date_of_birth' => '',
+            'blood_group' => '',
+            'emergency_number' => '',
+            'state' => '',
+            'city' => '',
+            'postal_code' => '',
+            'address' => '',
+            'photo' => '',
+            'commercial_insurance' => '',
+            'license_photo_front' => '',
+            'license_photo_back' => '',
+            'aadhaar_image_front' => '',
+            'aadhaar_image_back' => '',
+            'rental_agreement_front' => '',
+            'rental_agreement_back' => '',
+            'pan_card' => '',
+            'registration_photo' => '',
+            'document_status' => '',
+            'status'=>'',
             'mondaystartend' => '',
             'tuesdaystartend' => '',
             'wednesdaystartend' => '',
@@ -401,6 +431,9 @@ class DriverController extends Controller
             'saturdaystartend' => '',
 
         ]);
+
+
+       //echo "<pre>"; print_r($storeData);exit(); echo "</pre>";
         // $update_driver = Driver::where('_id', $id)->first();
         //     $imageName = $update_driver->driver_upload_commercial_insurance;
         //     dd($imageName);
@@ -411,83 +444,84 @@ class DriverController extends Controller
         //   }
 
 
-        if ($request->hasfile('driver_profile_picture')) {
-            $imageName = rand(0000, 9999) . '.' . $request->driver_profile_picture->extension();
-            $request->driver_profile_picture->move('admin/uploads/Driver', $imageName);
-            $request->driver_profile_picture = $imageName;
-            $storeData['driver_profile_picture'] = $imageName;
+        if ($request->hasfile('photo')) {
+            $imageName = rand(0000, 9999) . '.' . $request->photo->extension();
+            $request->photo->move('admin/uploads/Driver', $imageName);
+            $request->photo = $imageName;
+            $storeData['photo'] = $imageName;
         }
 
-        if ($request->hasfile('driver_upload_commercial_insurance')) {
-            $imageName = rand(0000, 9999) . '.' . $request->driver_upload_commercial_insurance->extension();
+        if ($request->hasfile('commercial_insurance')) {
+            $imageName = rand(0000, 9999) . '.' . $request->commercial_insurance->extension();
 
-            $request->driver_upload_commercial_insurance->move('admin/uploads/Driver', $imageName);
-            $request->driver_upload_commercial_insurance = $imageName;
-            $storeData['driver_upload_commercial_insurance'] = $imageName;
+            $request->commercial_insurance->move('admin/uploads/Driver', $imageName);
+            $request->commercial_insurance = $imageName;
+            $storeData['commercial_insurance'] = $imageName;
         }
-        if ($request->hasfile('driver_license_front')) {
-            $imageName = rand(0000, 9999) . '.' . $request->driver_license_front->extension();
+        if ($request->hasfile('license_photo_front')) {
+            $imageName = rand(0000, 9999) . '.' . $request->license_photo_front->extension();
 
-            $request->driver_license_front->move('admin/uploads/Driver', $imageName);
-            $request->driver_license_front = $imageName;
-            $storeData['driver_license_front'] = $imageName;
+            $request->license_photo_front->move('admin/uploads/Driver', $imageName);
+            $request->license_photo_front = $imageName;
+            $storeData['license_photo_front'] = $imageName;
         }
-        if ($request->hasfile('driver_license_back')) {
-            $imageName = rand(0000, 9999) . '.' . $request->driver_license_back->extension();
+        if ($request->hasfile('license_photo_back')) {
+            $imageName = rand(0000, 9999) . '.' . $request->license_photo_back->extension();
 
-            $request->driver_license_back->move('admin/uploads/Driver', $imageName);
-            $request->driver_license_back = $imageName;
-            $storeData['driver_license_back'] = $imageName;
+            $request->license_photo_back->move('admin/uploads/Driver', $imageName);
+            $request->license_photo_back = $imageName;
+            $storeData['license_photo_back'] = $imageName;
         }
-        if ($request->hasfile('driver_aadhaar_front')) {
-            $imageName = rand(0000, 9999) . '.' . $request->driver_aadhaar_front->extension();
+        if ($request->hasfile('aadhaar_image_front')) {
+            $imageName = rand(0000, 9999) . '.' . $request->aadhaar_image_front->extension();
 
-            $request->driver_aadhaar_front->move('admin/uploads/Driver', $imageName);
-            $request->driver_aadhaar_front = $imageName;
-            $storeData['driver_aadhaar_front'] = $imageName;
+            $request->aadhaar_image_front->move('admin/uploads/Driver', $imageName);
+            $request->aadhaar_image_front = $imageName;
+            $storeData['aadhaar_image_front'] = $imageName;
         }
-        if ($request->hasfile('driver_aadhaar_back')) {
-            $imageName = rand(0000, 9999) . '.' . $request->driver_aadhaar_back->extension();
+        if ($request->hasfile('aadhaar_image_back')) {
+            $imageName = rand(0000, 9999) . '.' . $request->aadhaar_image_back->extension();
 
-            $request->driver_aadhaar_back->move('admin/uploads/Driver', $imageName);
-            $request->driver_aadhaar_back = $imageName;
-            $storeData['driver_aadhaar_back'] = $imageName;
+            $request->aadhaar_image_back->move('admin/uploads/Driver', $imageName);
+            $request->aadhaar_image_back = $imageName;
+            $storeData['aadhaar_image_back'] = $imageName;
         }
-        if ($request->hasfile('driver_rental_agreement_front')) {
-            $imageName = rand(0000, 9999) . '.' . $request->driver_rental_agreement_front->extension();
+        if ($request->hasfile('rental_agreement_front')) {
+            $imageName = rand(0000, 9999) . '.' . $request->rental_agreement_front->extension();
 
-            $request->driver_rental_agreement_front->move('admin/uploads/Driver', $imageName);
-            $request->driver_rental_agreement_front = $imageName;
-            $storeData['driver_rental_agreement_front'] = $imageName;
+            $request->rental_agreement_front->move('admin/uploads/Driver', $imageName);
+            $request->rental_agreement_front = $imageName;
+            $storeData['rental_agreement_front'] = $imageName;
         }
-        if ($request->hasfile('driver_rental_agreement_back')) {
-            $imageName = rand(0000, 9999) . '.' . $request->driver_rental_agreement_back->extension();
+        if ($request->hasfile('rental_agreement_back')) {
+            $imageName = rand(0000, 9999) . '.' . $request->rental_agreement_back->extension();
 
-            $request->driver_rental_agreement_back->move('admin/uploads/Driver', $imageName);
-            $request->driver_rental_agreement_back = $imageName;
-            $storeData['driver_rental_agreement_back'] = $imageName;
-        }
-
-        if ($request->hasfile('driver_pan_card')) {
-            $imageName = rand(0000, 9999) . '.' . $request->driver_pan_card->extension();
-
-            $request->driver_pan_card->move('admin/uploads/Driver', $imageName);
-            $request->driver_pan_card = $imageName;
-            $storeData['driver_pan_card'] = $imageName;
+            $request->rental_agreement_back->move('admin/uploads/Driver', $imageName);
+            $request->rental_agreement_back = $imageName;
+            $storeData['rental_agreement_back'] = $imageName;
         }
 
+        if ($request->hasfile('pan_card')) {
+            $imageName = rand(0000, 9999) . '.' .$request->pan_card->extension();
 
-        if ($request->hasfile('driver_vehicle_registration_image')) {
-            $imageName = rand(0000, 9999) . '.' . $request->driver_vehicle_registration_image->extension();
+            $request->pan_card->move('admin/uploads/Driver', $imageName);
+            $request->pan_card = $imageName;
+            $storeData['pan_card'] = $imageName;
+        }
 
-            $request->driver_vehicle_registration_image->move('admin/uploads/Driver', $imageName);
-            $request->driver_vehicle_registration_image = $imageName;
-            $storeData['driver_vehicle_registration_image'] = $imageName;
+
+        if ($request->hasfile('registration_photo')) {
+            $imageName = rand(0000, 9999) . '.' . $request->registration_photo->extension();
+
+            $request->registration_photo->move('admin/uploads/Driver', $imageName);
+            $request->registration_photo = $imageName;
+            $storeData['registration_photo'] = $imageName;
         }
 
         $driver = new Driver;
-        $driver = Driver::where('_id', $id)->update($storeData);
-        return redirect('admin/driver')->with('DriverDetailSuccess', 'Driver Details Updated Successfully!');
+        $driverview = Driver::where('_id', $id)->update($storeData);
+        // echo "<pre>";print_r($driverview);exit();
+        return redirect('admin/edit_driver/'.$id)->with('EditDriverDetailSuccess', 'Driver Details Updated Successfully!');
     }
 
     /**

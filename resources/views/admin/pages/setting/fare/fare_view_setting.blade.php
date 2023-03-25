@@ -77,14 +77,14 @@
                                                                     class="form-control" placeholder="dd/mm/yyyy">
 
                                                             </div>
-                                                        
-                                                        
+
+
 
                                                     </div>
 
                                                   <div class="col-md-4">
 
-                                      
+
                                                  <div class="form_group">
 
 
@@ -92,7 +92,7 @@
                                                 <input type="text" name="search" value="{{ request('search') }}"
                                                     class="form-control" placeholder="Enter Vehicle Category....">
                                                 </div>
-                                           
+
                                         </form> --}}
 
                                     </div>
@@ -108,17 +108,17 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>VEHICLE CATEGORY</th>
+                                                <th>VEHICHLE CATEGORY</th>
                                                 <th>BASE FARE </th>
-                                                <th>TIME FACTOR FOR TRAVEL</th>
-                                                <th>RATE PER KM (< 25 KMS)</th>
+                                                <th>MINIMUM FARE</th>
+                                                <th>PER MINUTE FARE</th>
+                                                <th>RATE PER KM (0 < 25 KMS)</th>
                                                 <th>RATE PER KM (25 TO 50 KMS)</th>
                                                 <th>RATE PER KM (50 TO 100 KMS)</th>
                                                 <th>RATE PER KM (100 TO 250 KMS)</th>
                                                 <th>RATE PER KM (250 TO 500 KMS)</th>
                                                 <th>RATE PER KM (500 + KMS)</th>
-                                                <th>MINIMUM FARE</th>
-                                                <th>KM FOR MIN FARE</th>
+                                                <th>MINIMUM FARE KM</th>
                                                 <th>STATUS</th>
                                                 <th>Created Date</th>
                                                 <th>Updated Date</th>
@@ -130,21 +130,23 @@
                                             @php
                                                 $i = 1;
                                             @endphp
-                                            @foreach ($fareview as $fare)
+                                            @foreach ($fareview as $key=>$fare)
                                                 <tr>
-                                                    <td>{{ $i++ }}</td>
-                                                    <td>{{ $fare->vehicle_category }}</td>
-                                                    <td>&#8377; {{ $fare->base_fare }} </td>
-                                                    <td>&#8377; {{ $fare->time_factor_for_travel }}</td>
-                                                    <td>&#8377; {{ $fare->rate_per_km_25_kms }}</td>
-                                                    <td>&#8377; {{ $fare->rate_per_km_25_to_50_kms }}</td>
+                                                    <td>{{ ($fareview->currentpage()-1) * $fareview->perpage() + $key + 1 }}</td>
 
-                                                    <td>&#8377; {{ $fare->rate_per_km_50_to_100_kms }}</td>
-                                                    <td>&#8377; {{ $fare->rate_per_km_100_to_250_kms }}</td>
-                                                    <td>&#8377; {{ $fare->rate_per_km_250_to_500_kms }}</td>
-                                                    <td>&#8377; {{ $fare->rate_per_km_500_kms }}</td>
+                                                    <td>{{ $fare->category_id }}</td>
+                                                    <td>&#8377; {{ $fare->base_fare }} </td>
                                                     <td>&#8377; {{ $fare->minimum_fare }}</td>
-                                                    <td> {{ $fare->km_for_min_fare }} KM</td>
+                                                    <td>&#8377; {{ $fare->per_min_fare }}</td>
+                                                    <td>&#8377; {{ $fare->per_km_fare_slab1 }}</td>
+                                                    <td>&#8377; {{ $fare->per_km_fare_slab2 }}</td>
+
+                                                    <td>&#8377; {{ $fare->per_km_fare_slab3 }}</td>
+                                                    <td>&#8377; {{ $fare->per_km_fare_slab4 }}</td>
+                                                    <td>&#8377; {{ $fare->per_km_fare_slab5 }}</td>
+                                                    <td>&#8377; {{ $fare->per_km_fare_slab6 }}</td>
+                                                    <td>&#8377; {{ $fare->minimum_fare_km }}</td>
+
                                                     <td>
                                                         @if ($fare->status == 1)
                                                             <span class="badge badge-success">Active</span>

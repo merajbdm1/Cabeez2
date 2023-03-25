@@ -8,6 +8,7 @@ use SebastianBergmann\CodeCoverage\Report\Html\Facade;
 use App\Models\UserActivityModel;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use App\Models\admin\VehicleCategory;
 use Illuminate\Pagination\Paginator;
 
 class FareSettingController extends Controller
@@ -18,26 +19,29 @@ class FareSettingController extends Controller
      * @return \Illuminate\Http\Response
      */
    // use withPagination;
-    
+
     public function index(Request $request)
 
     {
         if(Session::has('loginId')){
             $datasession = User::where('_id', '=', Session::get('loginId'))->first();
-           
+
         }else{
             return redirect('login');
 
         }
-            $fareviewlist = new Fare();
+            // $fareviewlist = new Fare();
+            $fareview = Fare::paginate(10);
 
-          
-            $farelist=$fareviewlist->where('vehicle_category','LIKE',$request->search);
-            $fareview = $farelist->paginate(6);
-            // dd($fareview);
-            
-           return view('admin.pages.setting.fare.fare_view_setting',["fareview"=>$fareview,"datasession" => $datasession]);
- 
+
+            // $fareview = $fareviewlist->paginate(6);
+            // dd($fareviewlist);
+            // dd($fareviewlist);
+            // exit;
+
+            // dd($selecv);exit;
+           return view('admin.pages.setting.fare.fare_view_setting',["fareview"=>$fareview, "datasession"=>$datasession]);
+
     }
 
     /**
@@ -49,12 +53,15 @@ class FareSettingController extends Controller
     {
         if(Session::has('loginId')){
            $datasession= User::where('_id', '=', Session::get('loginId'))->first();
-           
+
         }else{
             return redirect('login');
 
         }
-        return view('admin.pages.setting.fare.add_fare_setting',["datasession" => $datasession]);
+
+        $selectcategory=VehicleCategory::all();
+
+        return view('admin.pages.setting.fare.add_fare_setting',["selectcategory"=>$selectcategory,"datasession" => $datasession]);
     }
 
     /**
@@ -69,37 +76,37 @@ class FareSettingController extends Controller
         $fare_process=new Fare;
 
         $validate= $request->validate([
-        'vehicle_category' => 'required|string|min:3|max:255',
+        'category_id' => '',
         'base_fare' => 'required',
-        'time_factor_for_travel' => 'required',
-        'rate_per_km_25_kms' => 'required',
-        'rate_per_km_25_to_50_kms' => 'required',
-        'rate_per_km_50_to_100_kms' => 'required',
-        'rate_per_km_100_to_250_kms' => 'required|string',
-        'rate_per_km_250_to_500_kms' => 'required|string',
-        'rate_per_km_500_kms'=> 'required|string',
-        'minimum_fare' => 'required|string',
-        'km_for_min_fare' => 'required',
-        'status' => 'required',
-      
+        'per_min_fare' => 'required',
+        'per_km_fare_slab1' => 'required',
+        'per_km_fare_slab2' => 'required',
+        'per_km_fare_slab3' => 'required',
+        'per_km_fare_slab4' => 'required',
+        'per_km_fare_slab5' => 'required',
+        'per_km_fare_slab6'=> 'required',
+        'minimum_fare' => 'required',
+        'per_min_fare' => 'required',
+        'status' => '',
+
         ]);
         // dd($fare_process);
-        $checkvehiclecate = $fare_process->vehicle_category=$request->input('vehicle_category');
+        $checkvehiclecate = $fare_process->category_id=$request->input('category_id');
         $farebasefare = $fare_process->base_fare=$request->input('base_fare');
-        $fare_process_time_factor_for_travel=$fare_process->time_factor_for_travel=$request->input('time_factor_for_travel');
-        $rate_per_km_25_kms_fare_process=$fare_process->rate_per_km_25_kms=$request->input('rate_per_km_25_kms');
-        $fare_process_rate_per_km_25_to_50_kms=$fare_process->rate_per_km_25_to_50_kms=$request->input('rate_per_km_25_to_50_kms');
-        $fare_process_rate_per_km_50_to_100_kms=$fare_process->rate_per_km_50_to_100_kms=$request->input('rate_per_km_50_to_100_kms');
-        $fare_process_rate_per_km_100_to_250_kms=$fare_process->rate_per_km_100_to_250_kms=$request->input('rate_per_km_100_to_250_kms'); 
-        $fare_process_rate_per_km_250_to_500_kms=$fare_process->rate_per_km_250_to_500_kms=$request->input('rate_per_km_250_to_500_kms'); 
-        $fare_process_rate_per_km_500_kms= $fare_process->rate_per_km_500_kms=$request->input('rate_per_km_500_kms'); 
-        $fare_process_minimum_fare=$fare_process->minimum_fare=$request->input('minimum_fare'); 
-        $fare_process_km_for_min_fare= $fare_process->km_for_min_fare=$request->input('km_for_min_fare'); 
+        $fare_process_per_min_fare=$fare_process->per_min_fare=$request->input('per_min_fare');
+        $per_km_fare_slab1_fare_process=$fare_process->per_km_fare_slab1=$request->input('per_km_fare_slab1');
+        $fare_process_per_km_fare_slab2=$fare_process->per_km_fare_slab2=$request->input('per_km_fare_slab2');
+        $fare_process_per_km_fare_slab3=$fare_process->per_km_fare_slab3=$request->input('per_km_fare_slab3');
+        $fare_process_per_km_fare_slab4=$fare_process->per_km_fare_slab4=$request->input('per_km_fare_slab4');
+        $fare_process_per_km_fare_slab5=$fare_process->per_km_fare_slab5=$request->input('per_km_fare_slab5');
+        $fare_process_per_km_fare_slab6= $fare_process->per_km_fare_slab6=$request->input('per_km_fare_slab6');
+        $fare_process_minimum_fare=$fare_process->minimum_fare=$request->input('minimum_fare');
+        $fare_process_km_for_min_fare= $fare_process->km_for_min_fare=$request->input('km_for_min_fare');
         $fare_process_status=$fare_process->status=$request->input('status');
         $checkfare=$fare_process->save();
 
         $ip_adress=request()->ip();
-        
+
         $server_ip_address=$_SERVER['REMOTE_ADDR'];
 
         $host_addr= gethostname();
@@ -107,7 +114,7 @@ class FareSettingController extends Controller
 
         if(Session::has('loginId')){
             $datasession = User::where('_id', '=', Session::get('loginId'))->first();
-           
+
         }
 
         if($checkfare){
@@ -229,8 +236,8 @@ class FareSettingController extends Controller
             $asd->create($base_fare_time_travel_500_PLUS);
 
         }
-        
-        
+
+
         if($fare_process_minimum_fare){
             $base_fare_MINI=[
                 'log_type'=>'('.$fare_process_minimum_fare.') '.'Minimum Fare * Added',
@@ -271,17 +278,17 @@ class FareSettingController extends Controller
             $asd->create($base_fare_status);
 
         }
-        
-        
-        
-        
+
+
+
+
     }
         // dd($check);
-        
+
         return back()->with('success_message', 'Fare settings saved successfully.');
-     
+
         //    return view('add_fare_setting');
-       
+
     }
 
     /**
@@ -302,16 +309,16 @@ class FareSettingController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
-    {   
+    {
 
         if(Session::has('loginId')){
             $datasession= User::where('_id', '=', Session::get('loginId'))->first();
-            
+
          }else{
              return redirect('login');
- 
+
          }
-        
+
         $editfareview=new Fare();
         $editfareview = Fare::where('_id',$id)->first();
         // $edit_promocode = PromoCode::where('_id', $id)->first();
@@ -330,7 +337,7 @@ class FareSettingController extends Controller
      */
     public function update(Request $request,$id)
     {
-        
+
 
         $validate = $request->validate([
             'vehicle_category' => '',
@@ -357,16 +364,16 @@ class FareSettingController extends Controller
         $rate_per_km_25_kms_fare_process=$editfare->rate_per_km_25_kms=$request->input('rate_per_km_25_kms');
         $fare_process_rate_per_km_25_to_50_kms=$editfare->rate_per_km_25_to_50_kms=$request->input('rate_per_km_25_to_50_kms');
         $fare_process_rate_per_km_50_to_100_kms=$editfare->rate_per_km_50_to_100_kms=$request->input('rate_per_km_50_to_100_kms');
-        $fare_process_rate_per_km_100_to_250_kms=$editfare->rate_per_km_100_to_250_kms=$request->input('rate_per_km_100_to_250_kms'); 
-        $fare_process_rate_per_km_250_to_500_kms=$editfare->rate_per_km_250_to_500_kms=$request->input('rate_per_km_250_to_500_kms'); 
-        $fare_process_rate_per_km_500_kms=$editfare->rate_per_km_500_kms=$request->input('rate_per_km_500_kms'); 
-        $fare_process_minimum_fare=$editfare->minimum_fare=$request->input('minimum_fare'); 
-        $fare_process_km_for_min_fare=$editfare->km_for_min_fare=$request->input('km_for_min_fare'); 
+        $fare_process_rate_per_km_100_to_250_kms=$editfare->rate_per_km_100_to_250_kms=$request->input('rate_per_km_100_to_250_kms');
+        $fare_process_rate_per_km_250_to_500_kms=$editfare->rate_per_km_250_to_500_kms=$request->input('rate_per_km_250_to_500_kms');
+        $fare_process_rate_per_km_500_kms=$editfare->rate_per_km_500_kms=$request->input('rate_per_km_500_kms');
+        $fare_process_minimum_fare=$editfare->minimum_fare=$request->input('minimum_fare');
+        $fare_process_km_for_min_fare=$editfare->km_for_min_fare=$request->input('km_for_min_fare');
         $fare_process_status=$editfare->status=$request->input('status');
 
         $checkupdate= $editfare->where('_id', $id)->update($validate);
         $ip_adress=request()->ip();
-        
+
         $server_ip_address=$_SERVER['REMOTE_ADDR'];
 
         $host_addr= gethostname();
@@ -374,7 +381,7 @@ class FareSettingController extends Controller
 
         if(Session::has('loginId')){
             $datasession = User::where('_id', '=', Session::get('loginId'))->first();
-           
+
         }
 
         if($checkupdate){
@@ -496,8 +503,8 @@ class FareSettingController extends Controller
             $asd->create($base_fare_time_travel_500_PLUS);
 
         }
-        
-        
+
+
         if($fare_process_minimum_fare){
             $base_fare_MINI=[
                 'log_type'=>'('.$fare_process_minimum_fare.')'.'Minimum Fare * Updated',
@@ -558,18 +565,18 @@ class FareSettingController extends Controller
         $vehiclecategory=Fare::find($id);
         // dd();
         $ip_adress=request()->ip();
-        
+
         //$server_ip_address=$_SERVER['REMOTE_ADDR'];
 
         $host_addr= gethostname();
-        $ip_addr = gethostbyname($host_addr);   
+        $ip_addr = gethostbyname($host_addr);
 
         $deleteFare = Fare::where('_id', $id)->first();
         $checkdelete=$deleteFare->delete();
 
         if(Session::has('loginId')){
             $datasession = User::where('_id', '=', Session::get('loginId'))->first();
-           
+
         }
 
         if($checkdelete){
@@ -585,6 +592,6 @@ class FareSettingController extends Controller
             $asdfr->create($deletefarebase);
 
         }
-        return back()->with('success_message', 'Fare Deleted successfully!');  
+        return back()->with('success_message', 'Fare Deleted successfully!');
     }
 }

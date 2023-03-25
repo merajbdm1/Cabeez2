@@ -34,7 +34,7 @@ exit();
                 <div class="row">
                     <!-- left column -->
                     <div class="col-md-12">
-                        @if ($message = Session::get('DriverDetailSuccess'))
+                        @if ($message = Session::get('EditDriverDetailSuccess'))
                             <div class="alert alert-success alert-block">
                                 <button type="button" class="close" data-dismiss="alert">×</button>
                                 <strong>{{ $message }}</strong>
@@ -191,7 +191,7 @@ exit();
                                                             <option value="{{ $item->id }}">
                                                                 {{ $item->name }}</option>
                                                         @endif
-                                                    @endforeach
+                                                      @endforeach
 
                                                     </select>
 
@@ -201,11 +201,20 @@ exit();
                                                 <div class="form-group">
                                                     <label for="exampleVehicleModel">Vehicle Model <span
                                                             class="text-danger">*</span></label>
-                                                    <select name="model_id" id="" class="form-control">
+                                                            <select name="model_id" id="" class="form-control">
+                                                                <option value="">--Select Make--</option>
+                                                                @foreach ($editvehiclemodel as $item)
+                                                                @if ($edit_driver->model_id == $item->id)
+                                                                <option selected disabled value="{{ $edit_driver->model_id }}" style="background-color: #0069d9;color:#fff;">
+                                                                    {{ $edit_driver->driver_vehicle_make_model->name }}</option>
+                                                                @else
+                                                                    <option value="{{ $item->id }}">
+                                                                        {{ $item->name }}</option>
+                                                                @endif
+                                                            @endforeach
 
-                                                        <option value="">--Select model--</option>
-                                                        <option value=""></option>
-                                                    </select>
+
+                                                            </select>
                                                 </div>
                                             </div>
 
@@ -213,13 +222,13 @@ exit();
                                                 <div class="form-group">
                                                     <label for="examplePUCExpiryDate">PUC Expiry Date <span
                                                             class="text-danger">*</span></label>
-                                                    <input type="date" name="driver_puc_expiry_date"
-                                                        class="form-control{{ $errors->has('driver_puc_expiry_date') ? ' is-invalid' : '' }}"
-                                                        value="{{ $edit_driver->driver_puc_expiry_date }}"
+                                                    <input type="date" name="puc_expiry_date"
+                                                        class="form-control{{ $errors->has('puc_expiry_date') ? ' is-invalid' : '' }}"
+                                                        value="{{ $edit_driver->puc_expiry_date }}"
                                                         id="examplePUCExpiryDate" placeholder="PUC Expiry Date">
-                                                    @if ($errors->has('driver_puc_expiry_date'))
+                                                    @if ($errors->has('puc_expiry_date'))
                                                         <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('driver_puc_expiry_date') }}</strong>
+                                                            <strong>{{ $errors->first('puc_expiry_date') }}</strong>
                                                         </span>
                                                     @endif
                                                 </div>
@@ -229,7 +238,7 @@ exit();
                                                 <div class="form-group">
                                                     <label for="exampleDateofBirth">Date of Birth <span
                                                             class="text-danger">*</span></label>
-                                                    <input type="date" name="date_of_birth"
+                                                    <input type="text" name="date_of_birth"
                                                         class="form-control{{ $errors->has('date_of_birth') ? ' is-invalid' : '' }}"
                                                         value="{{ $edit_driver->date_of_birth }}" id="exampleDateofBirth"
                                                         placeholder="Date of Birth">
@@ -538,21 +547,21 @@ exit();
                                                             class="text-danger">*</span></label>
                                                     <div class="custom-file">
                                                         <input type="file" class="custom-file-input" id="customFile"
-                                                            name="driver_pan_card" accept="image/*"
+                                                            name="pan_card" accept="image/*"
                                                             onchange="loadFile9(event)"
-                                                            value="{{ $edit_driver->driver_pan_card }}">
+                                                            value="{{ $edit_driver->pan_card }}">
 
                                                         <label class="custom-file-label" for="customFile">Choose
                                                             file</label>
-                                                        @if ($errors->has('driver_pan_card'))
+                                                        @if ($errors->has('pan_card'))
                                                             <span class="invalid feedback" role="alert">
-                                                                <strong>{{ $errors->first('driver_pan_card') }}</strong>
+                                                                <strong>{{ $errors->first('pan_card') }}</strong>
                                                             </span>
                                                         @endif
                                                     </div>
                                                 </div>
                                                 <div class="image-preview">
-                                                    <img src="{{ asset('admin/uploads/Driver/' . $edit_driver->driver_pan_card) }}"
+                                                    <img src="{{ asset('admin/uploads/Driver/' . $edit_driver->pan_card) }}"
                                                         id="preview_img_id9" class="img-fluid" />
                                                 </div>
                                             </div>
@@ -581,7 +590,7 @@ exit();
                                                 </div>
 
                                             </div>
-                                            <div class="col-md-6">
+                                            {{-- <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="customFile">Ride Type<span
                                                             class="text-danger">*</span></label>
@@ -605,7 +614,7 @@ exit();
 
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> --}}
 
 
                                             <div class="col-md-6">
@@ -617,10 +626,12 @@ exit();
                                                         <label class="days" for="">Monday</label>
                                                         <label>Start</label>
                                                         <input type="time" name="mondaystartend[]" min="00:00"
-                                                            max="18:00">
+                                                            max="18:00" value="<?php if(!empty($edit_driver->mondaystartend[0]))
+                                                            { echo $edit_driver->mondaystartend[0]; }else{ echo 'Not Found';}?>">
                                                         <label>End</label>
                                                         <input type="time" name="mondaystartend[]" min="00:00"
-                                                            max="18:00">
+                                                            max="18:00" value="<?php if(!empty($edit_driver->mondaystartend[1]))
+                                                            { echo $edit_driver->mondaystartend[1]; }else{ echo 'Not Found';}?>">
 
                                                         @if ($errors->has('mondaystart'))
                                                             <span class="invalid feedback" role="alert">
@@ -633,10 +644,12 @@ exit();
                                                         <label class="days" for="">Tuesday</label>
                                                         <label> Start</label>
                                                         <input type="time" name="tuesdaystartend[]" min="00:00"
-                                                            max="18:00">
+                                                            max="18:00" value="<?php if(!empty($edit_driver->tuesdaystartend[0]))
+                                                            { echo $edit_driver->tuesdaystartend[0]; }else{ echo 'Not Found';}?>">
                                                         <label>End</label>
                                                         <input type="time" name="tuesdaystartend[]" min="00:00"
-                                                            max="18:00">
+                                                            max="18:00" value="<?php if(!empty($edit_driver->tuesdaystartend[1]))
+                                                            { echo $edit_driver->tuesdaystartend[1]; }else{ echo 'Not Found';}?>">
 
                                                         @if ($errors->has('tuesdaystartend'))
                                                             <span class="invalid feedback" role="alert">
@@ -648,10 +661,13 @@ exit();
                                                         <label class="days" for="">Wednesday</label>
                                                         <label> Start</label>
                                                         <input type="time" name="wednesdaystartend[]" min="00:00"
-                                                            max="18:00">
+                                                            max="18:00"
+                                                            value="<?php if(!empty($edit_driver->wednesdaystartend[0]))
+                                                            { echo $edit_driver->wednesdaystartend[0]; }else{ echo 'Not Found';}?>">
                                                         <label>End</label>
                                                         <input type="time" name="wednesdaystartend[]" min="00:00"
-                                                            max="18:00">
+                                                            max="18:00" value="<?php if(!empty($edit_driver->wednesdaystartend[1]))
+                                                            { echo $edit_driver->wednesdaystartend[1]; }else{ echo 'Not Found';}?>">
 
                                                         @if ($errors->has('wednesdaystartend'))
                                                             <span class="invalid feedback" role="alert">
@@ -663,10 +679,12 @@ exit();
                                                         <label class="days" for="">Thursday</label>
                                                         <label> Start</label>
                                                         <input type="time" name="thursdaystartend[]" min="00:00"
-                                                            max="18:00">
+                                                            max="18:00" value="<?php if(!empty($edit_driver->thursdaystartend[0]))
+                                                            { echo $edit_driver->thursdaystartend[0]; }else{ echo 'Not Found';}?>">
                                                         <label>End</label>
                                                         <input type="time" name="thursdaystartend[]" min="00:00"
-                                                            max="18:00">
+                                                            max="18:00" value="<?php if(!empty($edit_driver->thursdaystartend[1]))
+                                                            { echo $edit_driver->thursdaystartend[1]; }else{ echo 'Not Found';}?>">
 
                                                         @if ($errors->has('thursdaystartend'))
                                                             <span class="invalid feedback" role="alert">
@@ -678,10 +696,12 @@ exit();
                                                         <label class="days" for="">Friday</label>
                                                         <label> Start</label>
                                                         <input type="time" name="fridaystartend[]" min="00:00"
-                                                            max="18:00">
+                                                            max="18:00" value="<?php if(!empty($edit_driver->fridaystartend[0]))
+                                                            { echo $edit_driver->fridaystartend[0]; }else{ echo 'Not Found';}?>">
                                                         <label>End</label>
                                                         <input type="time" name="fridaystartend[]" min="00:00"
-                                                            max="18:00">
+                                                            max="18:00" value="<?php if(!empty($edit_driver->fridaystartend[1]))
+                                                            { echo $edit_driver->fridaystartend[1]; }else{ echo 'Not Found';}?>">
 
                                                         @if ($errors->has('fridaystartend'))
                                                             <span class="invalid feedback" role="alert">
@@ -693,10 +713,12 @@ exit();
                                                         <label class="days" for="">Saturday</label>
                                                         <label> Start</label>
                                                         <input type="time" name="saturdaystartend[]" min="00:00"
-                                                            max="18:00">
+                                                            max="18:00" value="<?php if(!empty($edit_driver->saturdaystartend[0]))
+                                                            { echo $edit_driver->saturdaystartend[0]; }else{ echo 'Not Found';}?>">
                                                         <label>End</label>
                                                         <input type="time" name="saturdaystartend[]" min="00:00"
-                                                            max="18:00">
+                                                            max="18:00" value="<?php if(!empty($edit_driver->saturdaystartend[1]))
+                                                            { echo $edit_driver->saturdaystartend[1]; }else{ echo 'Not Found';}?>">
 
                                                         @if ($errors->has('saturdaystartend'))
                                                             <span class="invalid feedback" role="alert">

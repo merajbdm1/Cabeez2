@@ -22,6 +22,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\BookNowController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\DriverRequestController;
+use App\Http\Controllers\SettlementController;
 //Fare Settings
 
 Route::group(['middleware' => 'prevent-back-history','auth'],function(){
@@ -142,6 +143,7 @@ Route::get('/search',[BookNowController::class,'product_search'])->name('search'
 Route::get('driver_request',[DriverRequestController::class,'index'])->name('driver_request');
 
 
-
+//Driver Fare Settlemtnet
+Route::get('admin/driver_settlemtnet',[SettlementController::class,'index']);
 
 ?>

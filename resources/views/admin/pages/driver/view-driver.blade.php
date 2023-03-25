@@ -1,3 +1,9 @@
+{{--
+<?php
+echo "<pre>";print_r($driver);exit();
+
+?> --}}
+
 @extends('admin.layout.master')
 
 @section('style')
@@ -263,6 +269,14 @@
 
                         @foreach ($driver as $key=>$driver_model)
 
+                                {{-- @php
+                                if(isset($driver_model)){
+                                    $vehimode= $driver_model->driver_vehicle_category->name;
+                                }
+                                else{
+                                    $vehimode='';
+                                }
+                                @endphp --}}
                             <tr>
                                 <td class="text-center">{{ ($driver->currentpage()-1) * $driver->perpage() + $key + 1 }}</td>
                                 <td class="text-center">{{ $driver_model->first_name }}</td>
@@ -271,7 +285,7 @@
                                 <td class="text-center">{{ $driver_model->phone_number }}</td>
                                 <td class="text-center">{{ $driver_model->email }}</td>
 
-                                <td class="text-center">{{ $driver_model->driver_vehicle_category->name }}</td>
+                                <td class="text-center"><?php if(!empty($driver_model->driver_vehicle_category->name)){ echo $driver_model->driver_vehicle_category->name; }else{ echo 'No Found';}?></td>
                                 <td class="text-center">
                                     @if ($driver_model->is_available == '1')
                                         <span style="color:green">Available</span>

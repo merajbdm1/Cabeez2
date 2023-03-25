@@ -30,4 +30,13 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'otp' => [
+        'length' => 6,
+        'ttl' => 60, // time to live in seconds
+        'otpExpireInMinutes' => 5, // expiration time in minutes
+    ],
+
 ];
+
+
+

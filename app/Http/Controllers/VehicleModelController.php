@@ -19,7 +19,7 @@ class VehicleModelController extends Controller
     {
         if(Session::has('loginId')){
             $datasession = User::where('_id', '=', Session::get('loginId'))->first();
-           
+
         }else{
             return redirect('login');
 
@@ -59,19 +59,19 @@ class VehicleModelController extends Controller
             'make_model_name' => 'required|string',
             'vehicle_make_id' => 'required',
             'vehicle_category_id' => 'required',
-            'active' => 'required|boolean', 
+            'active' => 'required|boolean',
             'type' => '',
 
-        
+
 		]);
-	   
+
         // dd($validated);exit;
 
         $vehicleModel = new VehicleModel;
-        
+
         $vehicleModel->make_model_name = $request->input('make_model_name');
         $vehicleModel->vehicle_make_id = $request->input('vehicle_make_id');
-        $vehicleModel->vehicle_category_id = $request->input('vehicle_category_id');       
+        $vehicleModel->vehicle_category_id = $request->input('vehicle_category_id');
         $vehicleModel->active = $request->input('active');
         $vehicleModel->type = $request->input('type');
         $vehicleModel->save();
@@ -99,7 +99,7 @@ class VehicleModelController extends Controller
     {
         if(Session::has('loginId')){
             $datasession = User::where('_id', '=', Session::get('loginId'))->first();
-           
+
         }else{
             return redirect('login');
 
@@ -107,7 +107,7 @@ class VehicleModelController extends Controller
         $vehicleCategory = VehicleCategory::all();
         $vehicleMake = VehicleMake::all();
         $vehicleModel = VehicleModel::all();
-       
+
         $edit_vehicleModel = VehicleModel::where('_id', $id)->first();
         $edit_vehicleCategory = VehicleCategory::where('_id',$id)->first();
         $edit_vehicleMake = VehicleMake::where('_id',$id)->first();

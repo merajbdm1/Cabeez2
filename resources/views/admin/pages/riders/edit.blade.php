@@ -59,10 +59,10 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleFirstName">First Name <span class="text-danger">*</span></label>
-                                            <input type="text" name="f_name" value="{{ $rider->f_name }}" class="form-control{{ $errors->has('f_name') ? ' is-invalid' : '' }}" id="exampleFirstName" placeholder="First Name">
-                                            @if ($errors->has('f_name'))
+                                            <input type="text" name="first_name" value="{{ $rider->first_name }}" class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" id="exampleFirstName" placeholder="First Name">
+                                            @if ($errors->has('first_name'))
                                             <span class="invalid feedback" role="alert">
-                                                <strong>{{ $errors->first('f_name') }}</strong>
+                                                <strong>{{ $errors->first('first_name') }}</strong>
                                             </span>
                                             @endif
                                         </div>
@@ -71,10 +71,10 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleLastName">Last Name </label>
-                                            <input type="text" name="l_name" value="{{ $rider->l_name }}" class="form-control{{ $errors->has('l_name') ? ' is-invalid' : '' }}" id="exampleLastName" placeholder="Last Name">
-                                            @if ($errors->has('l_name'))
+                                            <input type="text" name="last_name" value="{{ $rider->last_name }}" class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" id="exampleLastName" placeholder="Last Name">
+                                            @if ($errors->has('last_name'))
                                             <span class="invalid feedback" role="alert">
-                                                <strong>{{ $errors->first('l_name') }}</strong>
+                                                <strong>{{ $errors->first('last_name') }}</strong>
                                             </span>
                                             @endif
                                         </div>
@@ -84,10 +84,10 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleMobileNumber">Mobile Number <span class="text-danger">*</span></label>
-                                            <input type="number" name="contact" value="{{ $rider->contact }}" class="form-control{{ $errors->has('contact') ? ' is-invalid' : '' }}" id="exampleMobileNumber" placeholder="Mobile Number">
-                                            @if ($errors->has('contact'))
+                                            <input type="number" name="phone_number" value="{{ $rider->phone_number }}" class="form-control{{ $errors->has('phone_number') ? ' is-invalid' : '' }}" id="exampleMobileNumber" placeholder="Mobile Number">
+                                            @if ($errors->has('phone_number'))
                                             <span class="invalid feedback" role="alert">
-                                                <strong>{{ $errors->first('contact') }}</strong>
+                                                <strong>{{ $errors->first('phone_number') }}</strong>
                                             </span>
                                             @endif
                                         </div>
@@ -110,19 +110,19 @@
                                         <div class="form-group">
                                             <label for="customFile">Profile Pic</label>
                                             <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="customFile" name="profile_pic" accept="image/*" onchange="loadFile2(event)">
+                                                <input type="file" class="custom-file-input" id="customFile" name="photo" accept="image/*" onchange="loadFile2(event)">
 
                                                 <label class="custom-file-label" for="customFile">Choose
                                                     file</label>
-                                                @if ($errors->has('profile_pic'))
+                                                @if ($errors->has('photo'))
                                                 <span class="invalid feedback" role="alert">
-                                                    <strong>{{ $errors->first('profile_pic') }}</strong>
+                                                    <strong>{{ $errors->first('photo') }}</strong>
                                                 </span>
                                                 @endif
                                             </div>
                                         </div>
                                         <div class="image-preview">
-                                            <img src="{{ asset('admin/uploads/Riders/'. $rider->profile_pic ) }}" id="preview_img_id2" class="img-fluid" />
+                                            <img src="{{ asset('admin/uploads/Riders/'. $rider->photo ) }}" id="preview_img_id2" class="img-fluid" />
                                         </div>
                                     </div>
 
@@ -133,12 +133,11 @@
                                             <label for="driverStatus">Status <span class="text-danger">*</span></label>
                                             <select id="driverStatus" class="form-control custom-select" name="status">
                                                 <option>Select one</option>
-                                                <option value="1" {{ ( 1 == $rider->status ? "selected":"") }}>Active</option>
-                                                <option value="2" {{ ( 2 == $rider->status ? "selected":"") }}>Inactive</option>
+                                                <option value="1" {{ ( 'active' == $rider->status ? "selected":"") }}>Active</option>
+                                                <option value="2" {{ ( 'inactive' == $rider->status ? "selected":"") }}>Inactive</option>
+                                                <option value="2" {{ ( 'pending' == $rider->status ? "selected":"") }}>Pending</option>
+                                                <option value="2" {{ ( 'deleted' == $rider->status ? "selected":"") }}>Deleted</option>
                                             </select>
-
-
-
                                             @if ($errors->has('status'))
                                             <span class="invalid feedback" role="alert">
                                                 <strong>{{ $errors->first('status') }}</strong>
@@ -146,21 +145,12 @@
                                             @endif
                                         </div>
                                     </div>
-
-
-
-
-
                                 </div>
-
-
-
-
 
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Add</button>
+                                <button type="submit" class="btn btn-primary">Update</button>
                             </div>
                         </form>
                     </div>
