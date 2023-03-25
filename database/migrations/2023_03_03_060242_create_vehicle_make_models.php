@@ -15,8 +15,7 @@ class CreateVehicleMakeModels extends Migration
     {
         Schema::create('vehicle_make_models', function (Blueprint $table) {
             // $table->string('vehicle_model');
-            // $table->foreignId('vehicle_make_id')->constrained()->cascadeOnDelete();
-            // $table->foreignId('vehicle_category_id')->constrained()->cascadeOnDelete();
+
             // $table->string('vehicle_model_status');
             // $table->timestamps();
                 $table->integer('id');
@@ -29,6 +28,8 @@ class CreateVehicleMakeModels extends Migration
             // $table->string('ev_time_for_fast_charge');
             // $table->string('ev_time_for_fast_chargedsd');
             // $table->enum('active',['1','0'])->default('0');
+            // $table->foreignId('vehicle_make_id')->constrained()->cascadeOnDelete();
+            // $table->foreignId('vehicle_category_id')->constrained()->cascadeOnDelete();
             $table->foreignId('brand_id')->constrained()->cascadeOnDelete();
             $table->foreignId('category_id')->constrained()->cascadeOnDelete();
              // $table->string('vehicle_model_status');

@@ -18,7 +18,7 @@ class VehicleMake extends Eloquent
 
     public function df()
     {
-        return $this->hasMany(VehicleModel::class,'vehicle_make_id');
+        return $this->hasMany(VehicleModel::class);
     }
 
 }

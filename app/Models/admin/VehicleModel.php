@@ -29,12 +29,12 @@ class VehicleModel extends Eloquent
     public function make()
     {
         // print_r("dhfkadf");
-        return $this->belongsTo(VehicleMake::class,'vehicle_make_id','id');
+        return $this->belongsTo(VehicleMake::class,'brand_id','id');
     }
 
     public function categories()
     {
-        return $this->belongsTo(VehicleCategory::class,'vehicle_category_id','_id');
+        return $this->belongsTo(VehicleCategory::class,'category_id','id');
     }
 }
 

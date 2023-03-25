@@ -31,7 +31,7 @@ class VehicleModelController extends Controller
         // dd($hdfk);
         // $vehicleModel = VehicleModel::get();
         // $thisis=$vehicleModel->make->all();
-        //   dd($vehicleModel);exit;
+          //dd($vehicleModel);exit;
 
         return view('admin.pages.setting.vehicle.vehicle_model',['vehicleModel'=>$vehicleModel,'vehicleMake'=>$vehicleMake,'vehicleCategory'=>$vehicleCategory,'datasession'=>$datasession]);
     }

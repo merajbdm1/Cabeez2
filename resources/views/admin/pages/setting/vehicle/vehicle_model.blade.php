@@ -51,20 +51,20 @@
 
                             @if (isset($edit_vehicleModel))
 
-                  <?php 
+                  <?php
                     $check_role= Session::get('role');
                     $data = \App\Models\AllDataTableRolesAndPermission::get();
                     foreach($data as $item)
                     {
                      $check_role_name = $item->role_name;
-                      foreach ($item->vehicle_model_permissions as $value) 
+                      foreach ($item->vehicle_model_permissions as $value)
                       {
-                           if($value == 'Edit') //Users 
+                           if($value == 'Edit') //Users
                            {
                             $checkAdd = $value;
-                            
+
                             if($check_role == $check_role_name && $checkAdd)
-                              { 
+                              {
 
                           ?>
 
@@ -157,11 +157,11 @@
 
                                 <?php } } } }?>
 
-                                <?php 
+                                <?php
                                 $check_role= Session::get('status');
-                        
-                              if($check_role == '1')//developer 
-                                  { 
+
+                              if($check_role == '1')//developer
+                                  {
                                    ?>
 
                                 <div class="card card-primary">
@@ -277,21 +277,21 @@
 
                                 <?php }?>
                             @else
-                                <?php 
+                                <?php
                             $check_role= Session::get('role');
                             $data = \App\Models\AllDataTableRolesAndPermission::get();
                             foreach($data as $item)
                             {
                              $check_role_name = $item->role_name;
-                              foreach ($item->vehicle_model_permissions as $value) 
+                              foreach ($item->vehicle_model_permissions as $value)
                               {
-                                   if($value == 'Add') //Users 
+                                   if($value == 'Add') //Users
                                    {
                                     $checkAdd = $value;
-                                    
+
                                     if($check_role == $check_role_name && $checkAdd)
-                                      { 
-        
+                                      {
+
                                   ?>
 
 
@@ -354,11 +354,11 @@
 
                                 <?php } } } }?>
 
-                                <?php 
+                                <?php
                                 $check_role= Session::get('status');
-                        
-                                if($check_role == '1')//developer 
-                                  { 
+
+                                if($check_role == '1')//developer
+                                  {
                                    ?>
 
                                 <div class="card card-primary">
@@ -457,15 +457,16 @@
                                     </thead>
                                     <tbody>
 
-                                      
+
                                         @foreach ($vehicleModel as $vehicle_model)
-                                            <tr> 
+                                            <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $vehicle_model->make_model_name}}</td>
-                                               
-                                                <td>{{ $vehicle_model->make->name}}</td>
-                                                
-                                                <td>{{ $vehicle_model->categories->name }}</td>
+                                                <td>{{ $vehicle_model->name}}</td>
+
+                                                {{-- <td>{{ $vehicle_model->make->name}}</td> --}}
+
+                                                <td>{{$vehicle_model->make->name}}</td>
+                                                <td>{{ $vehicle_model->categories->name}}</td>
                                                 <td>
                                                     @if ($vehicle_model->active == 1)
                                                         <span class="badge badge-success">Active</span>
@@ -477,21 +478,21 @@
                                                 <td class="text-center py-0 align-middle">
                                                     <div class="btn-group btn-group-sm">
 
-                                                      <?php 
+                                                      <?php
                                                       $check_role= Session::get('role');
                                                       $data = \App\Models\AllDataTableRolesAndPermission::get();
                                                       foreach($data as $item)
                                                       {
                                                       $check_role_name = $item->role_name;
-                                                      foreach ($item->vehicle_model_permissions as $value) 
+                                                      foreach ($item->vehicle_model_permissions as $value)
                                                       {
                                                       if($value == 'Edit')//User
                                                       {
                                                           $checkAdd = $value;
-                                                                  
+
                                                           if($check_role == $check_role_name && $checkAdd)
-                                                          { 
-                          
+                                                          {
+
                                                       ?>
                                                        <a class="btn btn-info btn-sm"
                                                            href="{{ url('admin/vehicle/edit_model', $vehicle_model->_id) }}">
@@ -500,14 +501,14 @@
 
                                                        </a>
                                                         <?php } } } } ?>
-                                                       
-                                                       
-                                                        <?php 
+
+
+                                                        <?php
                                                         $check_role= Session::get('status');
-                                        
-                                                        if($check_role == '1')//developer 
-                                                          { 
-                                                        ?>     
+
+                                                        if($check_role == '1')//developer
+                                                          {
+                                                        ?>
                                                           <a class="btn btn-info btn-sm"
                                                           href="{{ url('admin/vehicle/edit_model', $vehicle_model->_id) }}">
                                                           <i class="fas fa-pencil-alt">
@@ -516,22 +517,22 @@
                                                           </a>
                                                         <?php }?>
 
-                                                          
-                                                        <?php 
+
+                                                        <?php
                                                         $check_role= Session::get('role');
                                                         $data = \App\Models\AllDataTableRolesAndPermission::get();
                                                         foreach($data as $item)
                                                         {
                                                         $check_role_name = $item->role_name;
-                                                        foreach ($item->vehicle_model_permissions as $value) 
+                                                        foreach ($item->vehicle_model_permissions as $value)
                                                         {
                                                         if($value == 'Delete')//User
                                                         {
                                                             $checkAdd = $value;
-                                                                    
+
                                                             if($check_role == $check_role_name && $checkAdd)
-                                                            { 
-                            
+                                                            {
+
                                                         ?>
 
                                                         <a href="{{ url('admin/vehicle/delete_model', $vehicle_model->_id) }}"
@@ -541,12 +542,12 @@
                                                         </a>
 
                                                         <?php } } } }?>
-                                                        <?php 
+                                                        <?php
                                                         $check_role= Session::get('status');
-                                        
-                                                        if($check_role == '1')//developer 
-                                                          { 
-                                                        ?>     
+
+                                                        if($check_role == '1')//developer
+                                                          {
+                                                        ?>
                                                          <a href="{{ url('admin/vehicle/delete_model', $vehicle_model->_id) }}"
                                                           class="btn btn-danger btn-sm"
                                                           onclick="return confirm('Are you sure you want to Delete Model?');">
