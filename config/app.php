@@ -164,7 +164,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
          //\Yajra\DataTables\DataTablesServiceProvider::class,
         //Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
-        \Yajra\DataTables\DataTablesServiceProvider::class,
+        // \Yajra\DataTables\DataTablesServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -235,7 +235,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'DataTables' =>\Yajra\DataTables\DataTablesServiceProvider::class,
+        // 'DataTables' =>\Yajra\DataTables\DataTablesServiceProvider::class,
 
 
     ],

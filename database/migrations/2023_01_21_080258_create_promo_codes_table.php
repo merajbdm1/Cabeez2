@@ -18,15 +18,16 @@ class CreatePromoCodesTable extends Migration
             $table->string('promo_title');
             $table->string('promo_code');
             $table->string('discount_type');
+            $table->string('limit_per_user');
             $table->string('discount');
             $table->string('used_cont');
-            $table->string('limit_per_user');
             $table->string('start_date');
             $table->string('end_date');
             $table->string('status');
             $table->timestamps();
         });
     }
+
 
     /**
      * Reverse the migrations.

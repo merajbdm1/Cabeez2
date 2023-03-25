@@ -10,9 +10,14 @@ class PromoController extends Controller
 {
     
     public function index(){
-        $prmode=new PromoCode();
 
+        $fare = 3;
+        $prmode=new PromoCode();
+        echo "<pre>";
         $viewAll=$prmode->get();
+        // foreach ($prmode as $prmode2){
+        //    $prmode2[0]['promo_code'];
+        // }
 
         return response()->json(
             [

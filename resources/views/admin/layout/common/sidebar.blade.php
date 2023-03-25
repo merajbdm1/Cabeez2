@@ -60,7 +60,11 @@
                     <ul class="nav nav-treeview">
 
 
-                        <?php
+
+
+                       
+                        <?php 
+
                         $check_role= Session::get('role');
                         $data = \App\Models\AllDataTableRolesAndPermission::get();
                         foreach($data as $item)
@@ -187,6 +191,7 @@
                                 <p>Groups Promocode</p>
                             </a>
                           </li>
+
 
                     </ul>
                 </li>
