@@ -134,7 +134,7 @@
                                                 <tr>
                                                     <td>{{ ($fareview->currentpage()-1) * $fareview->perpage() + $key + 1 }}</td>
 
-                                                    <td>{{ $fare->category_id }}</td>
+                                                    <td>{{ $fare->categories->name}}</td>
                                                     <td>&#8377; {{ $fare->base_fare }} </td>
                                                     <td>&#8377; {{ $fare->minimum_fare }}</td>
                                                     <td>&#8377; {{ $fare->per_min_fare }}</td>
