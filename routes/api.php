@@ -6,15 +6,14 @@ use App\Http\Controllers\Api\PromoController;
 use App\Http\Controllers\Api\ApiDriver;
 use App\Http\Controllers\Api\ApiRider;
 use App\Http\Controllers\CordinateFareController;
-
 use App\Http\Controllers\Api\CharginghubController;
 use App\Http\Controllers\RidesController;
 use App\Http\Controllers\Api\Webviews;
 use App\Http\Controllers\Api\Vehicle;
-use App\Http\Controllers\Api\FareController;
+use App\Http\Controllers\Api\ApiFarecordinate;
 use App\Http\Controllers\Api\TestController;
 use App\Http\Controllers\Api\DriverController;
-;
+use App\Http\Controllers\api\ApiCordinateFareCalculation;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,7 +53,7 @@ Route::Post('RegisterAndOldRiderNewOtp',[ApiRider::class,'store']);
 //api rider login
 Route::Post('verifyWithOtp',[ApiRider::class,'login']);
 Route::Post('profileUpdate',[ApiRider::class,'UpdateProfile']);
-Route::Post('ApiCordinateDistanceFare',[CordinateFareController::class,'cordinateFareDistance']);
+
 
 
 Route::get('make', [Vehicle::class,'make']);
@@ -65,3 +64,5 @@ Route::post('driver_data_get_id', [DriverController::class,'driver_data_get_id']
 Route::get('check_car_hub', [TestController::class,'check_car_hub']);
 Route::get('fare_data', [FareController::class,'fare_data']);
 
+//api Fare base calculate
+Route::post('FareCalCordinate', [ApiCordinateFareCalculation::class,'cordinateFareCalculation']);
