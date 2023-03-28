@@ -23,6 +23,8 @@ use App\Http\Controllers\BookNowController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\DriverRequestController;
 use App\Http\Controllers\SettlementController;
+use App\Http\Controllers\PromoCodeController;
+use App\Http\Controllers\GlobalSettingController;
 //Fare Settings
 
 Route::group(['middleware' => 'prevent-back-history','auth'],function(){
@@ -146,4 +148,21 @@ Route::get('driver_request',[DriverRequestController::class,'index'])->name('dri
 //Driver Fare Settlemtnet
 Route::get('admin/driver_settlemtnet',[SettlementController::class,'index']);
 
+
+//promocode
+Route::get('add_promocode',[PromoCodeController::class,'create']);
+Route::post('post_promocode',[PromoCodeController::class,'store']);
+Route::get('edit_promocode/{id}',[PromoCodeController::class,'edit']);
+Route::post('edit_post_promocode/{id}',[PromoCodeController::class,'update']);
+Route::get('delete_promocode/{id}',[PromoCodeController::class,'destroy']);
+
+
+
+//global settings
+Route::get('view_global', [GlobalSettingController::class,'index']);
+Route::get('add_global_setting', [GlobalSettingController::class,'create']);
+Route::post('post_mapindia', [GlobalSettingController::class,'store']);
+Route::get('edit_global_map/{id}', [GlobalSettingController::class,'edit']);
+Route::post('edit_post_mapindia/{id}', [GlobalSettingController::class,'update']);
+Route::get('edit_global_map/{id}', [GlobalSettingController::class,'edit']);
 ?>

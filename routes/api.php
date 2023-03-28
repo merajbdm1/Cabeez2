@@ -14,6 +14,7 @@ use App\Http\Controllers\Api\ApiFarecordinate;
 use App\Http\Controllers\Api\TestController;
 use App\Http\Controllers\Api\DriverController;
 use App\Http\Controllers\api\ApiCordinateFareCalculation;
+use App\Http\Controllers\api\ApiCordinateMeasure;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,3 +67,6 @@ Route::get('fare_data', [FareController::class,'fare_data']);
 
 //api Fare base calculate
 Route::post('FareCalCordinate', [ApiCordinateFareCalculation::class,'cordinateFareCalculation']);
+Route::post('cordinateDistanceMesaure', [ApiCordinateMeasure::class,'cordinateMeasure']);
+
+

@@ -17,12 +17,14 @@ class PromoCodeController extends Controller
     {
         if(Session::has('loginId')){
             $datasession = User::where('_id', '=', Session::get('loginId'))->first();
-           
+
         }else{
             return redirect('login');
 
         }
         $promocode = PromoCode::all();
+
+        // dd($promocode);
         return view('admin.pages.coupon.promo', ['promocode' => $promocode,'datasession' => $datasession]);
 
     }
@@ -34,6 +36,17 @@ class PromoCodeController extends Controller
      */
     public function create(Request $request)
     {
+        if(Session::has('loginId')){
+            $datasession = User::where('_id', '=', Session::get('loginId'))->first();
+
+        }else{
+            return redirect('login');
+
+        }
+
+        // dd($promocode);
+        return view('admin.pages.coupon.add_promocode', ['datasession' => $datasession]);
+
     }
     //$request->all()->save();
     //dd($request->all());
@@ -47,15 +60,22 @@ class PromoCodeController extends Controller
      */
     public function store(Request $request)
     {
+
+        // return $request;
         $validated = $request->validate([
-            'promo_code' => 'required|string|min:3|max:25',
+            'code' => '',
+            'code_type'=>'',
+            'code_rule'=>'',
             // 'driver_last_name' => 'required|string|min:3|max:255',
             'start_date' => 'required',
             'end_date' => 'required',
-            'promo_title' => 'required',
+            'title' => 'required',
             'discount' => 'required',
             'discount_type' => 'required',
             'limit_per_user' => 'required',
+            'max_discount'=>'required',
+            'term_condition'=>'required',
+            'usage_limit'=>'required',
 
             // 'driver_email' => 'required|email|min:3|max:255',
             // 'vehicle_year' => 'required',
@@ -66,20 +86,25 @@ class PromoCodeController extends Controller
 
         ]);
         $promoCode = new PromoCode();
-        $promoCode->promo_code = $request->input('promo_code');
-        $promoCode->promo_title = $request->input('promo_title');
+        $promoCode->code = $request->input('code');
+        $promoCode->title = $request->input('title');
 
         $promoCode->discount_type = $request->input('discount_type');
         $promoCode->discount = $request->input('discount');
-        $promoCode->used_cont = $request->input('used_cont');
+        $promoCode->max_discount = $request->input('max_discount');
         $promoCode->limit_per_user = $request->input('limit_per_user');
 
         $promoCode->start_date = $request->input('start_date');
         $promoCode->end_date = $request->input('end_date');
         $promoCode->status = $request->input('status');
+        $promoCode->term_condition = $request->input('term_condition');
+        $promoCode->max_discount = $request->input('max_discount');
+        $promoCode->usage_limit = $request->input('usage_limit');
+        $promoCode->code_rule = $request->input('code_rule');
+
 
         $promoCode->save();
-        return back()->with('PromocodeSuccess', 'Driver Details Added Successfully!');
+        return back()->with('PromocodeSuccess', 'Promo code Details Added Successfully!');
     }
 
     /**
@@ -103,7 +128,7 @@ class PromoCodeController extends Controller
     {
         if(Session::has('loginId')){
             $datasession = User::where('_id', '=', Session::get('loginId'))->first();
-           
+
         }else{
             return redirect('login');
 
@@ -113,10 +138,8 @@ class PromoCodeController extends Controller
         // $edit_promocode =  json_decode(json_encode($edit_promocode), true);
         // $edit_promocode = $edit_promocode[0];
         //dd($edit_promocode);
-        return view('admin.pages.coupon.promo', ['promocode' => $promocode, 'edit_promocode' => $edit_promocode, '_id' => $id,'datasession' => $datasession]);
-
+        return view('admin.pages.coupon.edit_promocode', ['promocode' => $promocode, 'edit_promocode' => $edit_promocode, '_id' => $id,'datasession' => $datasession]);
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -124,20 +147,24 @@ class PromoCodeController extends Controller
      * @param  \App\Models\PromoCode  $promoCode
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
+
+        // return $request;
         $validated = $request->validate([
-            'promo_code' => 'required|string|min:3|max:25',
-            //'driver_last_name' => 'required|string|min:3|max:255',
+            'code' => '',
+            'code_type'=>'',
+            'code_rule'=>'',
+            // 'driver_last_name' => 'required|string|min:3|max:255',
             'start_date' => '',
             'end_date' => '',
-            'promo_title' => 'string',
+            'title' => '',
             'discount' => '',
             'discount_type' => '',
             'limit_per_user' => '',
-            'status' => '',
-            'used_cont' => '',
-
+            'max_discount'=>'',
+            'term_condition'=>'',
+            'usage_limit'=>'',
             // 'driver_email' => 'required|email|min:3|max:255',
             // 'vehicle_year' => 'required',
             // 'driver_vehicle_registration_number' => 'required|string|min:3|max:255',
@@ -146,25 +173,33 @@ class PromoCodeController extends Controller
             // 'driver_vehicle_category' => 'required|string',
 
         ]);
-        $id = $request->input('_id');
+        // $id = $request->input('_id');
+
+
+        //  dd($promoCode);exit();
         $promoCode = new PromoCode();
-        $promoCode->promo_code = $request->input('promo_code');
-        $promoCode->promo_title = $request->input('promo_title');
+        $promoCode->code = $request->input('code');
+        $promoCode->title = $request->input('title');
 
         $promoCode->discount_type = $request->input('discount_type');
         $promoCode->discount = $request->input('discount');
-        $promoCode->used_cont = $request->input('used_cont');
+        $promoCode->max_discount = $request->input('max_discount');
         $promoCode->limit_per_user = $request->input('limit_per_user');
 
         $promoCode->start_date = $request->input('start_date');
         $promoCode->end_date = $request->input('end_date');
         $promoCode->status = $request->input('status');
+        $promoCode->term_condition = $request->input('term_condition');
+        $promoCode->max_discount = $request->input('max_discount');
+        $promoCode->usage_limit = $request->input('usage_limit');
+        $promoCode->code_rule = $request->input('code_rule');
 
-        $promoCode->where('_id', $id)->update($validated);
+        PromoCode::where('_id', $id)->update($validated);
+        // $promoCode->where('_id'.$id)->update($validated);
         //  $promoCode = VehicleCategory::where('_id', $id)->update($storeData);
-        return redirect('promocode')->with('PromocodeSuccess', 'Promo Code Updated Successfully!');
+        // return redirect('admin/edit_driver/'.$id)->with('EditDriverDetailSuccess', 'Driver Details Updated Successfully!');
+        return redirect('edit_promocode/'.$id)->with('PromocodeSuccess', 'Promo Code Updated Successfully!');
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -175,8 +210,11 @@ class PromoCodeController extends Controller
 
     public function destroy($id)
     {
-        $promoCode = PromoCode::where('_id', $id)->first();
-        $promoCode->delete();
-        return redirect('promocode')->with('PromocodeSuccess', 'Promo Code Deleted Successfully!');
+        $driver = PromoCode::all();
+        $driver = PromoCode::where('_id', $id)->delete();
+        return back()->with('PromocodeSuccess', 'Promo Code Updated Successfully!');
+
+
+
     }
 }

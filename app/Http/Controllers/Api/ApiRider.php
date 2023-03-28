@@ -292,6 +292,7 @@ class ApiRider extends Controller
                       return response()->json([
                         'status' => 200,
                         'message' => 'Rider Login Successfully',
+                        
                         'data' => $data
                     ],200);
                  }else{

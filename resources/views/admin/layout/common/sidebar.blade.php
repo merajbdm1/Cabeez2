@@ -62,8 +62,8 @@
 
 
 
-                       
-                        <?php 
+
+                        <?php
 
                         $check_role= Session::get('role');
                         $data = \App\Models\AllDataTableRolesAndPermission::get();
@@ -182,7 +182,7 @@
                         <li class="nav-item">
                             <a href="{{ url('promocode') }}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>All Promocodes</p>
+                                <p>Promocodes</p>
                             </a>
                           </li>
                           <li class="nav-item">
@@ -322,7 +322,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/layout/top-nav.html" class="nav-link">
+                            <a href="{{url('view_global')}}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Global Setting</p>
                             </a>
