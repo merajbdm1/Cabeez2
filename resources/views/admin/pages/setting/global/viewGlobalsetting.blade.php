@@ -60,7 +60,7 @@
                                                 <td class="text-center">{{ $value->client_id }}</td>
                                                 <td class="text-center">{{ $value->client_secreat_key }}</td>
                                                 <td class="text-center">
-                                                    @if ($value->status == 'active')
+                                                    @if ($value->status == '1')
                                                         <span class="badge badge-success">Active</span>
                                                     @else
                                                         <span class="badge badge-danger">InActive</span>

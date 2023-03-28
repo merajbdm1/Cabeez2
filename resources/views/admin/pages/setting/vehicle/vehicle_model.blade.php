@@ -84,13 +84,13 @@
                                             <div class="form-group">
                                                 <label for="exampleInputVehicleModel1">Vehicle Model</label>
                                                 <input type="text" class="form-control" id="exampleInputVehicleModel1"
-                                                    placeholder="Vehicle Model" name="make_model_name"
-                                                    value={{ $edit_vehicleModel->make_model_name }}>
+                                                    placeholder="Vehicle Model" name="name"
+                                                    value={{ $edit_vehicleModel->name }}>
                                             </div>
                                             <div class="form-group">
                                                 <label for="inputMake">Vehicle Make</label>
                                                 <select id="inputMake" class="form-control custom-select"
-                                                    name="vehicle_make_id">
+                                                    name="brand_id">
                                                     <option selected disabled>{{ $edit_vehicleModel->make->name }}
                                                     </option>
 
@@ -108,7 +108,7 @@
                                             <div class="form-group">
                                                 <label for="inputCategory">Category</label>
                                                 <select id="inputCategory" class="form-control custom-select"
-                                                    name="vehicle_category_id">
+                                                    name="category_id">
                                                     <option selected disabled>
                                                         {{ $edit_vehicleModel->categories->name }}</option>
                                                     @foreach ($vehicleCategory as $vehicle_category_model)
@@ -126,17 +126,17 @@
                                             <div class="form-group">
                                                 <label for="active">Status</label>
                                                 <select id="active" class="form-control custom-select"
-                                                    name="active">
-                                                    @if ($edit_vehicleModel->active == '1')
-                                                        <option value="{{ $edit_vehicleModel->active }}"
-                                                            {{ $edit_vehicleModel->active === $edit_vehicleModel->active ? '1' : '0' }}>
+                                                    name="status">
+                                                    @if ($edit_vehicleModel->status == 'active')
+                                                        <option value="{{ $edit_vehicleModel->status }}"
+                                                            {{ $edit_vehicleModel->status === $edit_vehicleModel->status ? 'active' : 'inactive' }}>
                                                             Active</option>
-                                                        <option value="0">Inactive</option>
-                                                    @elseif ($edit_vehicleModel->active == '0')
-                                                        <option value="{{ $edit_vehicleModel->active }}"
-                                                            {{ $edit_vehicleModel->active === $edit_vehicleModel->active ? '0' : '1' }}>
+                                                        <option value="inactive">Inactive</option>
+                                                    @elseif ($edit_vehicleModel->status == 'inactive')
+                                                        <option value="{{ $edit_vehicleModel->status }}"
+                                                            {{ $edit_vehicleModel->status === $edit_vehicleModel->status ? 'inactive' : 'active' }}>
                                                             Inactive</option>
-                                                        <option value="1">Active</option>
+                                                        <option value="active">Active</option>
                                                     @endif
                                                 </select>
                                                 @if ($errors->has('active'))
@@ -180,13 +180,13 @@
                                             <div class="form-group">
                                                 <label for="exampleInputVehicleModel1">Vehicle Model</label>
                                                 <input type="text" class="form-control" id="exampleInputVehicleModel1"
-                                                    placeholder="Vehicle Model" name="make_model_name"
-                                                    value={{ $edit_vehicleModel->make_model_name }}>
+                                                    placeholder="Vehicle Model" name="name"
+                                                    value={{ $edit_vehicleModel->name }}>
                                             </div>
                                             <div class="form-group">
                                                 <label for="inputMake">Vehicle Make</label>
                                                 <select id="inputMake" class="form-control custom-select"
-                                                    name="vehicle_make_id">
+                                                    name="brand_id">
                                                     <option selected disabled>{{ $edit_vehicleModel->make->name }}
                                                     </option>
 
@@ -204,7 +204,7 @@
                                             <div class="form-group">
                                                 <label for="inputCategory">Category</label>
                                                 <select id="inputCategory" class="form-control custom-select"
-                                                    name="vehicle_category_id">
+                                                    name="category_id">
                                                     <option selected disabled>
                                                         {{ $edit_vehicleModel->categories->name }}
                                                     </option>
@@ -224,15 +224,15 @@
                                             <div class="form-group">
                                                 <label for="active">Status</label>
                                                 <select id="active" class="form-control custom-select"
-                                                    name="active">
-                                                    @if ($edit_vehicleModel->active == '1')
+                                                    name="status">
+                                                    @if ($edit_vehicleModel->status == 'active')
                                                         <option value="{{ $edit_vehicleModel->active }}"
-                                                            {{ $edit_vehicleModel->active === $edit_vehicleModel->active ? '1' : '0' }}>
+                                                            {{ $edit_vehicleModel->status === $edit_vehicleModel->status ? 'active' : 'inactive' }}>
                                                             Active</option>
-                                                        <option value="0">Inactive</option>
-                                                    @elseif ($edit_vehicleModel->active == '0')
-                                                        <option value="{{ $edit_vehicleModel->active }}"
-                                                            {{ $edit_vehicleModel->active === $edit_vehicleModel->active ? '0' : '1' }}>
+                                                        <option value="inactive">Inactive</option>
+                                                    @elseif ($edit_vehicleModel->status == 'inactive')
+                                                        <option value="{{ $edit_vehicleModel->status }}"
+                                                            {{ $edit_vehicleModel->status === $edit_vehicleModel->status ? 'inactive' : 'active' }}>
                                                             Inactive</option>
                                                         <option value="1">Active</option>
                                                     @endif
@@ -253,12 +253,12 @@
                                                     @if ($edit_vehicleModel->type == 'cng')
                                                     <option value="{{ $edit_vehicleModel->type }}"
                                                         {{ $edit_vehicleModel->type === $edit_vehicleModel->type ? 'cng' : 'ev' }}>
-                                                        cng</option>
+                                                        CNG</option>
                                                     <option value="ev">EV</option>
                                                 @elseif ($edit_vehicleModel->type == 'ev')
                                                     <option value="{{ $edit_vehicleModel->type }}"
                                                         {{ $edit_vehicleModel->type === $edit_vehicleModel->type ? 'ev' : 'cng' }}>
-                                                        ev</option>
+                                                        EV</option>
                                                     <option value="cng">cng</option>
                                                 @endif
 
@@ -308,12 +308,12 @@
                                             <div class="form-group">
                                                 <label for="exampleInputVehicleModel1">Vehicle Model</label>
                                                 <input type="text" class="form-control" id="exampleInputVehicleModel1"
-                                                    placeholder="Enter Vehicle Model" name="make_model_name">
+                                                    placeholder="Enter Vehicle Model" name="name">
                                             </div>
                                             <div class="form-group">
                                                 <label for="inputMake">Vehicle Make</label>
                                                 <select id="inputMake" class="form-control custom-select"
-                                                    name="vehicle_make_id">
+                                                    name="brand_id">
                                                     <option selected disabled>Select one</option>
                                                     @foreach ($vehicleMake as $vehicle_make_model)
                                                         <option value="{{ $vehicle_make_model->_id }}">
@@ -324,7 +324,7 @@
                                             <div class="form-group">
                                                 <label for="inputCategory">Category</label>
                                                 <select id="inputCategory" class="form-control custom-select"
-                                                    name="vehicle_category_id">
+                                                    name="category_id">
                                                     <option selected disabled>Select one</option>
                                                     @foreach ($vehicleCategory as $vehicle_category_model)
                                                         <option value="{{ $vehicle_category_model->_id }}">
@@ -335,10 +335,10 @@
                                             <div class="form-group">
                                                 <label for="inputStatus">Status</label>
                                                 <select id="inputStatus" class="form-control custom-select"
-                                                    name="active">
+                                                    name="status">
                                                     <option selected disabled>Select one</option>
-                                                    <option value="1">Active</option>
-                                                    <option value="0">Inactive</option>
+                                                    <option value="active">Active</option>
+                                                    <option value="inactive">Inactive</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -374,12 +374,12 @@
                                             <div class="form-group">
                                                 <label for="exampleInputVehicleModel1">Vehicle Model</label>
                                                 <input type="text" class="form-control" id="exampleInputVehicleModel1"
-                                                    placeholder="Enter Vehicle Model" name="make_model_name">
+                                                    placeholder="Enter Vehicle Model" name="name">
                                             </div>
                                             <div class="form-group">
                                                 <label for="inputMake">Vehicle Make</label>
                                                 <select id="inputMake" class="form-control custom-select"
-                                                    name="vehicle_make_id">
+                                                    name="brand_id">
                                                     <option selected disabled>Select one</option>
                                                     @foreach ($vehicleMake as $vehicle_make_model)
                                                         <option value="{{ $vehicle_make_model->_id }}">
@@ -390,7 +390,7 @@
                                             <div class="form-group">
                                                 <label for="inputCategory">Category</label>
                                                 <select id="inputCategory" class="form-control custom-select"
-                                                    name="vehicle_category_id">
+                                                    name="category_id">
                                                     <option selected disabled>Select one</option>
                                                     @foreach ($vehicleCategory as $vehicle_category_model)
                                                         <option value="{{ $vehicle_category_model->_id }}">
@@ -401,10 +401,10 @@
                                             <div class="form-group">
                                                 <label for="inputStatus">Status</label>
                                                 <select id="inputStatus" class="form-control custom-select"
-                                                    name="active">
+                                                    name="status">
                                                     <option selected disabled>Select one</option>
-                                                    <option value="1">Active</option>
-                                                    <option value="0">Inactive</option>
+                                                    <option value="active">Active</option>
+                                                    <option value="inactive">Inactive</option>
                                                 </select>
                                             </div>
                                             <div class="form-group">
@@ -465,10 +465,10 @@
 
                                                 {{-- <td>{{ $vehicle_model->make->name}}</td> --}}
 
-                                                <td>{{$vehicle_model->make->name}}</td>
-                                                <td>{{ $vehicle_model->categories->name}}</td>
+                                                <td>{{isset($vehicle_model->make->name)?$vehicle_model->make->name:null}}</td>
+                                                <td>{{ isset($vehicle_model->categories->name)?$vehicle_model->categories->name:null}}</td>
                                                 <td>
-                                                    @if ($vehicle_model->active == 1)
+                                                    @if ($vehicle_model->status == 'active')
                                                         <span class="badge badge-success">Active</span>
                                                     @else
                                                         <span class="badge badge-danger">Inactive</span>

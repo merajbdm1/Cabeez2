@@ -15,7 +15,7 @@ use App\Http\Controllers\Api\TestController;
 use App\Http\Controllers\Api\DriverController;
 use App\Http\Controllers\api\ApiCordinateFareCalculation;
 use App\Http\Controllers\api\ApiCordinateMeasure;
-
+use App\Http\Controllers\Api\ApiGlobalSetting;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -69,4 +69,5 @@ Route::get('fare_data', [FareController::class,'fare_data']);
 Route::post('FareCalCordinate', [ApiCordinateFareCalculation::class,'cordinateFareCalculation']);
 Route::post('cordinateDistanceMesaure', [ApiCordinateMeasure::class,'cordinateMeasure']);
 
-
+//global
+Route::get('listMapMyIndia', [ApiGlobalSetting::class,'index']);

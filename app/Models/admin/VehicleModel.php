@@ -22,19 +22,21 @@ class VehicleModel extends Eloquent
         'status',
         // 'type',
         'brand_id',
-        'category_id'
+        'category_id',
+        'type'
 
     ];
 
     public function make()
     {
         // print_r("dhfkadf");
-        return $this->belongsTo(VehicleMake::class,'brand_id','id');
+        return $this->belongsTo(VehicleMake::class,'brand_id','_id');
+        // return $this->belongsTo(VehicleMake::class,'brand_id','id');
     }
 
     public function categories()
     {
-        return $this->belongsTo(VehicleCategory::class,'category_id','id');
+        return $this->belongsTo(VehicleCategory::class,'category_id','_id');
     }
 }
 

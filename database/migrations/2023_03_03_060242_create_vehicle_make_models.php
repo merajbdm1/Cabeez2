@@ -21,7 +21,8 @@ class CreateVehicleMakeModels extends Migration
                 $table->integer('id');
                 $table->string('name');
                 $table->string('icon');
-                $table->string('status');
+                $table->enum('status',['active','inactive']);
+                $table->enum('type',['CNG','EV']);
             // $table->enum('type',['cng','ev']);
             // $table->string('ev_range_on_full_charge');
             // $table->string('ev_conservative_range_on_full_charge');

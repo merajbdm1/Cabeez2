@@ -164,5 +164,5 @@ Route::get('add_global_setting', [GlobalSettingController::class,'create']);
 Route::post('post_mapindia', [GlobalSettingController::class,'store']);
 Route::get('edit_global_map/{id}', [GlobalSettingController::class,'edit']);
 Route::post('edit_post_mapindia/{id}', [GlobalSettingController::class,'update']);
-Route::get('edit_global_map/{id}', [GlobalSettingController::class,'edit']);
+Route::get('delete_map/{id}', [GlobalSettingController::class,'destroy']);
 ?>

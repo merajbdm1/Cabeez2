@@ -27,6 +27,9 @@ class VehicleModelController extends Controller
         $vehicleCategory = VehicleCategory::all();
         $vehicleMake = VehicleMake::all();
         $vehicleModel = VehicleModel::all();
+
+        // echo "<pre>";print_r($vehicleModel);exit;
+
         // $hdfk = $vehicleModel->make()->get();
         // dd($hdfk);
         // $vehicleModel = VehicleModel::get();
@@ -56,10 +59,10 @@ class VehicleModelController extends Controller
     {
     //    return $request;
         $validated = $request->validate([
-            'make_model_name' => 'required|string',
-            'vehicle_make_id' => 'required',
-            'vehicle_category_id' => 'required',
-            'active' => 'required|boolean',
+            'name' => 'required|string',
+            'brand_id' => '',
+            'category_id' => '',
+            'status' => '',
             'type' => '',
 
 
@@ -69,10 +72,10 @@ class VehicleModelController extends Controller
 
         $vehicleModel = new VehicleModel;
 
-        $vehicleModel->make_model_name = $request->input('make_model_name');
-        $vehicleModel->vehicle_make_id = $request->input('vehicle_make_id');
-        $vehicleModel->vehicle_category_id = $request->input('vehicle_category_id');
-        $vehicleModel->active = $request->input('active');
+        $vehicleModel->name = $request->input('name');
+        $vehicleModel->brand_id = $request->input('brand_id');
+        $vehicleModel->category_id = $request->input('category_id');
+        $vehicleModel->status = $request->input('status');
         $vehicleModel->type = $request->input('type');
         $vehicleModel->save();
         return back()->with('VehicleModalSuccess','Vehicle Model Added Successfully.');
@@ -127,10 +130,10 @@ class VehicleModelController extends Controller
     {
     //    return $request;
         $storeData = $request->validate([
-            'make_model_name' => '',
-            'vehicle_make_id' => '',
-            'vehicle_category_id' => '',
-            'active' => '',
+            'name' => '',
+            'brand_id' => '',
+            'category_id' => '',
+            'status' => '',
             'type' => '',
 
         ]);
