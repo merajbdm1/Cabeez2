@@ -105,7 +105,7 @@ class FareSettingController extends Controller
         $fare_process_status=$fare_process->status=$request->input('status');
         $checkfare=$fare_process->save();
 
-        
+
 
 
         if($checkfare){
@@ -326,9 +326,10 @@ class FareSettingController extends Controller
          }
 
         $editfareview=new Fare();
+        // print_r($editfareview);exit;
         $editfareview = Fare::where('_id',$id)->first();
         // $edit_promocode = PromoCode::where('_id', $id)->first();
-        // dd($editfareview);
+
         return view('admin.pages.setting.fare.edit_fare_view_setting',['editfareview'=>$editfareview,'datasession'=>$datasession]);
 
 

@@ -15,7 +15,7 @@ class VehicleCategory extends Eloquent
 
     public function Model()
     {
-        return $this->hasManyThrough(VehicleModel::class,'brand_id','_id');
+        return $this->hasMany(VehicleModel::class);
     }
 }
 

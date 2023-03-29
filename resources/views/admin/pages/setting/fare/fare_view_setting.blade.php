@@ -172,10 +172,7 @@
                                         </tbody>
 
                                     </table>
-                                         {{-- @else
 
-                                        <h3>No Result found</h3>
-                                        @endif --}}
                                     <br>
 
                                     {{-- //{{ $fareview->links() }} --}}

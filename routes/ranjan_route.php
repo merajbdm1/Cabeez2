@@ -25,6 +25,8 @@ use App\Http\Controllers\DriverRequestController;
 use App\Http\Controllers\SettlementController;
 use App\Http\Controllers\PromoCodeController;
 use App\Http\Controllers\GlobalSettingController;
+use App\Http\Controllers\GroupPromocodeController;
+
 //Fare Settings
 
 Route::group(['middleware' => 'prevent-back-history','auth'],function(){
@@ -165,4 +167,14 @@ Route::post('post_mapindia', [GlobalSettingController::class,'store']);
 Route::get('edit_global_map/{id}', [GlobalSettingController::class,'edit']);
 Route::post('edit_post_mapindia/{id}', [GlobalSettingController::class,'update']);
 Route::get('delete_map/{id}', [GlobalSettingController::class,'destroy']);
+
+//group promocode
+Route::get('view_group_promocode', [GroupPromocodeController::class,'index']);
+Route::get('add_group', [GroupPromocodeController::class,'create']);
+
+
+
+
+
+
 ?>
