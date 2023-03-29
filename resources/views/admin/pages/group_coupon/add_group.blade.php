@@ -74,12 +74,23 @@
                                                 </div>
 
                                                 <div class="form-group">
+                                                    <label for="exampleFirstName">Coupon<span
+                                                            class="text-danger">*</span></label>
+                                                        <select name="" id="" class="form-control">
+
+                                                        </select>
+                                                </div>
+
+
+                                                <div class="row">
+                                                <div class="col-md-6">
+                                                <div class="form-group">
                                                     <label for="exampleFirstName">Rider List<span>
 
                                                 </div>
                                                 <style>
                                                     .rider_data {
-                                                        background: #ffffff;
+                                                        background: #ffaeae;
                                                         height: 350px;
                                                         overflow-x: hidden;
                                                     }
@@ -103,6 +114,7 @@
                                                         vertical-align: middle;
                                                     }
                                                 </style>
+
                                                       <input  type="text" class="form-control"
                                                       placeholder="Search Rider or Mobile">
                                                 <div class="rider_data" class="fixedsearch">
@@ -157,10 +169,28 @@
                                                     </div>
 
                                                 </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="exampleFirstName">Group Name <span
+                                                                class="text-danger">*</span></label>
+                                                        <input type="text" name="group_name"
+                                                            class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}"
+                                                            id="exampleFirstName" placeholder="Group Name"
+                                                            value="{{ old('first_name') }}">
+                                                        @if ($errors->has('first_name'))
+                                                            <span class="invalid feedback" role="alert">
+                                                                <strong>{{ $errors->first('first_name') }}</strong>
+                                                            </span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                </div>
 
 
                                             </div>
-
+                                        </div>
 
 
 
