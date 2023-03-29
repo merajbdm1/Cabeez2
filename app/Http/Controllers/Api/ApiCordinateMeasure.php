@@ -30,7 +30,15 @@ class ApiCordinateMeasure extends Controller
         $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
         $distance = $radius * $c;
 
-        return response()->json(['distance' => $distance]);
+        return response()->json([
+            'status' => 200,
+            'message' => 'Distance in km',
+            "Total_Distance" => [
+                "distance" => $distance
+
+            ],
+
+            ], 200);
 
     }
 }
