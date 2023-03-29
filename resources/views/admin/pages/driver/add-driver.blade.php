@@ -153,7 +153,7 @@
                                             </div>
 
 
-                                            <div class="col-md-6">
+                                            {{-- <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="exampleVehicleCategory">Vehicle Category <span
                                                             class="text-danger">*</span></label>
@@ -166,7 +166,22 @@
                                                     </select>
                                                 </div>
 
-                                            </div>
+                                            </div> --}}
+                                            <div class="form-group">
+                                                <label for="inputStatus">Vehicle Category</label>
+                                                <select id="inputStatus" class="form-control custom-select" name="category_id">
+                                                  <option selected disabled>--Select Category--</option>
+                                                @foreach ($vehicle_driv as $vehicleCategoryvalue)
+                                                
+                                                <option value="{{ $vehicleCategoryvalue->category_id }}"> {{ $vehicleCategoryvalue->parent_id == '0' ? $vehicleCategoryvalue->name : '.....'.$vehicleCategoryvalue->name }}</option>
+    
+                                                  
+                                                  @endforeach
+    
+                                                
+                                                </select>
+    
+                                              </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group">

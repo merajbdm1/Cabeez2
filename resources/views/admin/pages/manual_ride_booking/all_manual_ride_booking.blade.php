@@ -102,8 +102,8 @@
                                   <div class="col-md-12 d-flex justify-content-center align-items-center">
                                     <div id="map"></div>
                                     <div id="direction"></div>
-                                    <input type="text" name="pickup2" id="pickup">
-                                    <input type="text"  name="drop2" id="drop">
+                                    {{-- <input type="text" name="pickup2" id="pickup">
+                                    <input type="text"  name="drop2" id="drop"> --}}
 
                                 </div>
                             
@@ -120,6 +120,9 @@
                                                 </span>
                                             @endif
                                         </div>
+                                      
+                                    </div>
+                                    <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleLastName">Pickup Time<span
                                                     class="text-danger">*</span></label>
@@ -249,8 +252,8 @@
 </script>   
 
 
-<script src="https://apis.mapmyindia.com/advancedmaps/v1/c73ce2c2-f40e-4f6c-a0ba-450b1ab3a404/map_load?v=1.5"></script>
- <script src="https://apis.mapmyindia.com/advancedmaps/api/c73ce2c2-f40e-4f6c-a0ba-450b1ab3a404/map_sdk_plugins"></script>
+<script src="https://apis.mapmyindia.com/advancedmaps/v1/0a1fd5c6-f182-4132-aec3-1b7a7b28df58/map_load?v=1.5"></script>
+ <script src="https://apis.mapmyindia.com/advancedmaps/api/0a1fd5c6-f182-4132-aec3-1b7a7b28df58/map_sdk_plugins"></script>
 
 {{--     
 <script id="myscript" src="https://apis.mapmyindia.com/advancedmaps/v1/ded8df1c-477e-440f-b87e-2b51b19427bf/map_load?v=1.5">

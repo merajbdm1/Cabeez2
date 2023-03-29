@@ -158,7 +158,7 @@
                                                     <td> {{ $fare->updated_at }}</td>
                                                     <td class="text-center py-0 align-middle">
                                                         <div class="btn-group btn-group-sm">
-                                                            <a href="{{ url('edit_fare_view_setting/' . $fare->id) }}"
+                                                            <a href="{{ url('edit_fare_view_setting/' . $fare->_id) }}"
                                                                 class="btn btn-primary"><i
                                                                     class="fas fa-pencil-alt"></i></a>
                                                             <a href="{{ url('delete_fare_view_setting/' . $fare->id) }}"

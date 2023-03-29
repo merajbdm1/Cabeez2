@@ -5,6 +5,7 @@ use App\Models\admin\VehicleMake;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\User;
+use DB;
 class VehicleMakeController extends Controller
 {
     /**
@@ -22,10 +23,10 @@ class VehicleMakeController extends Controller
 
         }
         $vehicleMake = VehicleMake::all();
-
+       
         return view('admin.pages.setting.vehicle.vehicle_make',['vehicleMake'=>$vehicleMake,'datasession'=>$datasession]);
 
-
+        
         
     }
 
@@ -34,10 +35,10 @@ class VehicleMakeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    // public function create()
+    // {
+    //     //
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -52,8 +53,11 @@ class VehicleMakeController extends Controller
             'name' => 'required|string',
             'status' => 'required', 
 		]);
+
+        // db.Employee.insert({_id:1, "EmployeeName" : "Smith"})
 	
         $vehicleMake = new VehicleMake;
+        $vehicleMake->_id = 1;
         $vehicleMake->name = $request->input('name');
         $vehicleMake->status = $request->input('status');
         $vehicleMake->save();

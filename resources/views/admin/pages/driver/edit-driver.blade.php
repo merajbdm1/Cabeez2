@@ -161,7 +161,7 @@ exit();
                                                 <div class="form-group">
                                                     <label for="exampleVehicleCategory">Vehicle Category <span
                                                             class="text-danger">*</span></label>
-                                                    <select name="category_id" id="" class="form-control">
+                                                    {{-- <select name="category_id" id="" class="form-control">
 
                                                         @foreach ($vehicle_driv as $item)
                                                             @if ($edit_driver->category_id == $item->id)
@@ -172,7 +172,24 @@ exit();
                                                                     {{ $item->name }}</option>
                                                             @endif
                                                         @endforeach
-                                                    </select>
+                                                    </select> --}}
+
+
+                                                <select id="inputCategory" class="form-control custom-select"
+                                                    name="category_id">
+                                                    <option selected disabled>
+                                                        {{ $edit_driver->driver_vehicle_category->name }}
+                                                    </option>
+                                                    @foreach ($vehicle_driv as $item)
+                                                        @if ($edit_driver->driver_vehicle_category->name == $item->name)
+                                                            @continue
+                                                        @else
+                                                            <option value="{{ $item->_id }}">
+                                                                {{ $item->name }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">

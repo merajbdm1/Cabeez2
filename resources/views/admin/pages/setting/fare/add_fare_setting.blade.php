@@ -109,7 +109,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleLastName">Rate Per km(25 to 50 kms) <span class="text-danger">*</span></label>
-                                            <input type="number" name="rate_per_km_25_to_50_kms" class="form-control" value="{{ old('rate_per_km_25_to_50_kms') }}" id="exampleLastName" placeholder="Rate Per km(25 to 50 kms)">
+                                            <input type="number" name="per_km_fare_slab2" class="form-control" value="{{ old('rate_per_km_25_to_50_kms') }}" id="exampleLastName" placeholder="Rate Per km(25 to 50 kms)">
                                             @if ($errors->has('rate_per_km_25_to_50_kms'))
                                                         <span class="invalid feedback" role="alert">
                                                             <strong>{{ $errors->first('rate_per_km_25_to_50_kms') }}</strong>
@@ -123,7 +123,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleLastName">Rate Per km(50 to 100 kms) <span class="text-danger">*</span></label>
-                                            <input type="number" name="per_km_fare_slab2" class="form-control" value="{{ old('per_km_fare_slab2') }}" id="exampleLastName" placeholder="Rate Per km(50 to 100 kms)">
+                                            <input type="number" name="per_km_fare_slab3" class="form-control" value="{{ old('per_km_fare_slab2') }}" id="exampleLastName" placeholder="Rate Per km(50 to 100 kms)">
                                             @if ($errors->has('per_km_fare_slab2'))
                                                         <span class="invalid feedback" role="alert">
                                                             <strong>{{ $errors->first('per_km_fare_slab2') }}</strong>
@@ -136,7 +136,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleLastName">Rate Per km(100 to 250 kms) <span class="text-danger">*</span></label>
-                                            <input type="number" name="per_km_fare_slab3" class="form-control" value="{{ old('per_km_fare_slab3') }}" id="exampleLastName" placeholder="Rate Per km(100 to 250 kms)">
+                                            <input type="number" name="per_km_fare_slab4" class="form-control" value="{{ old('per_km_fare_slab3') }}" id="exampleLastName" placeholder="Rate Per km(100 to 250 kms)">
                                             @if ($errors->has('per_km_fare_slab3'))
                                                         <span class="invalid feedback" role="alert">
                                                             <strong>{{ $errors->first('per_km_fare_slab3') }}</strong>
@@ -176,7 +176,7 @@
 
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleLastName">Per Minimum Fare <span class="text-danger">*</span></label>
+                                            <label for="exampleLastName">Per Min Fare <span class="text-danger">*</span></label>
                                             <input type="number" name="per_min_fare" class="form-control" value="{{ old('per_min_fare') }}" id="exampleLastName" placeholder="Minimum Fare">
                                             @if ($errors->has('per_min_fare'))
                                                         <span class="invalid feedback" role="alert">

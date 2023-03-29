@@ -26,6 +26,7 @@ class DriverController extends Controller
 
         if (Session::has('loginId')) {
             $datasession = User::where('_id', '=', Session::get('loginId'))->first();
+            
         } else {
             return redirect('login');
         }
@@ -162,36 +163,76 @@ class DriverController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+     
 
-        $validated = $request->validate([
-            'first_name' => 'required|string|min:3|max:255',
-            'last_name' => 'required|string|min:3|max:255',
-            'phone_number' => 'required',
-            'email' => 'required|email|min:3|max:255',
-            'vehicle_year' => 'required',
-            'car_registration_number' => 'required|string|min:3|max:255',
-            'brand_id' => 'required|string',
-            'model_id' => 'required|string',
-            'category_id' => 'required|string',
-            'puc_expiry_date' => 'required|date',
-            'date_of_birth' => 'required|date',
-            'blood_group' => 'required|string',
-            'emergency_number' => 'required|string',
-            'state' => 'required|string',
-            'city' => 'required|string',
-            'postal_code' => 'required|string',
-            'address' => 'required|string',
-            'photo' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
-            'commercial_insurance' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
-            'license_photo_front' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
-            'license_photo_back' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
-            'aadhaar_image_front' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
-            'aadhaar_image_back' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
-            'rental_agreement_front' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
-            'rental_agreement_back' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
-            'pan_card' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
-            'registration_photo' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+        // $validated = $request->validate([
+        //     'first_name' => 'required|string|min:3|max:255',
+        //     'last_name' => 'required|string|min:3|max:255',
+        //     'phone_number' => 'required',
+        //     'email' => 'required|email|min:3|max:255',
+        //     'vehicle_year' => 'required',
+        //     'car_registration_number' => 'required|string|min:3|max:255',
+        //     'brand_id' => 'required|string',
+        //     'model_id' => 'required|string',
+        //     'category_id' => 'required|string',
+        //     'puc_expiry_date' => 'required|date',
+        //     'date_of_birth' => 'required|date',
+        //     'blood_group' => 'required|string',
+        //     'emergency_number' => 'required|string',
+        //     'state' => 'required|string',
+        //     'city' => 'required|string',
+        //     'postal_code' => 'required|string',
+        //     'address' => 'required|string',
+        //     'photo' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+        //     'commercial_insurance' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+        //     'license_photo_front' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+        //     'license_photo_back' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+        //     'aadhaar_image_front' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+        //     'aadhaar_image_back' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+        //     'rental_agreement_front' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+        //     'rental_agreement_back' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+        //     'pan_card' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+        //     'registration_photo' => 'required|mimes:jpg,png,jpeg,mp4,svg|max:2048',
+        //     'document_status' => '',
+        //     'status'=>'',
+        //     'mondaystartend' => '',
+        //     'tuesdaystartend' => '',
+        //     'wednesdaystartend' => '',
+        //     'thursdaystartend' => '',
+        //     'fridaystartend' => '',
+        //     'saturdaystartend' => '',
+
+
+        // ]);
+
+           $validated = $request->validate([
+            'first_name' => '',
+            'last_name' => '',
+            'phone_number' => '',
+            'email' => '',
+            'vehicle_year' => '',
+            'car_registration_number' => '',
+            'brand_id' => '',
+            'model_id' => '',
+            'category_id' => '',
+            'puc_expiry_date' => '',
+            'date_of_birth' => '',
+            'blood_group' => '',
+            'emergency_number' => '',
+            'state' => '',
+            'city' => '',
+            'postal_code' => '',
+            'address' => '',
+            'photo' => '',
+            'commercial_insurance' => '',
+            'license_photo_front' => '',
+            'license_photo_back' => '',
+            'aadhaar_image_front' => '',
+            'aadhaar_image_back' => '',
+            'rental_agreement_front' => '',
+            'rental_agreement_back' => '',
+            'pan_card' => '',
+            'registration_photo' => '',
             'document_status' => '',
             'status'=>'',
             'mondaystartend' => '',
@@ -244,6 +285,7 @@ class DriverController extends Controller
         }
 
 
+ 
 
 
         if ($commercial_insurance = $request->file('commercial_insurance')) {
@@ -318,7 +360,7 @@ class DriverController extends Controller
             $driver->registration_photo = $document9;
         }
         // dd($image);
-
+        // dd($validated);
 
         $driver->save();
         return back()->with('DriverDetailSuccess', 'Driver Details Added Successfully!');

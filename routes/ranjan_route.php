@@ -18,7 +18,7 @@ use App\Http\Controllers\RoleAndPermissionController;
 use Illuminate\Routing\Route as RoutingRoute;
 use App\Http\Controllers\SideBarSetting;
 use App\Http\Controllers\ChargingHubController;
-use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\Api\AttendenceController;
 use App\Http\Controllers\BookNowController;
 use App\Http\Controllers\DriverController;
 use App\Http\Controllers\DriverRequestController;
@@ -31,7 +31,7 @@ Route::group(['middleware' => 'prevent-back-history','auth'],function(){
 
 	Auth::routes();
 
-	Route::get('fare_view_setting',[FareSettingController::class,'index'])->name('search');
+	Route::get('fare_view_setting',[FareSettingController::class,'index'])->name('search.name');
     Route::get('add_fare_setting',[FareSettingController::class,'create']);
     Route::post('fare_process',[FareSettingController::class,'store']);
     Route::get('edit_fare_view_setting/{id}',[FareSettingController::class,'edit']);
@@ -104,7 +104,7 @@ Route::post('role_post_update/{id}',[RoleListController::class,'update']);
 //roles and permissions
 Route::get('role_list_and_permission',[RoleAndPermissionController::class,'index']);
 Route::get('add_role_permission',[RoleAndPermissionController::class,'create']);
-Route::post('role_permission_post',[RoleAndPermissionController::class,'store']);
+Route::post('role_permission_post',[RoleAndPermissionController::class,'store'])       ;
 Route::get('driver_permission_view/{id}',[RoleAndPermissionController::class,'show']);
 
 
@@ -133,7 +133,7 @@ Route::get('charging_hub_delete/{id}',[ChargingHubController::class,'destroy']);
 
 
 //attendance
-Route::get('list_attendance',[AttendanceController::class,'index']);
+Route::get('list_attendance',[AttendenceController::class,'index']);
 
 
 //book_now

@@ -51,7 +51,7 @@
 
                  
                          
-{{--                                 
+                {{--                                 
                     <div class="card card-primary">
                         <div class="card-header">
                             <h3 class="card-title">Add Promo Code</small></h3>
@@ -80,6 +80,7 @@
 
                                         <th>No</th>
                                         <th>Driver Name</th>
+                                        
                                         <th>Driver ID</th>
                                         <th>Total cash</th>
                                         <th>Action</th>
@@ -87,31 +88,32 @@
 
                                     </tr>
                                 </thead>
-                                @foreach ($driver as $item)
-                               {{  dd($item); }}
+                              
+                             
                                     
-                                @endforeach
+                               
 
                                 <tbody>
-                                  
+                                    @foreach ($driver as $item2)
                                     <tr>
                                         <td>1</td>
-                                        <td>try</td>
+                                        <td>{{$item2->first_name}}</td>
                                         <td>rtgd</td>
-                                        <td>rtgdg</td>
+                                        <td>rvbhtgdg</td>
                                         <td>grd</td>
                                        
                                       
                                       
-                                        <td class="text-center py-0 align-middle">
+                                        {{-- <td class="text-center py-0 align-middle">
                                             <div class="btn-group btn-group-sm">
                                             <!-- <a href="{{ url('admin/delete_driver', ) }}" class="btn btn-info"><i class="fas fa-eye"></i></a> -->             
                                             <li class="list-unstyled">
                                                  <a href="{{ url('admin/delete_promocode', ) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                             </li>       
                                             </div>
-                                        </td>
+                                        </td> --}}
                                     </tr>
+                                    @endforeach
                              
                                 </tbody>
 

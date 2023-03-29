@@ -10,7 +10,7 @@ class VehicleCategory extends Eloquent
     use HasFactory;
     protected $collection = 'vehicle_categories';
     protected $fillable = ['id',
-        'icon','name','capacity','status'
+        'icon','name','capacity','status','parent_id'
     ];
 
     public function Model()

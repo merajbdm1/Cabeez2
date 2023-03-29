@@ -17,6 +17,7 @@ class CreateVehicleCategoriesTable extends Migration
             //$table->string('vehicle_category_image');
             $table->integer('id');
             $table->string('icon');
+            $table->string('parent_id');
             //$table->string('vehicle_category_name');
             $table->string('name');
             $table->string('capacity');

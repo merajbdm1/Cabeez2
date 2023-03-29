@@ -463,10 +463,10 @@
                                                 <td>{{ $loop->iteration }}</td>
                                                 <td>{{ $vehicle_model->name}}</td>
 
-                                                {{-- <td>{{ $vehicle_model->make->name}}</td> --}}
+                                                <td>{{ $vehicle_model->make->name}}</td>
 
-                                                <td>{{isset($vehicle_model->make->name)?$vehicle_model->make->name:null}}</td>
-                                                <td>{{ isset($vehicle_model->categories->name)?$vehicle_model->categories->name:null}}</td>
+                                                {{-- <td>{{isset($vehicle_model->make->name)?$vehicle_model->make->name:null}}</td> --}}
+                                                <td>{{isset($vehicle_model->categories->name)?$vehicle_model->categories->name:null}}</td>
                                                 <td>
                                                     @if ($vehicle_model->status == 'active')
                                                         <span class="badge badge-success">Active</span>
