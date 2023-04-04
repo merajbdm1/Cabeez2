@@ -29,6 +29,6 @@ class Fare extends Eloquent
 
     public function categories()
     {
-        return $this->belongsTo(VehicleCategory::class,'category_id','id');
+        return $this->belongsTo(VehicleCategory::class,'category_id','_id');
     }
 }

@@ -51,7 +51,7 @@
                         <!-- /.card-header -->
                         <!-- form start -->
 
-                        <form  action="{{ url('edit_fare_process',$editfareview->_id) }}" method="POST">
+                        {{-- <form  action="{{ url('edit_fare_process',$editfareview->_id) }}" method="POST">
                             @csrf
                             <div class="card-body">
                                 <div class="row">
@@ -224,6 +224,184 @@
                                 <!-- right column -->
                                 <div class="col-md-6">
                                         <button type="submit" class="btn btn-primary">Update</button>
+                                </div>
+                                <!--/.col (right) -->
+                            </div>
+                        </form> --}}
+                        <form  action="{{ url('edit_fare_process',$editfareview->_id) }}" method="POST">
+                            @csrf
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleFirstName">Vehicle Category <span class="text-danger">*</span></label>
+                                          <select name="category_id" id="" class="form-control">
+                                            <option value="">-Select Vehicle Category-</option>
+                                            <option value="" selected>{{ $editfareview->categories->name }}</option>
+                                            @foreach ($all_vehicle_cat as $vehicle_category)
+                                            @if($editfareview->categories->name === $vehicle_category->name )
+                                            <option value="{{ $editfareview->categories->_id }}" selected>{{ $editfareview->categories->name }}</option>
+                                            @else
+                                            <option value="" >{{ $vehicle_category->name }}</option> 
+                                            @endif
+                                                </option>
+                                            @endforeach
+                                          </select>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleLastName">Base Fare <span class="text-danger">*</span></label>
+                                            <input type="number" name="base_fare" class="form-control" value="{{ $editfareview->base_fare }}" id="exampleLastName" placeholder="Base Fare">
+                                                    @if ($errors->has('base_fare'))
+                                                        <span class="invalid feedback" role="alert">
+                                                            <strong>{{ $errors->first('base_fare') }}</strong>
+                                                        </span>
+                                                    @endif
+                                        </div>
+
+                                    </div>
+                                 
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleLastName">Minimum Fare<span class="text-danger">*</span></label>
+                                            <input type="number" name="minimum_fare" class="form-control" value="{{ $editfareview->minimum_fare }} id="exampleLastName" placeholder="Time Factor For Travel">
+                                            @if ($errors->has('minimum_fare'))
+                                                        <span class="invalid feedback" role="alert">
+                                                            <strong>{{ $errors->first('minimum_fare') }}</strong>
+                                                        </span>
+                                            @endif
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleLastName">slab1 Rate Per km(0 < 25) <span class="text-danger">* </span></label>
+                                            <input type="number" name="per_km_fare_slab1" class="form-control" value="{{ $editfareview->per_km_fare_slab1 }}" id="exampleLastName" placeholder="Rate Per km(< 25)">
+                                            @if ($errors->has('per_km_fare_slab1'))
+                                                        <span class="invalid feedback" role="alert">
+                                                            <strong>{{ $errors->first('per_km_fare_slab1') }}</strong>
+                                                        </span>
+                                            @endif
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleLastName">slab2 Rate Per km(25 to 50 kms) <span class="text-danger">*</span></label>
+                                            <input type="number" name="rate_per_km_25_to_50_kms" class="form-control" value="{{ $editfareview->per_km_fare_slab2 }}" id="exampleLastName" placeholder="Rate Per km(25 to 50 kms)">
+                                            @if ($errors->has('rate_per_km_25_to_50_kms'))
+                                                        <span class="invalid feedback" role="alert">
+                                                            <strong>{{ $errors->first('rate_per_km_25_to_50_kms') }}</strong>
+                                                        </span>
+                                            @endif
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleLastName">slab3 Rate Per km(50 to 100 kms) <span class="text-danger">*</span></label>
+                                            <input type="number" name="per_km_fare_slab2" class="form-control" value="{{ $editfareview->per_km_fare_slab3 }}" id="exampleLastName" placeholder="Rate Per km(50 to 100 kms)">
+                                            @if ($errors->has('per_km_fare_slab2'))
+                                                        <span class="invalid feedback" role="alert">
+                                                            <strong>{{ $errors->first('per_km_fare_slab2') }}</strong>
+                                                        </span>
+                                            @endif
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleLastName">slab4 Rate Per km(100 to 250 kms) <span class="text-danger">*</span></label>
+                                            <input type="number" name="per_km_fare_slab3" class="form-control" value="{{ $editfareview->per_km_fare_slab4 }}" id="exampleLastName" placeholder="Rate Per km(100 to 250 kms)">
+                                            @if ($errors->has('per_km_fare_slab3'))
+                                                        <span class="invalid feedback" role="alert">
+                                                            <strong>{{ $errors->first('per_km_fare_slab3') }}</strong>
+                                                        </span>
+                                            @endif
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleLastName">slab5 Rate Per km(250 to 500 kms) <span class="text-danger">*</span></label>
+                                            <input type="number" name="per_km_fare_slab5" class="form-control" value="{{ $editfareview->per_km_fare_slab5 }}" id="exampleLastName" placeholder="Rate Per km(250 to 500 kms)">
+                                            @if ($errors->has('per_km_fare_slab5'))
+                                                        <span class="invalid feedback" role="alert">
+                                                            <strong>{{ $errors->first('per_km_fare_slab5') }}</strong>
+                                                        </span>
+                                            @endif
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleLastName">slab6 Rate Per km(500 + kms) <span class="text-danger">*</span></label>
+                                            <input type="number" name="per_km_fare_slab6" class="form-control" value="{{ $editfareview->per_km_fare_slab6 }}" id="exampleLastName" placeholder="Rate Per km(500 + kms)">
+                                            @if ($errors->has('per_km_fare_slab6'))
+                                                        <span class="invalid feedback" role="alert">
+                                                            <strong>{{ $errors->first('per_km_fare_slab6') }}</strong>
+                                                        </span>
+                                            @endif
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleLastName">Per Minimum Fare <span class="text-danger">*</span></label>
+                                            <input type="number" name="per_min_fare" class="form-control" value="{{ $editfareview->per_min_fare }}" id="exampleLastName" placeholder="Minimum Fare">
+                                            @if ($errors->has('per_min_fare'))
+                                                        <span class="invalid feedback" role="alert">
+                                                            <strong>{{ $errors->first('per_min_fare') }}</strong>
+                                                        </span>
+                                            @endif
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleLastName">Per Km Fare <span class="text-danger">*</span></label>
+                                            <input type="number" name="per_km_fare" class="form-control" value="{{ $editfareview->per_km_fare }}" id="exampleLastName" placeholder="Km For Min Fare">
+                                            @if ($errors->has('per_km_fare'))
+                                                        <span class="invalid feedback" role="alert">
+                                                            <strong>{{ $errors->first('per_km_fare') }}</strong>
+                                                        </span>
+                                            @endif
+                                        </div>
+
+                                    </div>
+
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleLastName">Status <span class="text-danger">*</span></label>
+                                            <select name="status" class="form-control" id="cars">
+                                            <option value="1">Active</option>
+                                            <option value="0">InActive</option>
+
+                                            </select>
+                                        </div>
+
+                                    </div>
+
+
+
+                                    <!-- /.card -->
+                                </div>
+                                <!--/.col (left) -->
+                                <!-- right column -->
+                                <div class="col-md-6">
+                                        <button type="submit" class="btn btn-primary">Add</button>
                                 </div>
                                 <!--/.col (right) -->
                             </div>

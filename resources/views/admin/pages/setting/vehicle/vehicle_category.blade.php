@@ -13,6 +13,8 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>Setting</h1>
+                   
+                    
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -131,6 +133,25 @@
                                             </span>
                                             @endif
                                         </div>
+                                        <div class="form-group">
+                                          <label for="inputStatus">Parent Category</label>
+                                          <select name="category_id" id="" class="form-control">
+                                            <option value="">-Select Vehicle Category-</option>
+                                            <option value="" selected disabled>{{$edit_vehicleCategory->name }}</option>
+                                            @foreach ($vehicleCategory as $vehicle_category)
+                                            @if($edit_vehicleCategory->name === $vehicle_category->name )
+                                            @continue
+                                            {{-- <option value="{{ $edit_vehicleCategory->_id }}" selected>{{ $edit_vehicleCategory->name }}</option> --}}
+                                            @else
+                                            <option value="{{ $vehicle_category->_id }}" >{{ $vehicle_category->name }}</option> 
+                                            @endif
+                                                </option>
+                                            @endforeach
+                                          </select>
+
+                                        
+
+                                        </div>
 
                                     </div>
                                 </div>
@@ -221,6 +242,21 @@
                                               </span>
                                               @endif
                                           </div>
+                                          <div class="form-group">
+                                            <label for="inputStatus">Parent Category</label>
+                                            <select name="category_id" id="" class="form-control">
+                                              <option value="">-Select Vehicle Category-</option>
+                                              <option value="" selected>{{$edit_vehicleCategory->name }}</option>
+                                              @foreach ($vehicleCategory as $vehicle_category)
+                                              @if($edit_vehicleCategory->name === $vehicle_category->name )
+                                              <option value="{{ $edit_vehicleCategory->_id }}" selected>{{ $edit_vehicleCategory->name }}</option>
+                                              @else
+                                              <option value="" >{{ $vehicle_category->name }}</option> 
+                                              @endif
+                                                  </option>
+                                              @endforeach
+                                            </select>
+                                          </div>
 
                                       </div>
                                   </div>
@@ -250,7 +286,9 @@
                           ?>
                           <div class="card card-primary">
                             <div class="card-header">
+                              
                                 <h3 class="card-title">Add Vehicle Category</small></h3>
+                                 
                             </div>
                             <!-- /.card-header -->
                             <!--  form start -->
@@ -286,6 +324,7 @@
                                             <input type="number" class="form-control" id="exampleInputCapacity1" placeholder="Enter Capacity" name="capacity">
                                           </div>
 
+                                        
 
                                           <div class="form-group">
                                             <label for="inputStatus">Status</label>
@@ -295,11 +334,27 @@
                                               <option value="0">Inactive</option>
                                             </select>
                                           </div>
+                                          <div class="form-group">
+                                            <label for="inputStatus">Parent Category</label>
+                                            <select id="inputStatus" class="form-control custom-select" name="parent_id">
+                                              <option selected disabled>Select one</option>
+                                            @foreach ($vehicleCategory as $vehicleCategoryvalue)
+                                            
+                                            <option value="{{ $vehicleCategoryvalue->_id }}"> {{ $vehicleCategoryvalue->parent_id == '0' ? $vehicleCategoryvalue->name : '.....'.$vehicleCategoryvalue->name }}</option>
+
+                                              
+                                              @endforeach
+
+                                            
+                                            </select>
+
+                                          </div>
 
                                 </div>
                                 <!-- /.card-body -->
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Add</button>
+                                  
                                 </div>
                             </form>
                         </div>
@@ -314,6 +369,8 @@
                           <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">Add Vehicle Category</small></h3>
+                                
+                            
                             </div>
                             <!-- /.card-header -->
                             <!--  form start -->
@@ -358,12 +415,29 @@
                                               <option value="0">Inactive</option>
                                             </select>
                                           </div>
+                                          <div class="form-group">
+                                            <label for="inputStatus">Parent Category</label>
+                                            <select id="inputStatus" class="form-control custom-select" name="parent_id">
+                                              <option selected disabled>Select one</option>
+                                            @foreach ($vehicleCategory as $vehicleCategoryvalue)
+                                            
+                                            <option value="{{ $vehicleCategoryvalue->_id }}"> {{ $vehicleCategoryvalue->parent_id == '0' ? $vehicleCategoryvalue->name : '.....'.$vehicleCategoryvalue->name }}</option>
+
+                                              
+                                              @endforeach
+
+                                            
+                                            </select>
+
+                                          </div>
 
                                 </div>
                                 <!-- /.card-body -->
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Add</button>
-                                </div>
+                                  <div class="card-footer">
+                                      <button type="submit" class="btn btn-primary">Add</button>
+                                    
+                                      
+                                  </div>
                             </form>
                         </div>
                       <?php }?>
@@ -382,6 +456,7 @@
                               <tr>
                                 <th>No</th>
                                 <th>Vehicle Image</th>
+                                <th>parent_id</th>
                                 <th>Vehicle Category</th>
                                 <th>Seating Capacity</th>
                                 <th>Status</th>
@@ -396,6 +471,7 @@
 
                               <td><img src="{{ asset('admin/uploads/vehicleImage/'. $vehicle_category->icon) }}"
                               width="100px"></td>
+                              <td>{{ $vehicle_category->parent_id }}</td>
                               <td>{{ $vehicle_category->name }}</td>
 
                               <td>{{ $vehicle_category->capacity }}</td>

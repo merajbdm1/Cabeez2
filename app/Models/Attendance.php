@@ -11,10 +11,9 @@ class Attendance extends Eloquent
     use HasFactory;
     protected $fillable = [
         'id',
-        'driver_name',
-        'months',
-        'years',
-        'date_series',
+        'date',
+        'login',
+        'logout',
     
     ];
 

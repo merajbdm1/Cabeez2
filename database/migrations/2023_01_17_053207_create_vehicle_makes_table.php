@@ -4,6 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+use Illuminate\Support\Facades\DB;
 class CreateVehicleMakesTable extends Migration
 {
     /**
@@ -17,12 +18,16 @@ class CreateVehicleMakesTable extends Migration
             // $table->string('name');
             // $table->string('icon');
             // $table->string('status');
+            // $table->integer('id');
             $table->integer('id');
+            $table->integer('make_id');
             $table->string('name');
             $table->string('icon');
             $table->enum('status',['active','inactive','deleted'])->default('active');
             $table->timestamps();
+
         });
+       
     }
 
     /**

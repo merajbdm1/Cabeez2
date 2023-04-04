@@ -37,7 +37,7 @@ class LoginController extends Controller
          $request->session()->put('role',$check->role);
          $request->session()->put('status',$check->status);
 
-                   $datasession=array();
+                $datasession=array();
                    if(Session::has('loginId')){
                        $datasession = User::where('_id', '=', Session::get('loginId'))->first();
                    }

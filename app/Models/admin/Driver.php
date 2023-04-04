@@ -119,20 +119,20 @@ class Driver extends Eloquent
     public function driver_vehicle_category()
     {
         // print_r("dhfkadf");
-        return $this->belongsTo(VehicleCategory::class,'category_id','id');
+        return $this->belongsTo(VehicleCategory::class,'category_id','_id');
     }
 
 
     public function driver_vehicle_make()
     {
         // print_r("dhfkadf");
-        return $this->belongsTo(VehicleMake::class,'brand_id','id');
+        return $this->belongsTo(VehicleMake::class,'brand_id','_id');
     }
 
     public function driver_vehicle_make_model()
     {
         // print_r("dhfkadf");
-        return $this->belongsTo(VehicleModel::class,'model_id','id');
+        return $this->belongsTo(VehicleModel::class,'model_id','_id');
     }
 
 
