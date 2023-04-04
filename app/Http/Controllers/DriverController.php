@@ -85,7 +85,7 @@ class DriverController extends Controller
         }
         else{
         $driver = $viewdriver->where('document_status', 'verified')
-        ->paginate(25);
+        ->paginate();
 
         //   echo "<pre>";  print_r($driver);exit;
 
@@ -244,9 +244,9 @@ class DriverController extends Controller
 
 
         ]);
-
+  
         $driver = new Driver;
-        // dd($driver);
+    
         $driver->first_name = $request->input('first_name');
         $driver->last_name = $request->input('last_name');
         $driver->phone_number = $request->input('phone_number');
@@ -283,9 +283,6 @@ class DriverController extends Controller
             $input['photo'] = "$profileImage";
             $driver->photo = $profileImage;
         }
-
-
- 
 
 
         if ($commercial_insurance = $request->file('commercial_insurance')) {
@@ -359,8 +356,7 @@ class DriverController extends Controller
             $input['registration_photo'] = "$document9";
             $driver->registration_photo = $document9;
         }
-        // dd($image);
-        // dd($validated);
+      
 
         $driver->save();
         return back()->with('DriverDetailSuccess', 'Driver Details Added Successfully!');

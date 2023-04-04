@@ -359,7 +359,8 @@ class FareSettingController extends Controller
         $editfareview = Fare::where('_id',$id)->first();
         // $edit_promocode = PromoCode::where('_id', $id)->first();
 
-        return view('admin.pages.setting.fare.edit_fare_view_setting',['editfareview'=>$editfareview,'datasession'=>$datasession]);
+        $all_vehicle_cat = VehicleCategory::all();
+        return view('admin.pages.setting.fare.edit_fare_view_setting',['editfareview'=>$editfareview,'datasession'=>$datasession,'all_vehicle_cat'=>$all_vehicle_cat]);
 
 
     }

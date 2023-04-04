@@ -58,15 +58,15 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleFirstName">Vehicle Category <span class="text-danger">*</span></label>
-                                          <select name="category_id" id="" class="form-control">
+                                             @include('admin.pages.nested_sub_cat')
+                                            <select name="category_id" id="" class="form-control">
                                             <option value="">-Select Vehicle Category-</option>
-                                            @foreach ($selectcategory as $vehicle_category_model)
-                                                <option value="{{ $vehicle_category_model->_id }}">
-                                                    {{ $vehicle_category_model->name }}
-                                                </option>
-                                            @endforeach
+                                            <?php echo displayCategories($selectcategory); ?> 
                                           </select>
                                         </div>
+
+                                  
+                                     
 
                                     </div>
                                     <div class="col-md-6">

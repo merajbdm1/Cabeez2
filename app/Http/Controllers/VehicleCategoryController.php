@@ -23,6 +23,7 @@ class VehicleCategoryController extends Controller
         }
 
         $vehicleCategory = VehicleCategory::all();
+    
        
         return view('admin.pages.setting.vehicle.vehicle_category',['vehicleCategory'=>$vehicleCategory,'datasession'=>$datasession]);
 
@@ -55,7 +56,7 @@ class VehicleCategoryController extends Controller
             'name' => 'required|string|min:3|max:255',
             'parent_id' => '',
             'capacity' => 'required',
-            'status' => 'required|boolean'
+            'status' => 'required|string'
 		]);
         // dd($validated);
         $request_parent_id = $request->input('parent_id');
@@ -129,10 +130,10 @@ class VehicleCategoryController extends Controller
     public function update(Request $request,$id)
     {    
         $storeData = $request->validate([
-            'icon' => 'required|mimes:jpg,png,jpeg|max:2048',
-            'name' => 'required|string|min:3|max:255',
-            'capacity' => 'required',
-            'status' => 'required|boolean'
+            'icon' => '|mimes:jpg,png,jpeg|max:2048',
+            'name' => '|string|min:3|max:255',
+            'capacity' => '',
+            'status' => '|string'
 
         ]);
 

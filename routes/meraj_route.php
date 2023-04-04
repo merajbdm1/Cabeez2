@@ -18,6 +18,7 @@ Route::get('admin/delete_rides/{id}', [RidesController::class,'destroy']);
 // menual booking
 Route::post('admin/add_menual_ride', [AllManuleRideBookingController::class,'store']);
 Route::get('admin/view_menual_ride_booking', [AllManuleRideBookingController::class,'show2']);
+Route::get('admin/edit_menual_ride_booking/{id}', [AllManuleRideBookingController::class,'edit']);
 Route::get('admin/api', [AllManuleRideBookingController::class,'create']);
 Route::get('show3', [AllManuleRideBookingController::class,'show3']);
 

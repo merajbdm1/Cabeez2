@@ -133,8 +133,8 @@
                                             @foreach ($fareview as $key=>$fare)
                                                 <tr>
                                                     <td>{{ ($fareview->currentpage()-1) * $fareview->perpage() + $key + 1 }}</td>
-
-                                                    <td>{{ isset($fare->categories->name)?$fare->categories->name:null}}</td>
+                                                 
+                                                    <td>{{ isset($fare->categories->name)?$fare->categories->name:'Not Available'}}</td>
                                                     <td>&#8377; {{ $fare->base_fare }} </td>
                                                     <td>&#8377; {{ $fare->minimum_fare }}</td>
                                                     <td>&#8377; {{ $fare->per_min_fare }}</td>

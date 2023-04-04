@@ -22,6 +22,9 @@
 
 @section('content')
 
+{{-- edit  --}}
+
+{{-- add --}}
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -102,8 +105,8 @@
                                   <div class="col-md-12 d-flex justify-content-center align-items-center">
                                     <div id="map"></div>
                                     <div id="direction"></div>
-                                    {{-- <input type="text" name="pickup2" id="pickup">
-                                    <input type="text"  name="drop2" id="drop"> --}}
+                                    <input type="text" name="pickup2" id="pickup">
+                                    <input type="text"  name="drop2" id="drop">
 
                                 </div>
                             
@@ -158,9 +161,18 @@
                                         <div class="form-group">
                                             <label for="exampleLastName">Assign Driver<span
                                                     class="text-danger">*</span></label>
-                                            <input type="text" name="driver_id" class="form-control"
-                                                value="{{ old('driver_id') }}"
-                                                id="exampleLastName" placeholder="Assign Driver">
+
+                                                    <select  name="driver_id" class="form-control"
+                                                              value="{{ old('driver_id') }}"
+                                                         id="exampleLastName" placeholder="Assign Driver">
+                                                        <option selected >Select one</option>
+                                                         @foreach ($all_driver as $all_datavalue)
+                                                         <option value="{{ $all_datavalue->_id }}" selected >{{ $all_datavalue->first_name }} {{ $all_datavalue->last_name }}</option>
+
+                                                         @endforeach
+                                                       </select>
+                                                      </select>
+                                           
                                             @if($errors->has('driver_id'))
                                                 <span class="invalid feedback" role="alert">
                                                     <strong>{{ $errors->first('driver_id') }}</strong>
@@ -175,15 +187,12 @@
 
 
                                         <div class="form-group">
-                                            <label for="exampleLastName">Vehicle Category<span
-                                                    class="text-danger">*</span></label>
-                                            <select name="category_id" id="" class="form-control">
-                                                <option value="">--Select Category--</option>
-                                                @foreach ($all_vehicle_cat as $item)
-                                                <option value="{{$item->_id}}">{{$item->name}}</option>
-                                                @endforeach
-                                              
-
+                                          <label for="inputStatus">Vehicle Category</label>
+                                              @include('admin.pages.nested_sub_cat');
+                                             <select  id="inputStatus" class="form-control custom-select" name="category_id">
+                                              <option selected disabled>Select one</option>
+                                                <?php echo displayCategories($all_vehicle_cat); ?>
+                                             </select>
                                             </select>
                                               @if($errors->has('vehiclec_category'))
                                                 <span class="invalid feedback" role="alert">
@@ -210,6 +219,7 @@
 
     <!-- /.content -->
 </div>
+
 @endsection
 
 @section('script')
@@ -252,8 +262,8 @@
 </script>   
 
 
-<script src="https://apis.mapmyindia.com/advancedmaps/v1/0a1fd5c6-f182-4132-aec3-1b7a7b28df58/map_load?v=1.5"></script>
- <script src="https://apis.mapmyindia.com/advancedmaps/api/0a1fd5c6-f182-4132-aec3-1b7a7b28df58/map_sdk_plugins"></script>
+<script src="https://apis.mapmyindia.com/advancedmaps/v1/891e32b6-fa97-41b5-8fb5-41cc7eb1740e/map_load?v=1.5"></script>
+ <script src="https://apis.mapmyindia.com/advancedmaps/api/891e32b6-fa97-41b5-8fb5-41cc7eb1740e/map_sdk_plugins"></script>
 
 {{--     
 <script id="myscript" src="https://apis.mapmyindia.com/advancedmaps/v1/ded8df1c-477e-440f-b87e-2b51b19427bf/map_load?v=1.5">
@@ -333,13 +343,15 @@
     var map = new MapmyIndia.Map('map', {center: [28.09, 78.3], zoom: 5, search: false,zoomControl: true, location: true, fullscreen: false, traffic: true});
     var direction_option={
                 map:map, // map object
-                end:{label:'',geoposition:"1T182A"},
+                end:{label:'',geoposition:"12434O"},
+                start:{label:'',geoposition:"2YZFFW"},
+                
                 Resource:'route_eta', // default route_adv
 		        alongTheRoute:true, 
                 callback:function(data) {
                 console.log(data);
-                var pickup = data['DrE_map'];
-                var drop = data['DrS_map'];
+                var pickup = data['LbE_map'];
+                var drop = data['LbS_map'];
 
                 $("#pickup").val(pickup);
                 $("#drop").val(drop);

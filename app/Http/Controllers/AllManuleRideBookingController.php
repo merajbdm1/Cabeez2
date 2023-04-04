@@ -9,6 +9,7 @@ use App\Models\MenualRideBooking;
 use App\Models\admin\VehicleCategory;
 use App\Models\Rides;
 use GuzzleHttp\Client;
+use App\Models\admin\Driver;
 class AllManuleRideBookingController extends Controller
 {
     /**
@@ -29,8 +30,10 @@ class AllManuleRideBookingController extends Controller
 
             $all_vehicle_cat = VehicleCategory::all();
             $dff = Rides::all();
+           
+            $all_driver = Driver::all();
             
-            return view('admin.pages.manual_ride_booking.all_manual_ride_booking',['datasession' => $datasession,'all_vehicle_cat'=>$all_vehicle_cat,'dff'=>$dff]);
+            return view('admin.pages.manual_ride_booking.all_manual_ride_booking',['datasession' => $datasession,'all_vehicle_cat'=>$all_vehicle_cat,'dff'=>$dff,'all_driver'=>$all_driver]);
 
     }
 
@@ -126,7 +129,22 @@ class AllManuleRideBookingController extends Controller
      */
     public function edit($id)
     {
-        //
+        
+        if (Session::has('loginId')) {
+            $datasession = User::where('_id', '=', Session::get('loginId'))->first();
+        } else {
+            return redirect('login');
+        }
+
+        $all_vehicle_cat = VehicleCategory::all();
+        $dff = Rides::all();
+
+        $edit_menual_ride= Rides::where('_id', $id)->first();
+        // dd($edit_menual_ride);
+        // return $rider;
+        $all_driver = Driver::all();
+        return view('admin.pages.manual_ride_booking.edit_menual_ride',['datasession' => $datasession,'all_vehicle_cat'=>$all_vehicle_cat,'dff'=>$dff,'all_driver'=>$all_driver,'edit_menual_ride'=>$edit_menual_ride]);
+
     }
 
 
@@ -162,9 +180,9 @@ class AllManuleRideBookingController extends Controller
         }
         $all_vehicle_cat = VehicleCategory::all();
         $dff = Rides::all();
-
-        return response()->json( collect(['employees' => $employees,])->toJson());
-        
+       
+      
+        // dd($dff);
 
         return view('admin.pages.manual_ride_booking.view_menual_ride_booking',['datasession' => $datasession,'all_vehicle_cat'=>$all_vehicle_cat,'dff'=>$dff]);
         // 

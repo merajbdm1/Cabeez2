@@ -11,7 +11,7 @@ class TestController extends Controller
 {
     public function check_car_hub(Request $request){
 
-        $car_number = $request->car_number;
+        $car_number = $request->name;
         
         $VehicleModel2 = VehicleMake::where('name', $car_number)->first();
         // print_r($VehicleModel2);

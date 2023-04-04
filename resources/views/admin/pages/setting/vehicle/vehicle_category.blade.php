@@ -23,7 +23,8 @@
                     </ol>
                 </div>
             </div>
-        </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.container-fluid -->
     </section>
 
     <!-- Main content -->
@@ -50,7 +51,7 @@
                     $data = \App\Models\AllDataTableRolesAndPermission::get();
                     foreach($data as $item)
                     {
-                     $check_role_name = $item->role_name;
+                      $check_role_name = $item->role_name;
                       foreach ($item->vehicle_categories_permissions as $value)
                       {
                            if($value == 'Edit') //Users
@@ -69,62 +70,69 @@
                             <!-- /.card-header -->
                             <!--  form start -->
                             <form id="quickForm" action="{{ url('admin/vehicle/update_category',$edit_vehicleCategory->_id) }}" method="POST" enctype="multipart/form-data">
-                                @csrf
-                                <div class="card-body">
-                                    <div class="row">
+                              @csrf
+                              <div class="card-body">
+                                  <div class="row">
+
+                                      <div class="form-group">
+                                          <label for="customFile">Vehicle Category Image <span class="text-danger">*</span></label>
+                                          <div class="custom-file">
+                                              <input type="file" class="custom-file-input" id="customFile"
+                                                  name="icon" accept="image/*"
+                                                  onchange="loadFile(event)" value="{{$edit_vehicleCategory->icon}}">
+
+                                              <label class="custom-file-label" for="customFile">Choose
+                                                  file</label>
+                                              @if ($errors->has('icon'))
+                                                  <span class="invalid feedback" role="alert">
+                                                      <strong>{{ $errors->first('icon') }}</strong>
+                                                  </span>
+                                              @endif
+                                          </div>
+                                      </div>
+
+                                      <div class="image-preview form-group col-lg-8">
+                                        <img src="{{ asset('admin/uploads/vehicleImage/'. $edit_vehicleCategory->icon) }}" id="preview_img_id" class="img-fluid" />
+                                    </div>
+
+
+                                      <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label for="customFile">Vehicle Category Image <span class="text-danger">*</span></label>
-                                            <div class="custom-file">
-                                                <input type="file" class="custom-file-input" id="customFile"
-                                                    name="icon" accept="image/*"
-                                                    onchange="loadFile(event)" value="{{$edit_vehicleCategory->icon}}">
-
-                                                <label class="custom-file-label" for="customFile">Choose
-                                                    file</label>
-                                                @if ($errors->has('icon'))
-                                                    <span class="invalid feedback" role="alert">
-                                                        <strong>{{ $errors->first('icon') }}</strong>
-                                                    </span>
-                                                @endif
-                                            </div>
+                                          <label for="name">Vehicle Category Name</label>
+                                          <input type="text" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" placeholder="Category Name" name="name" value="{{$edit_vehicleCategory->name}}">
+                                          @if ($errors->has('name'))
+                                              <span class="invalid feedback" role="alert">
+                                                  <strong>{{ $errors->first('name') }}</strong>
+                                                  </span>
+                                          @endif
                                         </div>
-                                        <div class="image-preview r">
-                                            <img src="{{ asset('admin/uploads/vehicleImage/'.$edit_vehicleCategory->icon) }}" id="preview_img_id" class="img-fluid" />
-                                        </div>
+                                      </div>
 
-
-
+                                       <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label for="name">Vehicle Category Name</label>
-                                            <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" placeholder="Category Name" name="name" value="{{$edit_vehicleCategory->name}}">
-                                            @if ($errors->has('name'))
+                                          <label for="capacity">Seating Capacity</label>
+                                          <input type="number" class="form-control{{ $errors->has('capacity') ? ' is-invalid' : '' }}" id="capacity" placeholder="Seating Capacity" name="capacity" value="{{$edit_vehicleCategory->capacity}}">
+                                          @if ($errors->has('capacity'))
                                                 <span class="invalid feedback" role="alert">
-                                                    <strong>{{ $errors->first('name') }}</strong>
-                                                    </span>
-                                            @endif
-                                          </div>
+                                                    <strong>{{ $errors->first('capacity') }}</strong>
+                                                  </span>
+                                             @endif
+                                        </div>
+                                       </div>
 
+                                        <div class="col-lg-12">
                                           <div class="form-group">
-                                            <label for="capacity">Seating Capacity</label>
-                                            <input type="number" class="form-control{{ $errors->has('capacity') ? ' is-invalid' : '' }}" id="capacity" placeholder="Seating Capacity" name="capacity" value="{{$edit_vehicleCategory->capacity}}">
-                                            @if ($errors->has('capacity'))
-                                                            <span class="invalid feedback" role="alert">
-                                                                <strong>{{ $errors->first('capacity') }}</strong>
-                                                            </span>
-                                                        @endif
-                                          </div>
-
-                                        <div class="form-group">
                                             <label for="status">Status</label>
                                             <select id="status" class="form-control custom-select" name="status">
-                                              @if ($edit_vehicleCategory->status == '1')
+                                            
+                                              @if ($edit_vehicleCategory->status == 'active')
                                               <option value="{{ $edit_vehicleCategory->status }}"
-                                                  {{ $edit_vehicleCategory->status === $edit_vehicleCategory->status? '1' : '0' }}>Active</option>
-                                              <option value="0">Inactive</option>
-                                              @elseif ($edit_vehicleCategory->status == '0')
+                                                  {{ $edit_vehicleCategory->status == $edit_vehicleCategory->status? 'active' : 'inactive' }}>Active</option>
+                                               <option value="inactive">Inactive</option>
+                                              @elseif ($edit_vehicleCategory->status == 'inactive')
                                               <option value="{{ $edit_vehicleCategory->status }}"
-                                                  {{ $edit_vehicleCategory->status === $edit_vehicleCategory->status? '0' : '1' }}>Inactive</option>
-                                              <option value="1">Active</option>
+                                                  {{ $edit_vehicleCategory->status == $edit_vehicleCategory->status? 'active': 'inactive' }}>Inactive</option>
+                                              <option value="active">Active</option>
                                               @endif
                                           </select>
                                             @if ($errors->has('status'))
@@ -132,34 +140,32 @@
                                                 <strong>{{ $errors->first('status') }}.</strong>
                                             </span>
                                             @endif
+                                        </div>  
                                         </div>
+                                      </div>
+                                      <div class="col-lg-12">
                                         <div class="form-group">
                                           <label for="inputStatus">Parent Category</label>
                                           <select name="category_id" id="" class="form-control">
+                                            @include('admin.pages.nested_sub_cat');
                                             <option value="">-Select Vehicle Category-</option>
-                                            <option value="" selected disabled>{{$edit_vehicleCategory->name }}</option>
-                                            @foreach ($vehicleCategory as $vehicle_category)
-                                            @if($edit_vehicleCategory->name === $vehicle_category->name )
-                                            @continue
-                                            {{-- <option value="{{ $edit_vehicleCategory->_id }}" selected>{{ $edit_vehicleCategory->name }}</option> --}}
-                                            @else
-                                            <option value="{{ $vehicle_category->_id }}" >{{ $vehicle_category->name }}</option> 
-                                            @endif
-                                                </option>
+                                            @foreach ($vehicleCategory as $vehicleCategoryforedit)
+                                                @if($vehicleCategoryforedit == $edit_vehicleCategory)
+                                                <option value="{{ $edit_vehicleCategory->_id }}" selected>{{ $edit_vehicleCategory->name }}</option>
+                                                @endif
                                             @endforeach
+                                            <?php echo displayCategories($vehicleCategory); ?>  
                                           </select>
-
-                                        
-
                                         </div>
+                                      </div>
 
-                                    </div>
-                                </div>
-                                <!-- /.card-body -->
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-primary">Update</button>
-                                </div>
-                            </form>
+                                  </div>
+                              </div>
+                              <!-- /.card-body -->
+                              <div class="card-footer">
+                                  <button type="submit" class="btn btn-primary">23</button>
+                              </div>
+                          </form>
                         </div>
                      <?php }   } } }?>
 
@@ -203,37 +209,43 @@
                                         </div>
 
 
-                                          <div class="form-group">
+                                          <div class="col-lg-12">
+                                            <div class="form-group">
                                               <label for="name">Vehicle Category Name</label>
-                                              <input type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" placeholder="Category Name" name="name" value="{{$edit_vehicleCategory->name}}">
+                                              <input type="text" class="form-control {{ $errors->has('name') ? ' is-invalid' : '' }}" id="name" placeholder="Category Name" name="name" value="{{$edit_vehicleCategory->name}}">
                                               @if ($errors->has('name'))
                                                   <span class="invalid feedback" role="alert">
                                                       <strong>{{ $errors->first('name') }}</strong>
                                                       </span>
                                               @endif
                                             </div>
+                                          </div>
 
+                                           <div class="col-lg-12">
                                             <div class="form-group">
                                               <label for="capacity">Seating Capacity</label>
                                               <input type="number" class="form-control{{ $errors->has('capacity') ? ' is-invalid' : '' }}" id="capacity" placeholder="Seating Capacity" name="capacity" value="{{$edit_vehicleCategory->capacity}}">
                                               @if ($errors->has('capacity'))
                                                               <span class="invalid feedback" role="alert">
-                                                                  <strong>{{ $errors->first('capacity') }}</strong>
-                                                              </span>
-                                                          @endif
+                                                              <strong>{{ $errors->first('capacity') }}</strong>
+                                                        </span>
+                                                    @endif
                                             </div>
+                                           </div>
 
-                                          <div class="form-group">
-                                              <label for="status">Status</label>
+                                           <div class="col-lg-12">
+                                            <div class="form-group">
+                                              <label for="status">Statusd</label>
                                               <select id="status" class="form-control custom-select" name="status">
-                                                @if ($edit_vehicleCategory->status == '1')
+                                              
+                                                @if ($edit_vehicleCategory->status == 'active')
                                                 <option value="{{ $edit_vehicleCategory->status }}"
-                                                    {{ $edit_vehicleCategory->status === $edit_vehicleCategory->status? '1' : '0' }}>Active</option>
-                                                <option value="0">Inactive</option>
-                                                @elseif ($edit_vehicleCategory->status == '0')
+                                                    {{ $edit_vehicleCategory->status == $edit_vehicleCategory->status? 'active' : 'inactive' }}>Active</option>
+                                                 <option value="inactive">Inactive</option>
+                                                @elseif ($edit_vehicleCategory->status == 'inactive')
                                                 <option value="{{ $edit_vehicleCategory->status }}"
-                                                    {{ $edit_vehicleCategory->status === $edit_vehicleCategory->status? '0' : '1' }}>Inactive</option>
-                                                <option value="1">Active</option>
+                                                    {{ $edit_vehicleCategory->status == $edit_vehicleCategory->status? 'active': 'inactive' }}>Inactive</option>
+                                                <option value="active">Active</option>
                                                 @endif
                                             </select>
                                               @if ($errors->has('status'))
@@ -241,21 +253,22 @@
                                                   <strong>{{ $errors->first('status') }}.</strong>
                                               </span>
                                               @endif
+                                          </div>  
                                           </div>
-                                          <div class="form-group">
-                                            <label for="inputStatus">Parent Category</label>
-                                            <select name="category_id" id="" class="form-control">
-                                              <option value="">-Select Vehicle Category-</option>
-                                              <option value="" selected>{{$edit_vehicleCategory->name }}</option>
-                                              @foreach ($vehicleCategory as $vehicle_category)
-                                              @if($edit_vehicleCategory->name === $vehicle_category->name )
-                                              <option value="{{ $edit_vehicleCategory->_id }}" selected>{{ $edit_vehicleCategory->name }}</option>
-                                              @else
-                                              <option value="" >{{ $vehicle_category->name }}</option> 
-                                              @endif
-                                                  </option>
-                                              @endforeach
-                                            </select>
+                                          <div class="col-lg-12">
+                                            <div class="form-group">
+                                              <label for="inputStatus">Parent Category</label>
+                                              <select name="category_id" id="" class="form-control">
+                                                @include('admin.pages.nested_sub_cat');
+                                                <option value="">-Select Vehicle Category-</option>
+                                                @foreach ($vehicleCategory as $vehicleCategoryforedit)
+                                                    @if($vehicleCategoryforedit == $edit_vehicleCategory)
+                                                    <option value="{{ $edit_vehicleCategory->_id }}" selected>{{ $edit_vehicleCategory->name }}</option>
+                                                    @endif
+                                                @endforeach
+                                                <?php echo displayCategories($vehicleCategory); ?>  
+                                              </select>
+                                            </div>
                                           </div>
 
                                       </div>
@@ -330,24 +343,18 @@
                                             <label for="inputStatus">Status</label>
                                             <select id="inputStatus" class="form-control custom-select" name="status">
                                               <option selected disabled>Select one</option>
-                                              <option value="1">Active</option>
-                                              <option value="0">Inactive</option>
+                                              <option value="active">Active</option>
+                                              <option value="inactive">Inactive</option>
                                             </select>
                                           </div>
                                           <div class="form-group">
                                             <label for="inputStatus">Parent Category</label>
-                                            <select id="inputStatus" class="form-control custom-select" name="parent_id">
+                                              @include('admin.pages.nested_sub_cat');
+                                             <select  id="inputStatus" class="form-control custom-select" name="parent_id">
                                               <option selected disabled>Select one</option>
-                                            @foreach ($vehicleCategory as $vehicleCategoryvalue)
-                                            
-                                            <option value="{{ $vehicleCategoryvalue->_id }}"> {{ $vehicleCategoryvalue->parent_id == '0' ? $vehicleCategoryvalue->name : '.....'.$vehicleCategoryvalue->name }}</option>
-
-                                              
-                                              @endforeach
-
-                                            
+                                                <?php echo displayCategories($vehicleCategory); ?>
+                                             </select>
                                             </select>
-
                                           </div>
 
                                 </div>
@@ -406,37 +413,30 @@
                                             <input type="number" class="form-control" id="exampleInputCapacity1" placeholder="Enter Capacity" name="capacity">
                                           </div>
 
+  
 
                                           <div class="form-group">
                                             <label for="inputStatus">Status</label>
                                             <select id="inputStatus" class="form-control custom-select" name="status">
                                               <option selected disabled>Select one</option>
-                                              <option value="1">Active</option>
-                                              <option value="0">Inactive</option>
+                                              <option value="active">Active</option>
+                                              <option value="inactive">Inactive</option>
                                             </select>
                                           </div>
                                           <div class="form-group">
                                             <label for="inputStatus">Parent Category</label>
-                                            <select id="inputStatus" class="form-control custom-select" name="parent_id">
+                                              @include('admin.pages.nested_sub_cat');
+                                             <select  id="inputStatus" class="form-control custom-select" name="parent_id">
                                               <option selected disabled>Select one</option>
-                                            @foreach ($vehicleCategory as $vehicleCategoryvalue)
-                                            
-                                            <option value="{{ $vehicleCategoryvalue->_id }}"> {{ $vehicleCategoryvalue->parent_id == '0' ? $vehicleCategoryvalue->name : '.....'.$vehicleCategoryvalue->name }}</option>
-
-                                              
-                                              @endforeach
-
-                                            
+                                                <?php echo displayCategories($vehicleCategory); ?>
+                                             </select>
                                             </select>
-
                                           </div>
 
                                 </div>
                                 <!-- /.card-body -->
                                   <div class="card-footer">
-                                      <button type="submit" class="btn btn-primary">Add</button>
-                                    
-                                      
+                                      <button type="submit" class="btn btn-primary">Add</button>                                   
                                   </div>
                             </form>
                         </div>

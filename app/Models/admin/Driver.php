@@ -4,7 +4,7 @@ namespace App\Models\admin;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
-
+use App\Models\Rides;
 class Driver extends Eloquent
 {
     use HasFactory;
@@ -12,7 +12,7 @@ class Driver extends Eloquent
 
     protected $collection = 'drivers';
     protected $fillable = [
-
+            '_id',
           'first_name',
           'last_name',
           'date_of_birth',
@@ -134,6 +134,13 @@ class Driver extends Eloquent
         // print_r("dhfkadf");
         return $this->belongsTo(VehicleModel::class,'model_id','_id');
     }
+
+    
+    // public function rides()
+    // {
+    //     // print_r("dhfkadf");
+    //     return $this->hasMany(VehicleModel::class,'model_id','_id');
+    // }
 
 
 // }

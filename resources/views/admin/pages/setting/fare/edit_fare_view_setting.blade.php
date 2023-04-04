@@ -234,22 +234,28 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleFirstName">Vehicle Category <span class="text-danger">*</span></label>
+                                        <label for="exampleFirstName">Vehicle Category <span class="text-danger">*</span></label>
+                                         
                                           <select name="category_id" id="" class="form-control">
                                             <option value="">-Select Vehicle Category-</option>
-                                            <option value="" selected>{{ $editfareview->categories->name }}</option>
                                             @foreach ($all_vehicle_cat as $vehicle_category)
-                                            @if($editfareview->categories->name === $vehicle_category->name )
-                                            <option value="{{ $editfareview->categories->_id }}" selected>{{ $editfareview->categories->name }}</option>
-                                            @else
-                                            <option value="" >{{ $vehicle_category->name }}</option> 
-                                            @endif
+                                            @if($editfareview->categories->name == $vehicle_category->name)
+                                            <option value="" selected>
+                                                {{ isset($editfareview->categories->name)? $editfareview->categories->name:'Not Found' }}
+                                              
                                                 </option>
+                                                  @continue
+                                            @endif
                                             @endforeach
+                                         
+                                            @include('admin.pages.nested_sub_cat')
+                                            <?php echo displayCategories($all_vehicle_cat); ?>  
                                           </select>
                                         </div>
 
                                     </div>
+                                   
+                                    
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="exampleLastName">Base Fare <span class="text-danger">*</span></label>

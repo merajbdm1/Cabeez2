@@ -109,26 +109,28 @@
                                             <th>Assign Driver*</th>
                                            
                                             <th>Vehicle Category*</th>
-                                            <th>View</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($dff as $item)
                                         <tr>
-                                            @foreach ($dff as $item)
+                                            
                                                 
-                                            <td></td>
+                                            <td>1   </td>
                                             <td>{{ $item->start_date }}</td>
                                             <td>{{ $item->end_date }}</td>
                                             <td>{{ $item->pickup2 }}</td>
 
                                             <td>{{ $item->drop2 }}</td>
                                             
-                                            <td>{{ $item->driver_id }}</td>
-                                            <td>{{ $item->category_id }}</td>
-                                            <td></td>
-                                            @endforeach
+                                            <td>{{ isset($item->driver->first_name)?$item->driver->first_name:'Not Available' }}</td>
+                                            <td>{{ isset($item->categories->name)?$item->categories->name:'Not Available' }}</td>
+                                         
+                                            <td><a href="{{ url ('admin/edit_menual_ride_booking')}}/{{ $item->_id}}">Edit</a></td>
 
                                         </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                                 <br>

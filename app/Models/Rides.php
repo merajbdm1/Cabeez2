@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
-
+use App\Models\admin\VehicleCategory;
+use App\Models\admin\Driver;
 class Rides extends Eloquent
 {
     use HasFactory;
     protected $collection = 'rides';
     protected $fillable = [
-        'id',
+        '_id',
         'ride_number',
         'drop2',
         'pickup2',
@@ -94,4 +95,18 @@ class Rides extends Eloquent
         'promo_id',
 
     ];
+
+    public function categories()
+    {
+        
+        return $this->belongsTo(VehicleCategory::class,'category_id','_id');
+
+    }
+
+    public function driver()
+    {
+ 
+        return $this->belongsTo(Driver::class,'driver_id','_id');   echo"code run";
+        // dd($test);
+    }
 }

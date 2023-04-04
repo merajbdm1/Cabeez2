@@ -167,21 +167,28 @@
                                                 </div>
 
                                             </div> --}}
-                                            <div class="form-group">
+                                            {{-- <div class="form-group">
                                                 <label for="inputStatus">Vehicle Category</label>
                                                 <select id="inputStatus" class="form-control custom-select" name="category_id">
                                                   <option selected disabled>--Select Category--</option>
-                                                @foreach ($vehicle_driv as $vehicleCategoryvalue)
-                                                
+                                                    @foreach ($vehicle_driv as $vehicleCategoryvalue)
                                                 <option value="{{ $vehicleCategoryvalue->category_id }}"> {{ $vehicleCategoryvalue->parent_id == '0' ? $vehicleCategoryvalue->name : '.....'.$vehicleCategoryvalue->name }}</option>
-    
-                                                  
                                                   @endforeach
-    
-                                                
                                                 </select>
-    
                                               </div>
+                                               --}}
+                                               <div class="col-md-6">
+                                              <div class="form-group">
+                                                <label for="inputStatus">Parent Category</label>
+                                                  @include('admin.pages.nested_sub_cat')
+                                                 <select  id="inputStatus" class="form-control custom-select" name="parent_id">
+                                                  <option selected disabled>Select one</option>
+                                                 
+                                                    <?php echo displayCategories($vehicle_driv); ?>
+                                                 </select>
+                                                </select>
+                                              </div>
+                                            </div>
 
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -192,7 +199,6 @@
                                                             @foreach($veh_make as $key => $value)
                                                             <option value="brand_id">{{$value->name}}</option>
                                                           @endforeach
-
                                                         </select>
 
                                                     {{-- <input type="text" name="driver_vehicle_make"

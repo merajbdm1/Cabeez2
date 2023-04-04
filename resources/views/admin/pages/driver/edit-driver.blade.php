@@ -177,35 +177,50 @@ exit();
 
                                                 <select id="inputCategory" class="form-control custom-select"
                                                     name="category_id">
-                                                    <option selected disabled>
-                                                        {{ $edit_driver->driver_vehicle_category->name }}
-                                                    </option>
+                                                    <option >Select one</option>
+                                                    @include('admin.pages.nested_sub_cat');
                                                     @foreach ($vehicle_driv as $item)
                                                         @if ($edit_driver->driver_vehicle_category->name == $item->name)
-                                                            @continue
-                                                        @else
-                                                            <option value="{{ $item->_id }}">
-                                                                {{ $item->name }}
-                                                            </option>
+                                                        <option value="{{ $item->_id }}" selected disabled style="background-color: #0069d9;color:#fff;">
+                                                            {{ $edit_driver->driver_vehicle_category->name }}
+                                                              @continue
+                                                        </option>
+                                                          
                                                         @endif
                                                     @endforeach
+                                                    <?php echo displayCategories($vehicle_driv); ?>  
                                                 </select>
                                                 </div>
                                             </div>
+                                            
+                                            
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="exampleMobileNumber">Vehicle Make <span
                                                             class="text-danger">*</span></label>
 
-                                                    <select name="brand_id" id="" class="form-control">
+                                                    {{-- <select name="brand_id" id="" class="form-control">
                                                         <option value="">--Select Make--</option>
-
                                                         @foreach ($vehicle_drive_make as $item)
                                                         @if ($edit_driver->brand_id == $item->id)
                                                            <option selected disabled value="{{ $edit_driver->brand_id }}" style="background-color: #0069d9;color:#fff;">
                                                             {{ $edit_driver->driver_vehicle_make->name }}</option>
                                                         @else
                                                             <option value="{{ $item->id }}">
+                                                                {{ $item->name }}</option>
+                                                        @endif
+                                                      @endforeach
+
+                                                    </select> --}}
+
+                                                    <select name="brand_id" id="" class="form-control">
+                                                        <option value="">--Select Make--</option>
+                                                        @foreach ($vehicle_drive_make as $item)
+                                                        @if ($edit_driver->brand_id == $item->_id)
+                                                           <option selected disabled value="{{ $edit_driver->brand_id }}" style="background-color: #0069d9;color:#fff;">
+                                                            {{ $edit_driver->driver_vehicle_make->name }}</option>
+                                                        @else
+                                                            <option value="{{ $item->_id }}">
                                                                 {{ $item->name }}</option>
                                                         @endif
                                                       @endforeach
@@ -221,11 +236,11 @@ exit();
                                                             <select name="model_id" id="" class="form-control">
                                                                 <option value="">--Select Make--</option>
                                                                 @foreach ($editvehiclemodel as $item)
-                                                                @if ($edit_driver->model_id == $item->id)
+                                                                @if ($edit_driver->model_id == $item->_id)
                                                                 <option selected disabled value="{{ $edit_driver->model_id }}" style="background-color: #0069d9;color:#fff;">
                                                                     {{ $edit_driver->driver_vehicle_make_model->name }}</option>
                                                                 @else
-                                                                    <option value="{{ $item->id }}">
+                                                                    <option value="{{ $item->_id }}">
                                                                         {{ $item->name }}</option>
                                                                 @endif
                                                             @endforeach
