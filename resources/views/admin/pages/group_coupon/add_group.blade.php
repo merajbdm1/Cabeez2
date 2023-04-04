@@ -1,5 +1,41 @@
 @extends('admin.layout.master')
 @section('style')
+
+<style>
+    .rider_data {
+        background: #fff;
+        height: 350px;
+        overflow-x: hidden;
+        border: 1px solid rgb(177, 164, 214) !important;
+    }
+
+    .rider_dataclass {
+        background: #fff;
+        height: 350px;
+        overflow-x: hidden;
+        border: 1px solid rgb(177, 164, 214) !important;
+    }
+</style>
+<style>
+    .fixedsearch {
+
+        padding: 0 0 0 0;
+        margin: 0 auto;
+        position: fixed;
+        min-width: 100%;
+        height: 90px;
+        display: table;
+    }
+
+    .fixedsearch{
+        text-align: center;
+        /* 	font-size: 4vw; */
+        font-weight: bold;
+        display: table-cell;
+        vertical-align: middle;
+    }
+</style>
+
 @endsection
 
 @section('content')
@@ -53,8 +89,7 @@
 
                                 <!-- /.card-header -->
                                 <!-- form start -->
-                                <form id="quickForm" action="{{ url('admin/driver_process') }}" method="POST"
-                                    enctype="multipart/form-data">
+                                <form id="quickForm" action="{{ url('post_make_group') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="card-body">
                                         <div class="row">
@@ -63,12 +98,12 @@
                                                     <label for="exampleFirstName">Group Name <span
                                                             class="text-danger">*</span></label>
                                                     <input type="text" name="group_name"
-                                                        class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}"
+                                                        class="form-control{{ $errors->has('group_name') ? ' is-invalid' : '' }}"
                                                         id="exampleFirstName" placeholder="Group Name"
-                                                        value="{{ old('first_name') }}">
-                                                    @if ($errors->has('first_name'))
+                                                        value="{{ old('group_name') }}">
+                                                    @if ($errors->has('group_name'))
                                                         <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('first_name') }}</strong>
+                                                            <strong>{{ $errors->first('group_name') }}</strong>
                                                         </span>
                                                     @endif
                                                 </div>
@@ -76,50 +111,26 @@
                                                 <div class="form-group">
                                                     <label for="exampleFirstName">Coupon<span
                                                             class="text-danger">*</span></label>
-                                                        <select name="" id="" class="form-control">
+                                                        <select name="promocode_id" id="" class="form-control">
+                                                            <option value="">--Select Coupon--</option>
+                                                            @foreach ($viewpromo as $item)
+                                                             <option value="{{$item->_id}}">{{$item->title}}</option>
+                                                            @endforeach
 
                                                         </select>
                                                 </div>
 
 
-                                                <div class="row">
+                                                {{-- <div class="row">
                                                 <div class="col-md-6">
-                                                <div class="form-group">
+                                                <div class="form-group" style="margin-bottom: 0px;">
                                                     <label for="exampleFirstName">Rider List<span>
 
-                                                </div>
-                                                <style>
-                                                    .rider_data {
-                                                        background: #ffaeae;
-                                                        height: 350px;
-                                                        overflow-x: hidden;
-                                                    }
-                                                </style>
-                                                <style>
-                                                    .fixedsearch {
+                                                </div> --}}
 
-                                                        padding: 0 0 0 0;
-                                                        margin: 0 auto;
-                                                        position: fixed;
-                                                        min-width: 100%;
-                                                        height: 90px;
-                                                        display: table;
-                                                    }
-
-                                                    .fixedsearch{
-                                                        text-align: center;
-                                                        /* 	font-size: 4vw; */
-                                                        font-weight: bold;
-                                                        display: table-cell;
-                                                        vertical-align: middle;
-                                                    }
-                                                </style>
-
-                                                      <input  type="text" class="form-control"
-                                                      placeholder="Search Rider or Mobile">
-                                                <div class="rider_data" class="fixedsearch">
+                                                {{-- <div class="rider_data" class="fixedsearch" >
                                                     <div class="card-body">
-                                                        <table data-toggle="table" data-striped="true" class="table table-hover table-centered table-nowrap mb-0">
+                                                        <table class="table table-bordered table-striped" id="example3">
                                                             <thead>
                                                                 <tr>
                                                                     <th class="text-center" data-sortable="true">NO</th>
@@ -129,72 +140,47 @@
                                                                     <th class="text-center" data-sortable="true">Select Rider</th>
                                                                 </tr>
                                                             </thead>
-                                                            <tbody>
-
+                                                            @php
+                                                                $i=1;
+                                                            @endphp
+                                                            <tbody id="searchResults">
                                                                 @foreach ($viewrider as $key=>$driver_model)
-
-
                                                             <tr>
-                                                                <td class="text-center">{{ ($viewrider->currentpage()-1) * $viewrider->perpage() + $key + 1 }}</td>
+                                                                <td class="text-center">{{ $i++;}}</td>
                                                                 <td class="text-center">{{ $driver_model->first_name }}</td>
-                                                                <td class="text-center">{{ $driver_model->last_name }}
-                                                                </td>
+                                                                <td class="text-center">{{ $driver_model->last_name }}</td>
                                                                 <td class="text-center">{{ $driver_model->phone_number }}</td>
-                                                                <td class="text-center"><input type="checkbox" value="checkbox"></td>
-                                                            </tr>
-                                                        @endforeach
 
+                                                                    {{-- <input type="checkbox" class="checkbox" name="test" value="{{$driver_model->_id}}"/> --}}
+                                                                    {{-- <td><a type="checkbox" class="form-control"style="height:20px;" name="rider_mobile[]" value="{{$driver_model->phone_number}}" /></a> --}}
+
+                                                                    {{-- onchange="chkbox(this)" --}}
+                                                            {{-- </tr>
+                                                             @endforeach
                                                             </tbody>
-
                                                         </table>
-
                                                         <br>
-                                                        {{-- showign 1 to 6 total 7057  --}}
-                                                       <div class="laravell_paginate">
-                                                        <div class="row">
-
-                                                            <div class="col-7">
-                                                                Showing {{ $viewrider->firstItem() }} - {{ $viewrider->lastItem()}} Total {{ $viewrider->total() }}
-                                                            </div>
-                                                            <div class="col-5">
-                                                               {!! $viewrider->appends(Request::all())->links(); !!}
-                                                            </div>
-
-                                                        </div>
-                                                       </div>
-
-
-                                                       {{-- //'pagination.paginationlinks' --}}
-                                                        {{-- {{ $driver->links() }} --}}
                                                     </div>
+                                                </div> --}}
 
-                                                </div>
-                                                </div>
+                                                {{-- </div> --}}
 
-                                                <div class="col-md-6">
+                                                {{-- <div class="col-md-6">
                                                     <div class="form-group">
-                                                        <label for="exampleFirstName">Group Name <span
-                                                                class="text-danger">*</span></label>
-                                                        <input type="text" name="group_name"
-                                                            class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}"
-                                                            id="exampleFirstName" placeholder="Group Name"
-                                                            value="{{ old('first_name') }}">
-                                                        @if ($errors->has('first_name'))
-                                                            <span class="invalid feedback" role="alert">
-                                                                <strong>{{ $errors->first('first_name') }}</strong>
-                                                            </span>
-                                                        @endif
+                                                        <label for="exampleFirstName">Selected Rider<span class="text-danger">*</span></label>
+                                                       <div class="rider_dataclass" >
+                                                        <ul class="list-unstyled">
+                                                        <li id="displaylet" style="font-size: 15px;">
+                                                        </li><br>
+                                                        </ul>
                                                     </div>
-                                                </div>
-                                                </div>
-
+                                                    </div>
+                                                </div> --}}
+                                                {{-- </div> --}}
 
                                             </div>
+                                            </div>
                                         </div>
-
-
-
-
                                         </div>
                                         <!-- /.card-body -->
                                         <div class="card-footer">
@@ -222,4 +208,61 @@
 @endsection
 
 @section('script')
+<script>
+    /*Object that includes array*/
+    // var information = {
+    //    letters: []
+    //  }
+    //  var boxes = document.getElementsByName("test");
+
+
+    //       // Display the array in the console
+    //       console.log(boxes);
+
+    //  /* Array of Checkboxes */
+    //  var boxesArr = Array.prototype.slice.call(boxes, 0);
+    // // alert(boxesArr);
+    //  function letter(e) {
+    //    /* Filter out the checboxes that aren't checked */
+    //    var checkedBoxes = boxesArr.filter((checkbox) => {
+    //      return checkbox.checked;
+    //    });
+
+    //    /* Create a new array with only the checkbox values or letters */
+    //    information.letters = checkedBoxes.map((checkbox) => {
+    //      return checkbox.value;
+    //    })
+
+    //    var showAbc = information.letters.join(", "); //converts to string
+    //    document.getElementById("displaylet").innerHTML = showAbc; //prints to HTML document
+    //  }
+
+    //  /*Event Listener*/
+    //  boxes.forEach((checkbox) => {
+    //    if (checkbox.attachEvent) {
+    //      checkbox.attachEvent("onchange", letter);
+    //    } else {
+    //      checkbox.addEventListener("change", letter, false);
+    //    }
+    //  })
+    var d = new Array();
+    function chkbox(this1) {
+        var s = this1.value;
+        if (this1.checked) {
+
+            d.push(s);
+            document.getElementById("displaylet").innerHTML = d;
+
+        } else {
+            var index = d.indexOf(s);
+            if (index > 1) {
+                d.splice(index, 1);
+                document.getElementById("displaylet").innerHTML = d;
+            }
+        }
+
+    }
+
+
+</script>
 @endsection

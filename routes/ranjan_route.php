@@ -171,10 +171,24 @@ Route::get('delete_map/{id}', [GlobalSettingController::class,'destroy']);
 //group promocode
 Route::get('view_group_promocode', [GroupPromocodeController::class,'index']);
 Route::get('add_group', [GroupPromocodeController::class,'create']);
+Route::post('post_make_group', [GroupPromocodeController::class,'store']);
+Route::get('edit_group_code/{id}', [GroupPromocodeController::class,'edit']);
+Route::get('delete_group_code/{id}', [GroupPromocodeController::class,'destroy']);
+
+
+Route::get('getDeleteitemrider_mobile/{id}/mobile_no/{mno_id}', [GroupPromocodeController::class,'deleteitemrider_mobile']);
+
+Route::get('deletegpmridermobile/{gpridermobile}/mobile/{mno_id}', [GroupPromocodeController::class,'deleterider_mobile']);
 
 
 
 
+Route::post('groupmakeadd', [GroupPromocodeController::class,'addgroupmake']);
+Route::post('edit_make_group/{id}', [GroupPromocodeController::class,'editMakeGroup']);
+
+
+Route::get('edit_addEdit_group/{id}', [GroupPromocodeController::class,'editaddeditGroup']);
+Route::post('groupAdd_phone_number/{id}', [GroupPromocodeController::class,'groupPhonenNumber']);
 
 
 ?>

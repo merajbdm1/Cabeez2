@@ -86,75 +86,32 @@
 
 
                         </div>
-                        {{-- <div class=" row p-3">
-                            <div class="col-md-4">
 
-                                <form action="{{ route('rider_review') }}" method="GET">
-                                    <div class="form_group">
-                                        <label for="">From Date</label>
-                                        <input type="date" name="fromDate" value="{{ request('fromDate') }}"
-                                            class="form-control" placeholder="dd/mm/yyyy">
-                                    </div>
-                                    <br>
-                                            <div class="form_group">
-                                                <button class="btn btn-primary" type="submit">Search</button>
-                                                <a href="{{ url('admin/riders') }}" class="btn btn-danger">Clear</a>
-                                            </div>
-
-                                            </div>
-
-                                            <div class=" col-md-4">
-
-
-                                                    <div class="form_group">
-
-                                                        <label for="">To Date</label>
-                                                        <input type="date" name="toDate" value="{{ request('toDate') }}"
-                                                            class="form-control" placeholder="dd/mm/yyyy">
-
-                                                    </div>
-
-
-
-                                            </div>
-
-                                          <div class="col-md-4">
-
-
-                                         <div class="form_group">
-
-
-                                        <label for="">Rider Name</label>
-                                        <input type="text" name="search" value="{{ request('search') }}"
-                                            class="form-control" placeholder="Rider Name">
-                                        </div>
-
-                                </form>
-
-                            </div>
-                        </div> --}}
-
-                        <!-- /.card-header -->
                         <div class="card-body">
                             <table class="table table-bordered table-striped " id="example1">
                                 <thead>
                                     <tr>
                                         <th>No</th>
 
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Email Address</th>
-                                        <th>Mobile No</th>
+                                        <th>FIRST NAME</th>
+                                        <th>LAST NAME</th>
+                                        <th>EMAIL</th>
+                                        <th>PHONE</th>
 
-                                        <th>Account Status</th>
-                                        <th>Created At</th>
-                                        <th>Action</th>
+                                        <th>ACCOUNT STATUS</th>
+                                        <th>CREATED AT</th>
+                                        <th>ACTION</th>
                                     </tr>
                                 </thead>
+
+                                    @php
+                                        $i=1;
+                                    @endphp
+
                                 <tbody>
-                                    @foreach( $riders as $key=>$ride)
+                                    @foreach( $viewrid as $key=>$ride)
                                     <tr>
-                                    <td>{{ ($riders->currentpage()-1) * $riders->perpage() + $key + 1 }}</td>
+                                    <td>{{ $i++}}</td>
 
                                     <td>{{ $ride->first_name }}</td>
                                     <td>{{ $ride->last_name }}</td>
@@ -177,27 +134,7 @@
                                     <td class="text-center py-0 align-middle">
                                         <div class="btn-group btn-group-sm">
 
-                                                        {{-- <?php
-                                                            $check_role= Session::get('role');
-                                                            $data = \App\Models\AllDataTableRolesAndPermission::get();
-                                                            foreach($data as $item)
-                                                            {
-                                                             $check_role_name = $item->role_name;
-                                                              foreach ($item->riders_permissions as $value)
-                                                              {
-                                                                   if($value == 'View')//User
-                                                                   {
-                                                                    $checkAdd = $value;
 
-                                                                    if($check_role == $check_role_name && $checkAdd)
-                                                                      {
-
-                                                                  ?>
-                                                                  <li class="list-unstyled">
-                                                                    <a href="#" class="btn btn-info"><i
-                                                                        class="fas fa-eye"></i></a>
-                                                                  </li>
-                                                             <?php }   } } }?> --}}
 
                                                              <?php
                                                              $check_role= Session::get('status');
@@ -255,7 +192,7 @@
                                                                     ?>
 
                                                                    <li class="list-unstyled">
-                                                                    <a href="{{ url('admin/delete_rider', $ride->_id) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                                                    <a href="{{ url('admin/delete_rider', $ride->_id) }}" onclick="return confirm('Are you sure you want to delete this Fare?');" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                                                                    </li>
                                                              <?php }  ?>
                                         </div>
@@ -266,7 +203,7 @@
 
                             </table>
                             <br>
-                            {{ $riders->links() }}
+
                         </div>
                         <!-- /.card-body -->
                     </div>

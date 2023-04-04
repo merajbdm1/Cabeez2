@@ -490,31 +490,7 @@ td {
                                     </div>
 
 
-
-
-
-                                        {{-- <div class="card card-block">
-                                            <div class="card-header d-flex justify-content-between">
-                                                <div class="header-title">
-                                                    <h4 class="card-title mb-0"> <b>Rider Type</b></h4>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div class="row">
-
-                                                    <div class="col-9">
-
-                                                        <td>{{ $preview_driver->driver_ride_type }}</td>
-
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-
-
-                                        </div> --}}
-
+                                    
 
 
                                         <div class="row">

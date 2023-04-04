@@ -59,6 +59,7 @@ class GlobalSettingController extends Controller
         $validated = $request->validate([
             'client_id' => 'required|string',
             'client_secreat_key' => '',
+            'api_map_sdk_key'=>'',
             'status' => '',
 
         ]);
@@ -119,6 +120,7 @@ class GlobalSettingController extends Controller
         $validated = $request->validate([
             'client_id' => '',
             'client_secreat_key' => '',
+            'api_map_sdk_key'=>'',
             'status' => '',
 
 

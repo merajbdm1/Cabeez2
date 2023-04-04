@@ -12,7 +12,7 @@ Route::post('admin/update_promocode', [PromoCodeController::class, 'update']);
 Route::get('admin/delete_promocode/{id}', [PromoCodeController::class, 'destroy']);
 
 //Riders Routers
-Route::get('admin/riders', [RidersController::class, 'index'])->name('rider_review');
+Route::get('admin/riders', [RidersController::class, 'index'])->name('rider_view');
 Route::get('admin/add_riders', [RidersController::class, 'create']);
 Route::post('admin/store_riders', [RidersController::class, 'store']);
 Route::get('admin/delete_rider/{id}', [RidersController::class, 'destroy']);

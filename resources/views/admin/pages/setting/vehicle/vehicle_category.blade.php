@@ -231,13 +231,6 @@
                               </form>
                           </div>
                       <?php }?>
-
-
-
-
-
-
-
                     @else
                   <?php
                     $check_role= Session::get('role');
@@ -377,17 +370,11 @@
                     @endif
                 </div>
 
-
-
-
-
                 <div class="col-md-8">
                     <div class="card ">
                         <div class="card-header">
                           <h3 class="card-title">All Vehicle Category</h3>
-
                         </div>
-
                         <!-- /.card-header -->
                         <div class="card-body">
                           <table class="table table-bordered table-striped" id="example1">

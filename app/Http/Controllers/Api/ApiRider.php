@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Date;
 use Carbon\Carbon;
 use Countable;
 
+
 class ApiRider extends Controller
 {
     /**
@@ -22,6 +23,8 @@ class ApiRider extends Controller
      */
     public function index()
     {
+
+
         $rider=new Riders();
         $getData = $rider->all();
 
@@ -59,6 +62,9 @@ class ApiRider extends Controller
      */
     public function store(Request $request)
     {
+
+
+        // return sendOtpSms(9858658556,1234);
 
         $mobile_number=$request->input('phone_number');
 
@@ -292,7 +298,7 @@ class ApiRider extends Controller
                       return response()->json([
                         'status' => 200,
                         'message' => 'Rider Login Successfully',
-                        
+
                         'data' => $data
                     ],200);
                  }else{

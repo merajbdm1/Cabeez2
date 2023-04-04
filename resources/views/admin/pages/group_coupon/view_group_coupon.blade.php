@@ -60,87 +60,21 @@
                     </div>
                 </div><!-- /.container-fluid -->
             </section>
-
-            <div class="card mx-3">
-                <div class="card-header">
-
-                    <form id="form_id" action="" method="GET">
-                        <div class="row">
-                            <div class="col-3">
-                                <p for="">FIRST NAME</p>
-                                <input type="text" name="fname" value="{{ request('fname') }}" id="fname"
-                                    placeholder="Enter First Name" class="form-control">
-
-
-                            </div>
-
-                            <div class="col-3">
-                                <p for="">LAST NAME</p>
-                                <input type="text" name="lname" id="lname" value="{{ request('lname') }}"
-                                    placeholder="Enter Last Name" class="form-control">
-
-
-                            </div>
-                            <div class="col-3">
-                                <p for="">Email</p>
-                                <input type="email" class="form-control" value="{{ request('email') }}" placeholder="Email"
-                                    name="email">
-                            </div>
-
-                            <div class="col-3">
-                                <p for="">Mobile Number</p>
-                                <input type="number" class="form-control" value="{{ request('phone_number') }}" placeholder="Mobile Number"
-                                    name="phone_number">
-                            </div>
-
-
-                            <div class="col-3">
-                                <p for="">From Date</p>
-                                <input type="date" class="form-control" value="{{ request('fromDate') }}" name="fromDate"
-                                    placeholder="Date">
-
-                            </div>
-                            <div class="col-3">
-                                <p for="">To Date</p>
-                                <input type="date" class="form-control" value="{{ request('ToDate') }}" name="ToDate"
-                                    placeholder="Date">
-                            </div>
-
-                        </div>
-
-
-                        <br>
-                        <button id="registerSubmit" class="btn btn-dark" type="submit">SEARCH</button>
-
-                        <a href="{{url('view_group_promocode')}}" type="button" value="submit" class="btn btn-dark" > CLEAR</a>
-                        {{-- <input type="button" class="btn btn-dark" id="clearbtn"  value="CLEAR"
-                            onclick="myFunction()"> --}}
-
-                    </form>
-
-                </div>
-
-            </div>
             <!-- Main content -->
             <div class="card mx-3">
                 <div class="card-header">
-
                     <h3 class="card-title">Group Promocode</h3>
-
-
                           <li class="list-unstyled">
                             <a type="button" href="{{url('add_group')}}" class="btn btn-default float-right bg-primary">
                                Make Group
                             </a>
                           </li>
 
-
-
-
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <table data-toggle="table" data-striped="true" class="table table-hover table-centered table-nowrap mb-0">
+                    <table class="table table-bordered table-striped " id="example1">
+
                         <thead>
                             <tr>
                                 <th class="text-center" data-sortable="true">NO</th>
@@ -149,16 +83,35 @@
 
                                 <th class="text-center" data-sortable="true">CREATED DATE</th>
 
-
-                                <th>Action</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
+                        @php
+                                $i=1;
+                        @endphp
                         <tbody>
 
+                            @foreach ($vi_prom as $item)
+                            <tr>
+                                <td class="text-center">{{ $i++; }}</td>
+                                <td class="text-center">{{ $item->group_name }}</td>
+                                <td class="text-center">{{ isset($item->promcode->title)?$item->promcode->title:'Not Found'; }}</td>
+                                {{-- <td class="text-center">{{ $item->rider_mobile }}</td> --}}
+                                <td class="text-center">{{ $item->created_at }}</td>
+                                <td class="text-center">
+                                    <a href="{{ url('edit_group_code', $item->_id) }}" class="btn btn-info"><i
+                                        class="fas fa-pencil-alt" title="Edit"></i></a>
+                                        <a href="{{ url('edit_addEdit_group',$item->_id)}}"  class="btn btn-primary" title="Add Groups"><i class="fa fa-users" aria-hidden="true"></i></a>
+                                        <a href="{{ url('delete_group_code',$item->_id)}}" title="Delete" onclick="return confirm('Are you sure you want to delete this Group?');"  class="btn btn-danger"><i
+                                            class="fas fa-trash"></i></a>
 
+
+
+                                </td>
+                            </tr>
+                            @endforeach
 
                         </tbody>
-
                     </table>
 
                     <br>

@@ -145,16 +145,7 @@
                                             @endif
                                         </div>
                                     </div>
-
-
-
-
-
                                 </div>
-
-
-
-
 
                             </div>
                             <!-- /.card-body -->
@@ -193,85 +184,6 @@
         reader.readAsDataURL(event.target.files[0]);
     };
 </script>
-<script>
-    var loadFile3 = function(event) {
-        var reader = new FileReader();
-        reader.onload = function() {
-            var output = document.getElementById('preview_img_id3');
-            output.src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    };
-</script>
-<script>
-    var loadFile4 = function(event) {
-        var reader = new FileReader();
-        reader.onload = function() {
-            var output = document.getElementById('preview_img_id4');
-            output.src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    };
-</script>
-<script>
-    var loadFile5 = function(event) {
-        var reader = new FileReader();
-        reader.onload = function() {
-            var output = document.getElementById('preview_img_id5');
-            output.src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    };
-</script>
-<script>
-    var loadFile6 = function(event) {
-        var reader = new FileReader();
-        reader.onload = function() {
-            var output = document.getElementById('preview_img_id6');
-            output.src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    };
-</script>
-<script>
-    var loadFile7 = function(event) {
-        var reader = new FileReader();
-        reader.onload = function() {
-            var output = document.getElementById('preview_img_id7');
-            output.src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    };
-</script>
-<script>
-    var loadFile8 = function(event) {
-        var reader = new FileReader();
-        reader.onload = function() {
-            var output = document.getElementById('preview_img_id8');
-            output.src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    };
-</script>
-<script>
-    var loadFile9 = function(event) {
-        var reader = new FileReader();
-        reader.onload = function() {
-            var output = document.getElementById('preview_img_id9');
-            output.src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    };
-</script>
 
-<script>
-    var loadFile10 = function(event) {
-        var reader = new FileReader();
-        reader.onload = function() {
-            var output = document.getElementById('preview_img_id10');
-            output.src = reader.result;
-        };
-        reader.readAsDataURL(event.target.files[0]);
-    };
-</script>
+
 @endsection

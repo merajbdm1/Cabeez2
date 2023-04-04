@@ -80,6 +80,18 @@
                                         </div>
 
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="exampleLastName">Api Map Sdk Key<span class="text-danger">*</span></label>
+                                            <input type="text" name="api_map_sdk_key" class="form-control" value="{{ $ediglobalsett->api_map_sdk_key }}"  id="exampleLastName" placeholder="Client Secreat Key">
+                                            @if ($errors->has('api_map_sdk_key'))
+                                                        <span class="invalid feedback" role="alert">
+                                                            <strong>{{ $errors->first('api_map_sdk_key') }}</strong>
+                                                        </span>
+                                            @endif
+                                        </div>
+
+                                    </div>
 
 
                                     <div class="col-md-6">

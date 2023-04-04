@@ -122,7 +122,7 @@
                                             </div>
                                         </div>
                                         <div class="image-preview">
-                                            <img src="{{ asset('admin/uploads/Riders/'. $rider->photo ) }}" id="preview_img_id2" class="img-fluid" />
+                                            <img src="{{ asset('admin/uploads/Riders/'.$rider->photo) }}" id="preview_img_id2" class="img-fluid" />
                                         </div>
                                     </div>
 

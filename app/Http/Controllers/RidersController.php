@@ -28,58 +28,11 @@ class RidersController extends Controller
         }else{
             return redirect('login');
         }
+          $riders= new Riders();
+            $viewrid=$riders->get();
 
 
-
-        $ridersdata= new Riders();
-
-        // $fromdate=$request->fromDate;
-        // $toDate=$request->toDate;
-
-
-        $fromdate =(isset($request->fromDate)) ? Carbon::createFromFormat('Y-m-d', $request->fromDate)->startOfDay() : null;
-        $toDate = (isset($request->toDate)) ? Carbon::createFromFormat('Y-m-d', $request->toDate)->endOfDay() : null;
-
-        // $fmdate=$_GET['fromDate'];
-
-       // $post = isset($fromdate) &&  $toDate ? Riders::whereBetween('created_at', [$fromdate, $toDate]): $ridersdata;
-
-        if($fromdate && $toDate){
-
-
-            $post = isset($fromdate) ? Riders::whereBetween('created_at', [$fromdate, $toDate]) : $ridersdata ;
-
-                $riders = $post->paginate(10);
-        }
-        else
-        {
-            $drivername= $request->search;
-                $ridersdata;
-                $post = Riders::where('first_name','LIKE',$drivername);
-                //$riders = Riders::paginate(10);
-
-        }
-        $riders = $post->paginate(10);
-        // $serch = $_GET['search'];
-
-
-        // return  $riders;
-        //  return $riders;
-        // dd($dates);
-    //     $month = new Carbon();
-
-    //     $fromDate=$request->fromDate;
-    //     $toDate=$request->toDate;
-
-    //    $ddcheck = Riders::whereDate('fromDate', '>=', $fromDate)->whereDate('toDate', '<=', $toDate)->get();
-
-    //     dd($ddcheck);
-
-
-
-
-     $ridersdata=  Riders::all();
-        return view('admin.pages.riders.rider', ['riders' => $riders,'datasession' => $datasession]);
+        return view('admin.pages.riders.rider', ['viewrid' => $viewrid,'datasession' => $datasession]);
 
     }
 
@@ -107,6 +60,7 @@ class RidersController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $validated = $request->validate([
             'first_name' => 'required|string',
             'last_name' => '',
@@ -114,7 +68,6 @@ class RidersController extends Controller
             'phone_number' => 'required',
             'status' => '',
             'photo *' => '',
-
 
             // 'driver_email' => 'required|email|min:3|max:255',
             // 'vehicle_year' => 'required',
@@ -125,16 +78,15 @@ class RidersController extends Controller
 
         ]);
 
-        if (isset(Riders::all()->last()->rider_id)) {
-            $rider_id = Riders::all()->last()->rider_id;
-            $rider_id++;
-        } else {
-            $rider_id = 1;
-        }
+        // if (isset(Riders::all()->last()->rider_id)) {
+        //     $rider_id = Riders::all()->last()->rider_id;
+        //     $rider_id++;
+        // } else {
+        //     $rider_id = 1;
+        // }
 
 
         $rider = new Riders();
-        $rider->rider_id = $rider_id;
         $rider->first_name = $request->input('first_name');
         $rider->last_name = $request->input('last_name');
 

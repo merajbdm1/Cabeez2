@@ -11,12 +11,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>MAP MY INDIA</h1>
+                        <h1>Global Setting</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">MAP MY INDIA</li>
+                            <li class="breadcrumb-item active">Global Setting</li>
                         </ol>
                     </div>
                 </div>
@@ -44,10 +44,11 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">No</th>
-
+                                                <th class="text-center">NAME</th>
                                                 <th class="text-center">CLIENT ID</th>
                                                 <th class="text-center">CLIENT SECREAT KEY</th>
                                                 <th class="text-center">API MAP SDK KEY</th>
+                                                <th class="text-center">STATUS</th>
                                                 <th class="text-center">ACTION</th>
 
                                             </tr>
@@ -56,9 +57,10 @@
                                             @foreach ($viewglobalsett as $key => $value)
                                             <tr>
                                                 <td class="text-center">{{ $loop->iteration }}</td>
-
+                                                <td class="text-center">{{$value->name}}</td>
                                                 <td class="text-center">{{ $value->client_id }}</td>
                                                 <td class="text-center">{{ $value->client_secreat_key }}</td>
+                                                <td class="text-center">{{ isset($value->api_map_sdk_key)?$value->api_map_sdk_key:'Not Available' }}</td>
                                                 <td class="text-center">
                                                     @if ($value->status == '1')
                                                         <span class="badge badge-success">Active</span>
@@ -71,10 +73,10 @@
                                                         <a href="{{ url('edit_global_map', $value->_id) }}"
                                                             class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a>
 
-                                                        <a href="{{ url('delete_map', $value->_id) }}"
+                                                        {{-- <a href="{{ url('delete_map', $value->_id) }}"
                                                             class="btn btn-danger" class="btn btn-danger"
                                                             onclick="return confirm('Are you sure you want to delete this key?');"><i
-                                                                class="fas fa-trash"></i></a>
+                                                                class="fas fa-trash"></i></a> --}}
                                                     </li>
                                                     </td>
                                             </tr>

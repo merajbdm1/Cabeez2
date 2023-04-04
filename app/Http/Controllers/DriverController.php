@@ -22,7 +22,7 @@ class DriverController extends Controller
      */
     public function index(Request $request)
     {
-        
+
 
         if (Session::has('loginId')) {
             $datasession = User::where('_id', '=', Session::get('loginId'))->first();
