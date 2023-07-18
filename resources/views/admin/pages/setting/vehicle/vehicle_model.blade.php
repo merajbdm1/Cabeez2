@@ -146,7 +146,25 @@
                                                 @endif
                                             </div>
 
+                                            <div class="form-group">
+                                                <label for="inputStatus">Type</label>
+                                                <select id="inputStatus" class="form-control custom-select"
+                                                    name="type">
 
+                                                    @if ($edit_vehicleModel->type == 'CNG')
+                                                    <option value="{{ $edit_vehicleModel->type }}"
+                                                        {{ $edit_vehicleModel->type === $edit_vehicleModel->type ? 'CNG' : 'EV' }}>
+                                                        CNG</option>
+                                                    <option value="EV">EV</option>
+                                                @elseif ($edit_vehicleModel->type == 'EV')
+                                                    <option value="{{ $edit_vehicleModel->type }}"
+                                                        {{ $edit_vehicleModel->type === $edit_vehicleModel->type ? 'EV' : 'CNG' }}>
+                                                        EV</option>
+                                                    <option value="CNG">CNG</option>
+                                                @endif
+
+                                                </select>
+                                            </div>
                                         </div>
                                         <!-- /.card-body -->
                                         <div class="card-footer">
@@ -205,11 +223,12 @@
                                                 <label for="inputCategory">Category</label>
                                                 <select id="inputCategory" class="form-control custom-select"
                                                     name="category_id">
+
                                                     <option selected disabled>
-                                                        {{ $edit_vehicleModel->categories->name }}
+                                                        {{ isset($edit_vehicleModel->categories->name)?$edit_vehicleModel->categories->name:'Not Available' }}
                                                     </option>
                                                     @foreach ($vehicleCategory as $vehicle_category_model)
-                                                        @if ($edit_vehicleModel->categories->name == $vehicle_category_model->name)
+                                                        @if (isset($edit_vehicleModel->categories->name) == $vehicle_category_model->name)
                                                             @continue
                                                         @else
                                                             <option value="{{ $vehicle_category_model->_id }}">
@@ -225,17 +244,18 @@
                                                 <label for="active">Status</label>
                                                 <select id="active" class="form-control custom-select"
                                                     name="status">
-                                                    @if ($edit_vehicleModel->status == 'active')
+                                                    {{-- @if ($edit_vehicleModel->status == 'active')
                                                         <option value="{{ $edit_vehicleModel->active }}"
                                                             {{ $edit_vehicleModel->status === $edit_vehicleModel->status ? 'active' : 'inactive' }}>
-                                                            Active</option>
+                                                            Active</option> --}}
+                                                            <option value="">--Select one--</option>
                                                         <option value="inactive">Inactive</option>
-                                                    @elseif ($edit_vehicleModel->status == 'inactive')
+                                                    {{-- @elseif ($edit_vehicleModel->status == 'inactive')
                                                         <option value="{{ $edit_vehicleModel->status }}"
                                                             {{ $edit_vehicleModel->status === $edit_vehicleModel->status ? 'inactive' : 'active' }}>
-                                                            Inactive</option>
-                                                        <option value="1">Active</option>
-                                                    @endif
+                                                            Inactive</option> --}}
+                                                        <option value="active">Active</option>
+                                                    {{-- @endif --}}
                                                 </select>
                                                 @if ($errors->has('active'))
                                                     <span class="invalid feedback" role="alert">
@@ -249,19 +269,18 @@
                                                 <label for="inputStatus">Type</label>
                                                 <select id="inputStatus" class="form-control custom-select"
                                                     name="type">
-
-                                                    @if ($edit_vehicleModel->type == 'cng')
+                                                    <option value="">--Select one--</option>
+                                                    @if ($edit_vehicleModel->type == 'CNG')
                                                     <option value="{{ $edit_vehicleModel->type }}"
-                                                        {{ $edit_vehicleModel->type === $edit_vehicleModel->type ? 'cng' : 'ev' }}>
+                                                        {{ $edit_vehicleModel->type === $edit_vehicleModel->type ? 'CNG' : 'EV' }}>
                                                         CNG</option>
-                                                    <option value="ev">EV</option>
-                                                @elseif ($edit_vehicleModel->type == 'ev')
+                                                        <option value="EV">EV</option>
+                                                   @elseif ($edit_vehicleModel->type == 'EV')
                                                     <option value="{{ $edit_vehicleModel->type }}"
-                                                        {{ $edit_vehicleModel->type === $edit_vehicleModel->type ? 'ev' : 'cng' }}>
+                                                        {{ $edit_vehicleModel->type === $edit_vehicleModel->type ? 'EV' : 'CNG' }}>
                                                         EV</option>
-                                                    <option value="cng">cng</option>
+                                                    <option value="CNG">CNG</option>
                                                 @endif
-
                                                 </select>
                                             </div>
 

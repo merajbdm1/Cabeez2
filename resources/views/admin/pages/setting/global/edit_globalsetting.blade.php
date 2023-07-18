@@ -56,45 +56,19 @@
                             <div class="card-body">
                                 <div class="row">
 
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleLastName">Clint Id<span class="text-danger">*</span></label>
-                                            <input type="text" name="client_id" class="form-control" value="{{ $ediglobalsett->client_id }}"  id="exampleLastName" placeholder="Client ID">
-                                            @if ($errors->has('client_id'))
-                                                        <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('client_id') }}</strong>
-                                                        </span>
-                                                    @endif
+
+                                    <div class="col-md-12">
+
+
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="example_enddate">Description</label>
+                                                <textarea id="form7" name="description"class="md-textarea form-control" rows="3">{{ $ediglobalsett->description }}</textarea>
+
+                                            </div>
                                         </div>
 
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleLastName">Client Secreat Key<span class="text-danger">*</span></label>
-                                            <input type="text" name="client_secreat_key" class="form-control" value="{{ $ediglobalsett->client_secreat_key }}"  id="exampleLastName" placeholder="Client Secreat Key">
-                                            @if ($errors->has('client_secreat_key'))
-                                                        <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('client_secreat_key') }}</strong>
-                                                        </span>
-                                            @endif
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="exampleLastName">Api Map Sdk Key<span class="text-danger">*</span></label>
-                                            <input type="text" name="api_map_sdk_key" class="form-control" value="{{ $ediglobalsett->api_map_sdk_key }}"  id="exampleLastName" placeholder="Client Secreat Key">
-                                            @if ($errors->has('api_map_sdk_key'))
-                                                        <span class="invalid feedback" role="alert">
-                                                            <strong>{{ $errors->first('api_map_sdk_key') }}</strong>
-                                                        </span>
-                                            @endif
-                                        </div>
-
-                                    </div>
-
-
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="form-group">
                                             <label for="exampleLastName">Status <span class="text-danger">*</span></label>
                                             <select id="" class="form-control custom-select" name="status">
@@ -106,9 +80,7 @@
                                         </div>
 
                                     </div>
-
-
-
+                                    </div>
                                     <!-- /.card -->
                                 </div>
                                 <!--/.col (left) -->
@@ -124,4 +96,19 @@
     </section>
     <!-- /.content -->
 </div>
+@endsection
+@section('script')
+<script>
+    $(function () {
+      // Summernote
+      $('#summernote').summernote()
+
+      // CodeMirror
+      CodeMirror.fromTextArea(document.getElementById("codeMirrorDemo"), {
+        mode: "htmlmixed",
+        theme: "monokai"
+      });
+    })
+  </script>
+
 @endsection

@@ -63,7 +63,7 @@ class CreateRidesTable extends Migration
             $table->string('per_km_fare_slab2');
             $table->string('per_km_fare_slab3');
             $table->string('per_km_fare_slab4');
-            $table->string('per_km_fare_slab5'); 
+            $table->string('per_km_fare_slab5');
             $table->string('minimum_fare_km');
             $table->string('toll_total');
             $table->string('night_fare_multiplier');
@@ -91,15 +91,15 @@ class CreateRidesTable extends Migration
             $table->string('tax_percentage');
             $table->string('tax_value');
             $table->string('created_at');
-            $table->string('updated_at');  
+            $table->string('updated_at');
             $table->unsignedInteger('driver_id');
             $table->unsignedInteger('category_id');
             $table->unsignedInteger('rider_id');
             $table->unsignedInteger('promo_id');
-            $table->foreign('driver_id')->references('id')->on('drivers'); 
-            $table->foreign('category_id')->references('id')->on('vehicle_categories'); 
-            $table->foreign('rider_id')->references('id')->on('riders'); 
-            $table->foreign('promo_id')->references('id')->on('promo_codes'); 
+            $table->foreign('driver_id')->references('id')->on('drivers');
+            $table->foreign('category_id')->references('id')->on('vehicle_categories');
+            $table->foreign('rider_id')->references('id')->on('riders');
+            $table->foreign('promo_id')->references('id')->on('promo_codes');
             $table->timestamps();
         });
     }
@@ -111,7 +111,7 @@ class CreateRidesTable extends Migration
      */
     public function down()
     {
- 
+
         Schema::dropIfExists('rides');
         // Schema::table('rides', function (Blueprint $table) {
         //     $table->dropColumn('rides');

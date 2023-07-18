@@ -16,6 +16,8 @@ use App\Http\Controllers\Api\DriverController;
 use App\Http\Controllers\api\ApiCordinateFareCalculation;
 use App\Http\Controllers\api\ApiCordinateMeasure;
 use App\Http\Controllers\Api\AttendenceController;
+use App\Http\Controllers\Api\ApiCategoryAndSubCategory;
+use App\Http\Controllers\Api\ApiGlobalSetting;
 
 /*
 |--------------------------------------------------------------------------
@@ -75,3 +77,11 @@ Route::post('cordinateDistanceMesaure', [ApiCordinateMeasure::class,'cordinateMe
 
 Route::post('Attendence', [AttendenceController::class,'index']);
 
+//Category and subcategory api
+Route::post('searchParentCategory', [ApiCategoryAndSubCategory::class,'show']);
+Route::post('searchChildCategory', [ApiCategoryAndSubCategory::class,'showChildCategory']);
+Route::post('searchModelwithCategory', [ApiCategoryAndSubCategory::class,'searchmodelwithCategory']);
+
+
+//Api global settings
+Route::get('listMapMyIndia', [ApiGlobalSetting::class,'index']);

@@ -168,6 +168,25 @@ Route::get('edit_global_map/{id}', [GlobalSettingController::class,'edit']);
 Route::post('edit_post_mapindia/{id}', [GlobalSettingController::class,'update']);
 Route::get('delete_map/{id}', [GlobalSettingController::class,'destroy']);
 
+Route::get('view_global/{id}', [GlobalSettingController::class,'editsmkey']);
+Route::post('updatemapsdkkey/{edimapsdkkey}', [GlobalSettingController::class,'updatemapsdkkey']);
+
+Route::get('view_globalclientapikey/{id}', [GlobalSettingController::class,'edit_client_key']);
+Route::post('updateClientApikey/{clientapikey}', [GlobalSettingController::class,'updateCleintApiKey']);
+
+Route::get('view_global_map_my_india_secret_key/{id}', [GlobalSettingController::class,'edit_secret_key']);
+Route::post('updateSecretKey/{clientapikey}', [GlobalSettingController::class,'updateSecretKey']);
+
+Route::get('view_night_fare_start_time/{start_time}', [GlobalSettingController::class,'ng_start_time']);
+Route::post('updateNightStartTime/{ng_start_time}', [GlobalSettingController::class,'update_ng_start_time']);
+
+Route::get('view_end_time/{end_time}', [GlobalSettingController::class,'ng_end_time']);
+Route::post('updateNightENDTime/{end_time}', [GlobalSettingController::class,'update_ng_end_time']);
+
+Route::get('view_night_Player/{night_fare_multiplyaer}', [GlobalSettingController::class,'nightPlayer']);
+Route::post('update_night_player/{night_fare_multiplyaer}', [GlobalSettingController::class,'update_night_player']);
+
+
 //group promocode
 Route::get('view_group_promocode', [GroupPromocodeController::class,'index']);
 Route::get('add_group', [GroupPromocodeController::class,'create']);

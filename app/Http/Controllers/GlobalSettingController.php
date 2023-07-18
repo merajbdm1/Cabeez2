@@ -24,10 +24,17 @@ class GlobalSettingController extends Controller
             return redirect('login');
         }
 
-        $GlobalSetting=new GlobalSetting();
-        $viewglobalsett=$GlobalSetting->all();
+            $GlobalSetting=new GlobalSetting();
+            // dd($GlobalSetting);exit;
 
-        return view('admin.pages.setting.global.viewGlobalsetting', ["viewglobalsett"=>$viewglobalsett,"datasession" => $datasession]);
+        $restmapkey=$GlobalSetting->pluck('rest_map_sdk_key','_id')->first();
+        $map_my_india_client_key=$GlobalSetting->pluck('map_my_india_client_key','_id')->first();
+        $map_my_india_secret_key=$GlobalSetting->pluck('map_my_india_secret_key','_id')->first();
+        $night_fare_start_time=$GlobalSetting->pluck('night_fare_start_time','_id')->first();
+        $night_fare_end_time=$GlobalSetting->pluck('night_fare_end_time','_id')->first();
+        $night_fare_multiplyaer=$GlobalSetting->pluck('night_fare_multiplyaer','_id')->first();
+        // dd($night_fare_end_time);exit;
+        return view('admin.pages.setting.global.viewGlobalsetting', ["night_fare_multiplyaer"=>$night_fare_multiplyaer,"night_fare_end_time"=>$night_fare_end_time,"night_fare_start_time"=>$night_fare_start_time,"map_my_india_client_key"=>$map_my_india_client_key,"map_my_india_secret_key"=>$map_my_india_secret_key,"restmapkey"=>$restmapkey,"datasession" => $datasession]);
     }
 
     /**
@@ -56,18 +63,20 @@ class GlobalSettingController extends Controller
      */
     public function store(Request $request)
     {
+
+
+        // return $request;
         $validated = $request->validate([
-            'client_id' => 'required|string',
-            'client_secreat_key' => '',
-            'api_map_sdk_key'=>'',
+            'description' =>'',
             'status' => '',
 
         ]);
 
 
         $rider = new GlobalSetting();
-        $rider->client_id = $request->input('client_id');
-        $rider->client_secreat_key = $request->input('client_secreat_key');
+        // dd($rider);exit;
+
+        $rider->description = $request->input('description');
         $rider->status = $request->input('status');
         $rider->save();
 
@@ -116,11 +125,10 @@ class GlobalSettingController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        // return $request;
         $validated = $request->validate([
-            'client_id' => '',
-            'client_secreat_key' => '',
-            'api_map_sdk_key'=>'',
+
+            'description' => '',
             'status' => '',
 
 
@@ -130,10 +138,8 @@ class GlobalSettingController extends Controller
 
         //  dd($promoCode);exit();
         $promoCode = new GlobalSetting();
-        $promoCode->client_id = $request->input('client_id');
-        $promoCode->client_secreat_key = $request->input('client_secreat_key');
+        $promoCode->description = $request->input('description');
         $promoCode->status = $request->input('status');
-
         GlobalSetting::where('_id', $id)->update($validated);
         // $promoCode->where('_id'.$id)->update($validated);
         //  $promoCode = VehicleCategory::where('_id', $id)->update($storeData);
@@ -155,4 +161,255 @@ class GlobalSettingController extends Controller
         return back()->with('DriverDetailSuccess', 'Deleted successfully!');
 
     }
+
+    public function editsmkey($id)
+    {
+
+        if (Session::has('loginId')) {
+            $datasession = User::where('_id', '=', Session::get('loginId'))->first();
+        } else {
+            return redirect('login');
+        }
+
+        $edimapsdkkey = GlobalSetting::pluck('rest_map_sdk_key','_id')->first();
+        $clientapikey = GlobalSetting::pluck('map_my_india_client_key','_id')->first();
+        $edimapsdkkey = GlobalSetting::pluck('rest_map_sdk_key','_id')->first();
+        $clientapikey = GlobalSetting::pluck('map_my_india_client_key','_id')->first();
+        $secretkey = GlobalSetting::pluck('map_my_india_secret_key','_id')->first();
+        $ng_start_time=GlobalSetting::pluck('night_fare_start_time','_id')->first();
+        $ng_end_time=GlobalSetting::pluck('night_fare_end_time','_id')->first();
+        $night_fare_multiplyaer=GlobalSetting::pluck('night_fare_multiplyaer','_id')->first();
+
+        // return $night_fare_multiplyaer;
+        return view('admin.pages.setting.global.edit_restmapsdkkey', ["night_fare_multiplyaer"=>$night_fare_multiplyaer,"ng_end_time"=>$ng_end_time,"ng_start_time"=>$ng_start_time,"secretkey"=>$secretkey,"edimapsdkkey"=>$edimapsdkkey,"clientapikey"=>$clientapikey,"datasession" => $datasession]);
+    }
+
+    public function updatemapsdkkey(Request $request,$edimapsdkkey)
+    {
+
+
+        $validated = $request->validate([
+
+            'rest_map_sdk_key' => '',
+            'status' => '',
+
+
+        ]);
+
+        GlobalSetting::where('rest_map_sdk_key', $edimapsdkkey)->update($validated);
+
+        // $edimapsdkkey = GlobalSetting::pluck('rest_map_sdk_key','_id')->first();
+
+        // return $edimapsdkkey;
+        return redirect('view_global');
+
+    }
+    public function edit_client_key($id)
+    {
+
+        if (Session::has('loginId')) {
+            $datasession = User::where('_id', '=', Session::get('loginId'))->first();
+        } else {
+            return redirect('login');
+        }
+        $restmapkey= GlobalSetting::pluck('rest_map_sdk_key','_id')->first();
+        $edimapsdkkey = GlobalSetting::pluck('rest_map_sdk_key','_id')->first();
+        $clientapikey = GlobalSetting::pluck('map_my_india_client_key','_id')->first();
+        $secretkey = GlobalSetting::pluck('map_my_india_secret_key','_id')->first();
+        $ng_start_time=GlobalSetting::pluck('night_fare_start_time','_id')->first();
+        $ng_end_time=GlobalSetting::pluck('night_fare_end_time','_id')->first();
+        $night_fare_multiplyaer=GlobalSetting::pluck('night_fare_multiplyaer','_id')->first();
+
+
+        // return $clientapikey;
+        return view('admin.pages.setting.global.edit_client_api_key', ["night_fare_multiplyaer"=>$night_fare_multiplyaer,"ng_end_time"=>$ng_end_time,"ng_start_time"=>$ng_start_time,"secretkey"=>$secretkey,"restmapkey"=>$restmapkey,"edimapsdkkey"=>$edimapsdkkey,"clientapikey"=>$clientapikey,"datasession" => $datasession]);
+    }
+
+    public function updateCleintApiKey(Request $request,$clientapikey)
+    {
+
+        $validated = $request->validate([
+
+            'map_my_india_client_key' => '',
+            'status' => '',
+
+
+        ]);
+        GlobalSetting::where('map_my_india_client_key', $clientapikey)->update($validated);
+
+        // $edimapsdkkey = GlobalSetting::pluck('rest_map_sdk_key','_id')->first();
+
+        // return $edimapsdkkey;
+        return redirect('view_global');
+
+    }
+
+    public function edit_secret_key($id)
+    {
+
+        if (Session::has('loginId')) {
+            $datasession = User::where('_id', '=', Session::get('loginId'))->first();
+        } else {
+            return redirect('login');
+        }
+        $restmapkey= GlobalSetting::pluck('rest_map_sdk_key','_id')->first();
+        $edimapsdkkey = GlobalSetting::pluck('rest_map_sdk_key','_id')->first();
+        $clientapikey = GlobalSetting::pluck('map_my_india_client_key','_id')->first();
+        $secretkey = GlobalSetting::pluck('map_my_india_secret_key','_id')->first();
+        $map_my_india_client_key=GlobalSetting::pluck('map_my_india_client_key','_id')->first();
+        $ng_start_time=GlobalSetting::pluck('night_fare_start_time','_id')->first();
+        $ng_end_time=GlobalSetting::pluck('night_fare_end_time','_id')->first();
+        $night_fare_multiplyaer=GlobalSetting::pluck('night_fare_multiplyaer','_id')->first();
+
+        // return $clientapikey;
+        return view('admin.pages.setting.global.edit_secretkey', ["night_fare_multiplyaer"=>$night_fare_multiplyaer,"ng_end_time"=>$ng_end_time,"ng_start_time"=>$ng_start_time,"map_my_india_client_key"=>$map_my_india_client_key,"clientapikey"=>$clientapikey,"restmapkey"=>$restmapkey,"edimapsdkkey"=>$edimapsdkkey,"secretkey"=>$secretkey,"datasession" => $datasession]);
+    }
+
+
+    public function updateSecretKey(Request $request,$secretapikey)
+    {
+
+        $validated = $request->validate([
+
+            'map_my_india_secret_key' => '',
+            'status' => '',
+
+
+        ]);
+        GlobalSetting::where('map_my_india_secret_key', $secretapikey)->update($validated);
+
+        // $edimapsdkkey = GlobalSetting::pluck('rest_map_sdk_key','_id')->first();
+
+        // return $edimapsdkkey;
+        return redirect('view_global');
+
+    }
+
+    public function ng_start_time($id)
+    {
+
+        if (Session::has('loginId')) {
+            $datasession = User::where('_id', '=', Session::get('loginId'))->first();
+        } else {
+            return redirect('login');
+        }
+        $restmapkey= GlobalSetting::pluck('rest_map_sdk_key','_id')->first();
+        $edimapsdkkey = GlobalSetting::pluck('rest_map_sdk_key','_id')->first();
+        $clientapikey = GlobalSetting::pluck('map_my_india_client_key','_id')->first();
+        $secretkey = GlobalSetting::pluck('map_my_india_secret_key','_id')->first();
+        $map_my_india_client_key=GlobalSetting::pluck('map_my_india_client_key','_id')->first();
+        $ng_start_time=GlobalSetting::pluck('night_fare_start_time','_id')->first();
+        $ng_end_time=GlobalSetting::pluck('night_fare_end_time','_id')->first();
+        $night_fare_multiplyaer=GlobalSetting::pluck('night_fare_multiplyaer','_id')->first();
+
+        // return $clientapikey;
+        return view('admin.pages.setting.global.edit_ng_start_time', ["night_fare_multiplyaer"=>$night_fare_multiplyaer,"ng_end_time"=>$ng_end_time,"ng_start_time"=>$ng_start_time,"map_my_india_client_key"=>$map_my_india_client_key,"clientapikey"=>$clientapikey,"restmapkey"=>$restmapkey,"edimapsdkkey"=>$edimapsdkkey,"secretkey"=>$secretkey,"datasession" => $datasession]);
+    }
+
+
+
+    public function update_ng_start_time(Request $request,$ng_start_time)
+    {
+
+        $validated = $request->validate([
+
+            'night_fare_start_time' => '',
+            'status' => '',
+
+
+        ]);
+        GlobalSetting::where('night_fare_start_time', $ng_start_time)->update($validated);
+
+        // $edimapsdkkey = GlobalSetting::pluck('rest_map_sdk_key','_id')->first();
+
+        // return $edimapsdkkey;
+        return redirect('view_global');
+
+    }
+
+    public function ng_end_time($id)
+    {
+
+        if (Session::has('loginId')) {
+            $datasession = User::where('_id', '=', Session::get('loginId'))->first();
+        } else {
+            return redirect('login');
+        }
+        $restmapkey= GlobalSetting::pluck('rest_map_sdk_key','_id')->first();
+        $edimapsdkkey = GlobalSetting::pluck('rest_map_sdk_key','_id')->first();
+        $clientapikey = GlobalSetting::pluck('map_my_india_client_key','_id')->first();
+        $secretkey = GlobalSetting::pluck('map_my_india_secret_key','_id')->first();
+        $map_my_india_client_key=GlobalSetting::pluck('map_my_india_client_key','_id')->first();
+        $ng_start_time=GlobalSetting::pluck('night_fare_start_time','_id')->first();
+        $ng_end_time=GlobalSetting::pluck('night_fare_end_time','_id')->first();
+        $night_fare_multiplyaer=GlobalSetting::pluck('night_fare_multiplyaer','_id')->first();
+        // return $clientapikey;
+        return view('admin.pages.setting.global.edit_ng_end_time', ["night_fare_multiplyaer"=>$night_fare_multiplyaer,"ng_end_time"=>$ng_end_time,"ng_start_time"=>$ng_start_time,"map_my_india_client_key"=>$map_my_india_client_key,"clientapikey"=>$clientapikey,"restmapkey"=>$restmapkey,"edimapsdkkey"=>$edimapsdkkey,"secretkey"=>$secretkey,"datasession" => $datasession]);
+    }
+
+    public function  update_ng_end_time(Request $request,$ng_end_time)
+    {
+
+        $validated = $request->validate([
+
+            'night_fare_end_time' => '',
+            'status' => '',
+
+
+        ]);
+        GlobalSetting::where('night_fare_end_time', $ng_end_time)->update($validated);
+
+        // $edimapsdkkey = GlobalSetting::pluck('rest_map_sdk_key','_id')->first();
+
+        // return $edimapsdkkey;
+        return redirect('view_global');
+
+    }
+
+
+    public function nightPlayer($id)
+    {
+
+        if (Session::has('loginId')) {
+            $datasession = User::where('_id', '=', Session::get('loginId'))->first();
+        } else {
+            return redirect('login');
+        }
+        $restmapkey= GlobalSetting::pluck('rest_map_sdk_key','_id')->first();
+        $edimapsdkkey = GlobalSetting::pluck('rest_map_sdk_key','_id')->first();
+        $clientapikey = GlobalSetting::pluck('map_my_india_client_key','_id')->first();
+        $secretkey = GlobalSetting::pluck('map_my_india_secret_key','_id')->first();
+        $map_my_india_client_key=GlobalSetting::pluck('map_my_india_client_key','_id')->first();
+        $ng_start_time=GlobalSetting::pluck('night_fare_start_time','_id')->first();
+        $ng_end_time=GlobalSetting::pluck('night_fare_end_time','_id')->first();
+        $night_fare_multiplyaer=GlobalSetting::pluck('night_fare_multiplyaer','_id')->first();
+        // return $clientapikey;
+        return view('admin.pages.setting.global.edit_night_Player', ["night_fare_multiplyaer"=>$night_fare_multiplyaer,"ng_end_time"=>$ng_end_time,"ng_start_time"=>$ng_start_time,"map_my_india_client_key"=>$map_my_india_client_key,"clientapikey"=>$clientapikey,"restmapkey"=>$restmapkey,"edimapsdkkey"=>$edimapsdkkey,"secretkey"=>$secretkey,"datasession" => $datasession]);
+    }
+
+
+
+    public function  update_night_player(Request $request,$night_fare_multiplyaer)
+    {
+
+        $validated = $request->validate([
+
+            'night_fare_multiplyaer' => '',
+            'status' => '',
+
+
+        ]);
+        GlobalSetting::where('night_fare_multiplyaer', $night_fare_multiplyaer)->update($validated);
+
+        // $edimapsdkkey = GlobalSetting::pluck('rest_map_sdk_key','_id')->first();
+
+        // return $edimapsdkkey;
+        return redirect('view_global');
+
+    }
+
+
+
+
+
 }

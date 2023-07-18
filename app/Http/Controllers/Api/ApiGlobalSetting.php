@@ -19,7 +19,7 @@ class ApiGlobalSetting extends Controller
         if($alldata){
         return response()->json([
             'status' => 200,
-            'message' => 'New Rider Register successfully',
+            'message' => 'Listing successfully',
             'data' => $alldata,
             // 'image_url' => url(asset('admin/uploads/Driver')),
         ],200);

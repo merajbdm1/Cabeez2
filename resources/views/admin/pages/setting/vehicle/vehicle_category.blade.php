@@ -13,8 +13,8 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>Setting</h1>
-                   
-                    
+
+
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -124,23 +124,23 @@
                                           <div class="form-group">
                                             <label for="status">Status</label>
                                             <select id="status" class="form-control custom-select" name="status">
-                                            
-                                              @if ($edit_vehicleCategory->status == 'active')
+                                                <option value="">--Select One--</option>
+                                              {{-- @if ($edit_vehicleCategory->status == 'active')
                                               <option value="{{ $edit_vehicleCategory->status }}"
-                                                  {{ $edit_vehicleCategory->status == $edit_vehicleCategory->status? 'active' : 'inactive' }}>Active</option>
+                                                  {{ $edit_vehicleCategory->status == $edit_vehicleCategory->status? 'active' : 'inactive' }}>Active</option> --}}
                                                <option value="inactive">Inactive</option>
-                                              @elseif ($edit_vehicleCategory->status == 'inactive')
+                                              {{-- @elseif ($edit_vehicleCategory->status == 'inactive')
                                               <option value="{{ $edit_vehicleCategory->status }}"
-                                                  {{ $edit_vehicleCategory->status == $edit_vehicleCategory->status? 'active': 'inactive' }}>Inactive</option>
+                                                  {{ $edit_vehicleCategory->status == $edit_vehicleCategory->status? 'active': 'inactive' }}>Inactive</option> --}}
                                               <option value="active">Active</option>
-                                              @endif
+                                              {{-- @endif --}}
                                           </select>
                                             @if ($errors->has('status'))
                                             <span class="invalid feedback" role="alert">
                                                 <strong>{{ $errors->first('status') }}.</strong>
                                             </span>
                                             @endif
-                                        </div>  
+                                        </div>
                                         </div>
                                       </div>
                                       <div class="col-lg-12">
@@ -154,7 +154,7 @@
                                                 <option value="{{ $edit_vehicleCategory->_id }}" selected>{{ $edit_vehicleCategory->name }}</option>
                                                 @endif
                                             @endforeach
-                                            <?php echo displayCategories($vehicleCategory); ?>  
+                                            <?php echo displayCategories($vehicleCategory); ?>
                                           </select>
                                         </div>
                                       </div>
@@ -235,25 +235,21 @@
 
                                            <div class="col-lg-12">
                                             <div class="form-group">
-                                              <label for="status">Statusd</label>
+                                              <label for="status">Status</label>
                                               <select id="status" class="form-control custom-select" name="status">
-                                              
-                                                @if ($edit_vehicleCategory->status == 'active')
-                                                <option value="{{ $edit_vehicleCategory->status }}"
-                                                    {{ $edit_vehicleCategory->status == $edit_vehicleCategory->status? 'active' : 'inactive' }}>Active</option>
+                                                <option value="">--Select One--</option>
+                                                {{-- @if ($edit_vehicleCategory->status == 'active') --}}
+                                                {{-- <option value="{{ $edit_vehicleCategory->status }}"
+                                                    {{ $edit_vehicleCategory->status === $edit_vehicleCategory->status? 'active' : 'inactive' }}>Active</option> --}}
                                                  <option value="inactive">Inactive</option>
-                                                @elseif ($edit_vehicleCategory->status == 'inactive')
+                                                {{-- @elseif ($edit_vehicleCategory->status == 'inactive')
                                                 <option value="{{ $edit_vehicleCategory->status }}"
-                                                    {{ $edit_vehicleCategory->status == $edit_vehicleCategory->status? 'active': 'inactive' }}>Inactive</option>
+                                                    {{ $edit_vehicleCategory->status === $edit_vehicleCategory->status? 'active': 'inactive' }}>Inactive</option> --}}
                                                 <option value="active">Active</option>
-                                                @endif
+                                                {{-- @endif --}}
                                             </select>
-                                              @if ($errors->has('status'))
-                                              <span class="invalid feedback" role="alert">
-                                                  <strong>{{ $errors->first('status') }}.</strong>
-                                              </span>
-                                              @endif
-                                          </div>  
+
+                                          </div>
                                           </div>
                                           <div class="col-lg-12">
                                             <div class="form-group">
@@ -266,7 +262,7 @@
                                                     <option value="{{ $edit_vehicleCategory->_id }}" selected>{{ $edit_vehicleCategory->name }}</option>
                                                     @endif
                                                 @endforeach
-                                                <?php echo displayCategories($vehicleCategory); ?>  
+                                                <?php echo displayCategories($vehicleCategory); ?>
                                               </select>
                                             </div>
                                           </div>
@@ -299,9 +295,9 @@
                           ?>
                           <div class="card card-primary">
                             <div class="card-header">
-                              
+
                                 <h3 class="card-title">Add Vehicle Category</small></h3>
-                                 
+
                             </div>
                             <!-- /.card-header -->
                             <!--  form start -->
@@ -337,7 +333,7 @@
                                             <input type="number" class="form-control" id="exampleInputCapacity1" placeholder="Enter Capacity" name="capacity">
                                           </div>
 
-                                        
+
 
                                           <div class="form-group">
                                             <label for="inputStatus">Status</label>
@@ -361,7 +357,7 @@
                                 <!-- /.card-body -->
                                 <div class="card-footer">
                                     <button type="submit" class="btn btn-primary">Add</button>
-                                  
+
                                 </div>
                             </form>
                         </div>
@@ -376,8 +372,8 @@
                           <div class="card card-primary">
                             <div class="card-header">
                                 <h3 class="card-title">Add Vehicle Category</small></h3>
-                                
-                            
+
+
                             </div>
                             <!-- /.card-header -->
                             <!--  form start -->
@@ -413,7 +409,7 @@
                                             <input type="number" class="form-control" id="exampleInputCapacity1" placeholder="Enter Capacity" name="capacity">
                                           </div>
 
-  
+
 
                                           <div class="form-group">
                                             <label for="inputStatus">Status</label>
@@ -436,7 +432,7 @@
                                 </div>
                                 <!-- /.card-body -->
                                   <div class="card-footer">
-                                      <button type="submit" class="btn btn-primary">Add</button>                                   
+                                      <button type="submit" class="btn btn-primary">Add</button>
                                   </div>
                             </form>
                         </div>
@@ -476,7 +472,7 @@
 
                               <td>{{ $vehicle_category->capacity }}</td>
                               <td>
-                              @if($vehicle_category->status == 1)
+                              @if($vehicle_category->status == 'active')
                                   <span class="badge badge-success">Active</span>
 
                                    @else
@@ -505,7 +501,7 @@
                                             {
 
                                         ?>
-                                        <li class="nav-item">
+                                        <li class="list-unstyled">
                                           <a class="btn btn-info btn-sm" href="{{ url('admin/vehicle/edit_category',$vehicle_category->_id) }}">
                                             <i class="fas fa-pencil-alt">
                                             </i>
@@ -520,7 +516,7 @@
                                            if($check_role == '1')//Developer
                                              {
                                          ?>
-                                        <li class="nav-item">
+                                        <li class="list-unstyled">
                                           <a class="btn btn-info btn-sm" href="{{ url('admin/vehicle/edit_category',$vehicle_category->_id) }}">
                                             <i class="fas fa-pencil-alt">
                                             </i>

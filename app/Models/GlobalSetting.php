@@ -11,11 +11,11 @@ class GlobalSetting extends Eloquent
     protected $collection = 'global_settings';
     protected $fillable = [
         'id',
-        'map_my_india',
-        'client_id',
-        'client_secret_key',
-        'api_map_sdk_key',
-
-
+        'rest_map_sdk_key',
+        'map_my_india_client_key',
+        'map_my_india_secret_key',
+        'night_fare_start_time',
+        'night_fare_end_time',
+        'night_fare_multiplyaer'
     ];
 }

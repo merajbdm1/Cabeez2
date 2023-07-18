@@ -48,8 +48,9 @@
                                         </thead>
                                         <tbody>
                                             <form action="" method="GET">
+                                                @csrf
                                             <th class="text-center">MAP MY INDIA REST MAP SDK KEY</th>
-                                            <td class="text-center"><input type="text" name="rest_map_sdk_key" disabled value="{{isset($restmapkey)?$restmapkey:null}}" placeholder="REST MAP SDK KEY" class="form-control"></td>
+                                            <td class="text-center"><input type="text" name="rest_map_sdk_key" disabled value="{{isset($edimapsdkkey)?$edimapsdkkey:null}}" placeholder="REST MAP SDK KEY" class="form-control"></td>
                                             <td class="text-center">
                                                 @if('1')
                                                     <span class="badge badge-success">Active</span>
@@ -57,13 +58,14 @@
                                                     <span class="badge badge-danger">InActive</span>
                                                 @endif
                                             </td>
-                                            <td class="text-center"><a href="{{'view_global/'.$restmapkey}}" class="btn btn-primary" value="submit" name="submit">Edit</a></td>
+                                            <td class="text-center"><a href="{{'../view_global/'.$restmapkey}}" class="btn btn-primary" value="submit" name="submit">Edit</a></td>
                                             </form>
                                         </tbody>
                                         <tbody>
-                                            <form action=""  method="GET">
+                                            <form action="{{url('updateClientApikey/'.$clientapikey)}}" method="POST">
+                                                @csrf
                                             <th class="text-center">MAP MY INDIA CLIENT KEY</th>
-                                            <td class="text-center"><input type="text" name="map_my_india_client_key" disabled value="{{isset($map_my_india_client_key)?$map_my_india_client_key:null }}"  placeholder="CLIENT KEY" class="form-control"></td>
+                                            <td class="text-center"><input type="text" name="map_my_india_client_key" disabled value="{{isset($clientapikey)?$clientapikey:null}}" placeholder="CLIENT KEY" class="form-control"></td>
                                             <td class="text-center">
                                                 @if('1')
                                                     <span class="badge badge-success">Active</span>
@@ -71,14 +73,14 @@
                                                     <span class="badge badge-danger">InActive</span>
                                                 @endif
                                             </td>
-                                            <td class="text-center"><a href="{{'view_globalclientapikey/'.$map_my_india_client_key}}" class="btn btn-primary" value="submit" name="submit">Edit</a></td>
+                                            <td class="text-center"><a href="{{'../view_globalclientapikey/'.$map_my_india_client_key}}" class="btn btn-primary" value="submit" name="submit">Edit</a></td>
                                             </form>
                                         </tbody>
-
                                         <tbody>
-                                            <form action="" method="GET">
+                                            <form action="{{url('updateSecretKey/'.$secretkey)}}" method="POST">
+                                                @csrf
                                             <th class="text-center">MAP MY INDIA SECRET KEY</th>
-                                            <td class="text-center"><input type="text" disabled name="map_my_india_secret_key" value="{{isset($map_my_india_secret_key)?$map_my_india_secret_key:null }}" placeholder="SECRET KEY" class="form-control"></td>
+                                            <td class="text-center"><input type="text" name="map_my_india_secret_key" value="{{isset($secretkey)?$secretkey:null}}" placeholder="SECRET KEY" class="form-control"></td>
                                             <td class="text-center">
                                                 @if('1')
                                                     <span class="badge badge-success">Active</span>
@@ -86,14 +88,14 @@
                                                     <span class="badge badge-danger">InActive</span>
                                                 @endif
                                             </td>
-                                            <td class="text-center"><a href="{{'view_global_map_my_india_secret_key/'.$map_my_india_secret_key}}" class="btn btn-primary" value="submit" name="submit">Edit</a></td>
+                                            <td class="text-center"><button type="submit" class="btn btn-primary" >Update</button></td>
                                             </form>
                                         </tbody>
 
                                         <tbody>
                                             <form action="">
                                             <th class="text-center">NIGHT FARE START TIME</th>
-                                            <td class="text-center"> <input type="time" id="appt" disabled  value="{{isset($night_fare_start_time)?$night_fare_start_time:null }}"   class="form-control" placeholder="REST MAP SDK KEY" name="night_fare_start_time"></td>
+                                            <td class="text-center"> <input type="time" id="appt" class="form-control" disabled value="{{isset($ng_start_time)?$ng_start_time:null}}" placeholder="REST MAP SDK KEY" name="night_fare_start_time"></td>
                                             <td class="text-center">
                                                 @if('1')
                                                     <span class="badge badge-success">Active</span>
@@ -101,14 +103,13 @@
                                                     <span class="badge badge-danger">InActive</span>
                                                 @endif
                                             </td>
-                                            <td class="text-center"><a href="{{'view_night_fare_start_time/'.$night_fare_start_time}}" class="btn btn-primary" value="submit" name="submit">Edit</a></td>
+                                            <td class="text-center"><a href="{{'../view_night_fare_start_time/'.$ng_start_time}}" class="btn btn-primary" value="submit" name="submit">Edit</a></td>
                                             </form>
                                         </tbody>
-
                                         <tbody>
                                             <form action="">
                                             <th class="text-center">NIGHT FARE END TIME</th>
-                                            <td class="text-center">  <input type="time" disabled value="{{isset($night_fare_end_time)?$night_fare_end_time:null }}" class="form-control" id="appt" name="night_fare_end_time"></td>
+                                            <td class="text-center">  <input type="time" class="form-control" disabled  id="appt" value="{{isset($ng_end_time)?$ng_end_time:null}}" name="night_fare_end_time"></td>
                                             <td class="text-center">
                                                 @if('1')
                                                     <span class="badge badge-success">Active</span>
@@ -116,7 +117,7 @@
                                                     <span class="badge badge-danger">InActive</span>
                                                 @endif
                                             </td>
-                                            <td class="text-center"><a href="{{'view_end_time/'.$night_fare_end_time}}" class="btn btn-primary" value="submit" name="submit">Edit</a></td>
+                                            <td class="text-center"><a href="{{'../view_end_time/'.$ng_end_time}}" class="btn btn-primary" value="submit" name="submit">Edit</a></td>
                                             </form>
                                         </tbody>
                                         <tbody>
@@ -130,7 +131,7 @@
                                                     <span class="badge badge-danger">InActive</span>
                                                 @endif
                                             </td>
-                                            <td class="text-center"><a href="{{'view_night_Player/'.$night_fare_multiplyaer}}" class="btn btn-primary" value="submit" name="submit">Edit</a></td>
+                                            <td class="text-center"><a href="{{'../view_night_Player/'.$night_fare_multiplyaer}}" class="btn btn-primary" value="submit" name="submit">Edit</a></td>
                                             </form>
                                         </tbody>
 
